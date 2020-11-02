@@ -27,9 +27,12 @@ class Body extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                "Please enter your email and we will send \nyou a link on your email to reset your password",
-                textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Text(
+                  "Please enter your email and we will send you a link on your email to reset your password.",
+                  textAlign: TextAlign.center,
+                ),
               ),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
               ForgotPassForm(),

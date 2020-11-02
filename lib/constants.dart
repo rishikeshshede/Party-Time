@@ -48,3 +48,10 @@ OutlineInputBorder outlineInputBorder() {
     borderSide: BorderSide(color: kTextColor),
   );
 }
+
+Divider divider() {
+  return Divider(
+    color: kPrimaryColor,
+    height: 1,
+  );
+}
