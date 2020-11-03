@@ -1,102 +1,116 @@
-import 'package:bookario/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:bookario/models/Product.dart';
+import 'package:bookario/screens/details/details_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../size_config.dart';
 
 class HomeClubCard extends StatelessWidget {
   const HomeClubCard({
     Key key,
-    @required this.clubName,
-    @required this.address,
-    @required this.image,
-    @required this.press,
+    @required this.club,
   }) : super(key: key);
 
-  final String clubName, address, image;
-  final GestureTapCallback press;
+  final Club club;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: press,
-      child: SizedBox(
-        width: SizeConfig.screenWidth * .93,
-        height: getProportionateScreenWidth(170),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Stack(
-            children: [
-              SizedBox(
-                width: SizeConfig.screenWidth,
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        Color(0xFF343434).withOpacity(0.3),
-                        Color(0xFF343434).withOpacity(0.1),
-                      ],
-                    ),
-                  ),
-                  child: Image.asset(
-                    image,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 0.0,
-                child: SizedBox(
-                  width: SizeConfig.screenWidth * 0.93,
+    return SizedBox(
+      width: SizeConfig.screenWidth * .95,
+      height: getProportionateScreenWidth(170),
+      child: GestureDetector(
+        onTap: () => Navigator.pushNamed(
+          context,
+          DetailsScreen.routeName,
+          arguments: ClubDetailsArguments(club: club),
+        ),
+        child: Container(
+          margin: EdgeInsets.only(bottom: 6),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Stack(
+              children: [
+                SizedBox(
+                  width: SizeConfig.screenWidth,
                   child: Container(
-                    padding: const EdgeInsets.fromLTRB(12, 2, 12, 5),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
                         colors: [
-                          Color(0xFF343434).withOpacity(0.8),
-                          Color(0xFF343434).withOpacity(0.2),
+                          Color(0xFF343434).withOpacity(0.3),
+                          Color(0xFF343434).withOpacity(0.1),
                         ],
                       ),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Text(
-                            clubName,
-                            style: TextStyle(
-                              fontSize: getProportionateScreenWidth(16),
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.location_on,
-                              color: Colors.white70,
-                              size: 18,
-                            ),
-                            const SizedBox(
-                              width: 3,
-                            ),
-                            Text(
-                              address,
-                              style: TextStyle(color: Colors.white),
-                              maxLines: 1,
-                            ),
-                          ],
-                        ),
-                      ],
+                    child: Hero(
+                      tag: club.id.toString(),
+                      child: Image.asset(
+                        club.images[0],
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                Positioned(
+                  bottom: 0.0,
+                  child: SizedBox(
+                    width: SizeConfig.screenWidth * 0.95,
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(12, 2, 12, 5),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            Color(0xFF343434).withOpacity(0.8),
+                            Color(0xFF343434).withOpacity(0.2),
+                          ],
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
+                              club.name,
+                              style: TextStyle(
+                                fontSize: getProportionateScreenWidth(16),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                "assets/icons/Location point.svg",
+                                height: getProportionateScreenWidth(15),
+                              ),
+                              const SizedBox(
+                                width: 3,
+                              ),
+                              Flexible(
+                                child: Container(
+                                  child: Text(
+                                    club.address,
+                                    style: TextStyle(color: Colors.white),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

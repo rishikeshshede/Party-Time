@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 import 'home_header.dart';
-import 'popular_product.dart';
-import 'special_offers.dart';
+import 'all_club_list.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -16,11 +15,9 @@ class Body extends StatelessWidget {
             SizedBox(height: getProportionateScreenHeight(5)),
             HomeHeader(),
             divider(),
-            SizedBox(height: getProportionateScreenWidth(8)),
-            SpecialOffers(),
-            SizedBox(height: getProportionateScreenWidth(30)),
-            PopularProducts(),
-            SizedBox(height: getProportionateScreenWidth(30)),
+            SizedBox(height: getProportionateScreenWidth(10)),
+            Clubs(),
+            SizedBox(height: getProportionateScreenWidth(20)),
           ],
         ),
       ),
