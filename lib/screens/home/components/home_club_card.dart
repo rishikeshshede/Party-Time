@@ -87,7 +87,7 @@ class HomeClubCard extends StatelessWidget {
                             children: [
                               SvgPicture.asset(
                                 "assets/icons/Location point.svg",
-                                height: getProportionateScreenWidth(15),
+                                height: getProportionateScreenWidth(13),
                               ),
                               const SizedBox(
                                 width: 3,
