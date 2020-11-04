@@ -1,3 +1,4 @@
+import 'package:bookario/components/default_button.dart';
 import 'package:bookario/screens/details/components/all_prices.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/models/Product.dart';
@@ -38,23 +39,22 @@ class Body extends StatelessWidget {
                     club: club,
                     pressOnSeeMore: () {},
                   ),
-                  // Remaining stags here
+                  SizedBox(
+                    height: getProportionateScreenHeight(20),
+                  ),
+                  // ************************************************** Remaining stags here *********************************************************
                   AllPrices(club: club),
-                  Column(
-                    children: [
-                      // Padding(
-                      //   padding: EdgeInsets.only(
-                      //     left: SizeConfig.screenWidth * 0.15,
-                      //     right: SizeConfig.screenWidth * 0.15,
-                      //     bottom: getProportionateScreenWidth(40),
-                      //     top: getProportionateScreenWidth(15),
-                      //   ),
-                      //   child: DefaultButton(
-                      //     text: "Add To Cart",
-                      //     press: () {},
-                      //   ),
-                      // ),
-                    ],
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: SizeConfig.screenWidth * 0.15,
+                      right: SizeConfig.screenWidth * 0.15,
+                      bottom: getProportionateScreenWidth(20),
+                      top: getProportionateScreenWidth(30),
+                    ),
+                    child: DefaultButton(
+                      text: "Get Pass",
+                      press: () {},
+                    ),
                   ),
                 ],
               ),

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class Club {
   final int id, male, female;
   final String name, address, location, description, time, date;
-  final List<String> images, couples, maleStag, femaleStag;
+  final List<String> images;
+  final couples, maleStag, femaleStag;
 
   Club({
     @required this.id,
@@ -41,9 +42,18 @@ List<Club> demoClubs = [
     location: "Shivajinagar",
     male: 9,
     female: 5,
-    couples: ['499', '599', '849', '1000'],
-    maleStag: ['600', '1200'],
-    femaleStag: ['549', '900', '1400'],
+    couples: {
+      'Only Entry': '499',
+      'Cover type 1': '599',
+      'Cover type 2': '849',
+      'Cover type 3': '1000'
+    },
+    maleStag: {'Only Entry': '600', 'Cover type 1': '1200'},
+    femaleStag: {
+      'Only Entry': '549',
+      'Cover type 1': '900',
+      'Cover type 2': '1400'
+    },
   ),
   Club(
     id: 2,
@@ -60,9 +70,21 @@ List<Club> demoClubs = [
     location: "Mundhwa",
     male: 12,
     female: 15,
-    couples: ['699', '599', '1000'],
-    maleStag: ['759', '900', '1200'],
-    femaleStag: ['799', '900', '1400'],
+    couples: {
+      'Only Entry': '699',
+      'Cover type 1': '599',
+      'Cover type 2': '1000'
+    },
+    maleStag: {
+      'Only Entry': '759',
+      'Cover type 1': '900',
+      'Cover type 2': '1200'
+    },
+    femaleStag: {
+      'Only Entry': '799',
+      'Cover type 1': '900',
+      'Cover type 2': '1400'
+    },
   ),
   Club(
     id: 3,
@@ -79,9 +101,25 @@ List<Club> demoClubs = [
     location: "Hinjewadi",
     male: 11,
     female: 11,
-    couples: ['299.0', '699', '599', '1000', '1600'],
-    maleStag: ['299.0', '759', '900', '1200'],
-    femaleStag: ['299.0', '799', '900', '1400'],
+    couples: {
+      'Only Entry': '299.0',
+      'Cover type 1': '699',
+      'Cover type 2': '599',
+      'Cover type 3': '1000',
+      'Cover type 4': '1600'
+    },
+    maleStag: {
+      'Only Entry': '299.0',
+      'Cover type 1': '759',
+      'Cover type 2': '900',
+      'Cover type 3': '1200'
+    },
+    femaleStag: {
+      'Only Entry': '299.0',
+      'Cover type 1': '799',
+      'Cover type 2': '900',
+      'Cover type 3': '1400'
+    },
   ),
   Club(
     id: 4,
@@ -98,10 +136,10 @@ List<Club> demoClubs = [
     location: "Mundhwa",
     male: 39,
     female: 45,
-    couples: ['1499.0', '1600'],
-    maleStag: ['2599.0'],
-    femaleStag: ['2249.0'],
-  ),
+    couples: {'Only Entry': '1499.0', 'Cover type 1': '1600'},
+    maleStag: {'Only Entry': '2599.0'},
+    femaleStag: {'Only Entry': '2249.0'},
+  )
 ];
 
 const String description =

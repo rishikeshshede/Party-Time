@@ -38,19 +38,52 @@ class ClubDescription extends StatelessWidget {
           ),
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SvgPicture.asset(
-              "assets/icons/clock.svg",
-              height: getProportionateScreenWidth(14),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SvgPicture.asset(
+                  "assets/icons/clock.svg",
+                  height: getProportionateScreenWidth(14),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  club.time,
+                  maxLines: 3,
+                ),
+              ],
             ),
-            const SizedBox(
-              width: 5,
+            Spacer(),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  "assets/icons/m-f.svg",
+                  height: getProportionateScreenWidth(14),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                RichText(
+                  text: TextSpan(
+                    text: "Male / Female : ",
+                    style: TextStyle(color: kPrimaryColor),
+                    children: [
+                      TextSpan(
+                        text: club.male.toString() +
+                            " / " +
+                            club.female.toString(),
+                        style: TextStyle(color: kSecondaryColor),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
-            Text(
-              club.time,
-              maxLines: 3,
-            ),
+            Spacer(),
           ],
         ),
         Padding(
