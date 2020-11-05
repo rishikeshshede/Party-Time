@@ -42,7 +42,9 @@ class Body extends StatelessWidget {
                   SizedBox(
                     height: getProportionateScreenHeight(20),
                   ),
-                  // ************************************************** Remaining stags here *********************************************************
+
+                  // TODO: Display remaining stags here
+
                   AllPrices(club: club),
                   Padding(
                     padding: EdgeInsets.only(
