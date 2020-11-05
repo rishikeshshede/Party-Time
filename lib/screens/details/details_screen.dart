@@ -10,7 +10,7 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ClubDetailsArguments agrs = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      backgroundColor: Color(0xFFF5F6F9),
+      // backgroundColor: Color(0xFFF5F6F9),
       body: Body(club: agrs.club),
     );
   }

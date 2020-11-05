@@ -64,7 +64,7 @@ class HomeClubCard extends StatelessWidget {
                           end: Alignment.centerRight,
                           colors: [
                             Color(0xFF343434).withOpacity(0.8),
-                            Color(0xFF343434).withOpacity(0.2),
+                            Color(0xFF343434).withOpacity(0.4),
                           ],
                         ),
                       ),
@@ -72,15 +72,26 @@ class HomeClubCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5),
-                            child: Text(
-                              club.name,
-                              style: TextStyle(
-                                fontSize: getProportionateScreenWidth(16),
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                          RichText(
+                            text: TextSpan(
+                              text: club.clubName,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                    fontSize: getProportionateScreenWidth(16),
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                              children: [
+                                TextSpan(
+                                  text: '  (${club.location})',
+                                  style: TextStyle(
+                                    fontSize: getProportionateScreenWidth(12),
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           Row(

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class Club {
   final int id, male, female;
-  final String name, address, location, description, time, date;
+  final String clubName, address, location, description, time, date;
   final List<String> images;
   final couples, maleStag, femaleStag;
 
   Club({
     @required this.id,
     @required this.images,
-    @required this.name,
+    @required this.clubName,
     @required this.description,
     @required this.address,
     @required this.location,
@@ -34,7 +34,7 @@ List<Club> demoClubs = [
       "assets/images/Buffer-rafiki.png",
       "assets/images/jockey-rafiki.png",
     ],
-    name: "Mi-A-Mi - JW Marriott",
+    clubName: "Mi-A-Mi - JW Marriott",
     description: description,
     address: "JW Marriott, Senapati Bapat Road, Shivajinagar, Pune",
     date: "10-Dec-2020",
@@ -61,7 +61,7 @@ List<Club> demoClubs = [
       "assets/images/jockey-rafiki.png",
       "assets/images/Buffer-rafiki.png",
     ],
-    name: "Penthouze",
+    clubName: "Penthouze",
     description: description,
     address:
         "Onyx Tower, Next To Westin Hotel, North Main Road, Koregaon Park Annexe, Mundhwa, Pune",
@@ -92,7 +92,7 @@ List<Club> demoClubs = [
       "assets/images/Buffer-rafiki.png",
       "assets/images/jockey-rafiki.png",
     ],
-    name: "Publiq",
+    clubName: "Publiq",
     description: description,
     address:
         "White Square, 9th Floor, 901, Hinjewadi Phase 1 Road, Hinjewadi, Pune",
@@ -128,7 +128,7 @@ List<Club> demoClubs = [
       "assets/images/Buffer-rafiki.png",
       "assets/images/jockey-rafiki.png",
     ],
-    name: "Oak Lounge",
+    clubName: "Oak Lounge",
     description: description,
     address: "Marriott Suites Pune, 81, Mundhwa, Pune",
     date: "31-Dec-2020",

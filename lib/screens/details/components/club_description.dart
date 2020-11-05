@@ -22,7 +22,7 @@ class ClubDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          club.name,
+          club.clubName,
           style: Theme.of(context)
               .textTheme
               .headline6

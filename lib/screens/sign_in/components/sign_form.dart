@@ -1,3 +1,4 @@
+import 'package:bookario/screens/history/booking_history.dart';
 import 'package:bookario/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/components/custom_surfix_icon.dart';
@@ -62,8 +63,8 @@ class _SignFormState extends State<SignForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                Navigator.pushNamed(
-                    context, HomeScreen.routeName); // go to home
+                Navigator.pushNamed(context, HomeScreen.routeName);
+                //  BookingHistory.routeName); // go to home
               }
             },
           ),

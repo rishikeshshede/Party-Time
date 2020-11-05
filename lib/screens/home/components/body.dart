@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
-import 'home_header.dart';
+import '../../../components/home_header.dart';
 import 'all_club_list.dart';
 
 class Body extends StatelessWidget {
@@ -13,7 +13,9 @@ class Body extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: getProportionateScreenHeight(5)),
-            HomeHeader(),
+            HomeHeader(
+              title: "Home",
+            ),
             divider(),
             SizedBox(height: getProportionateScreenWidth(10)),
             Clubs(),

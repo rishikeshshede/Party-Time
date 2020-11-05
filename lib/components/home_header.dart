@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../size_config.dart';
+import '../size_config.dart';
 
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({
-    Key key,
-  }) : super(key: key);
+  const HomeHeader({Key key, this.title}) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),
+      padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(2)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -32,7 +31,7 @@ class HomeHeader extends StatelessWidget {
             ),
           ),
           Text(
-            "Home",
+            title,
             style: TextStyle(
                 fontSize: getProportionateScreenWidth(20),
                 color: Colors.black,
@@ -41,11 +40,6 @@ class HomeHeader extends StatelessWidget {
           SizedBox(
             width: getProportionateScreenHeight(55),
           )
-          // IconBtnWithCounter(
-          //   svgSrc: "assets/icons/Bell.svg",
-          //   numOfitem: 3,
-          //   press: () {},
-          // ),
         ],
       ),
     );
