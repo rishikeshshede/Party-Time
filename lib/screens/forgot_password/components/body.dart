@@ -1,8 +1,9 @@
+import 'package:bookario/screens/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/components/custom_surfix_icon.dart';
 import 'package:bookario/components/default_button.dart';
 import 'package:bookario/components/form_error.dart';
-import 'package:bookario/components/no_account_text.dart';
+import 'package:bookario/components/change_onboarding_screen.dart';
 import 'package:bookario/size_config.dart';
 
 import '../../../constants.dart';
@@ -92,7 +93,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
               labelText: "Email",
               hintText: "Enter your email",
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+              prefixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
             ),
           ),
           SizedBox(height: getProportionateScreenHeight(30)),
@@ -107,7 +108,13 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
             },
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.1),
-          NoAccountText(),
+          ChangeOnboardingScreenText(
+            textFirst: "Don't have an account? ",
+            clickableText: "Sign Up",
+            onPressed: () {
+              Navigator.pushNamed(context, SignUpScreen.routeName);
+            },
+          ),
         ],
       ),
     );

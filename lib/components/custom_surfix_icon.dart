@@ -15,14 +15,14 @@ class CustomSurffixIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        0,
-        getProportionateScreenWidth(20),
-        getProportionateScreenWidth(20),
-        getProportionateScreenWidth(20),
+        getProportionateScreenWidth(15),
+        getProportionateScreenWidth(15),
+        getProportionateScreenWidth(10),
+        getProportionateScreenWidth(15),
       ),
       child: SvgPicture.asset(
         svgIcon,
-        height: getProportionateScreenWidth(15),
+        height: getProportionateScreenWidth(12),
       ),
     );
   }

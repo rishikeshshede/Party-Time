@@ -18,14 +18,15 @@ InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(10),
     borderSide: BorderSide(color: kTextColor),
-    gapPadding: 5,
+    gapPadding: 4,
   );
   return InputDecorationTheme(
-      contentPadding: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-      enabledBorder: outlineInputBorder,
-      focusedBorder: outlineInputBorder,
-      border: outlineInputBorder,
-      labelStyle: TextStyle(color: kSecondaryColor));
+    contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 1),
+    enabledBorder: outlineInputBorder,
+    focusedBorder: outlineInputBorder,
+    border: outlineInputBorder,
+    labelStyle: TextStyle(color: kSecondaryColor),
+  );
 }
 
 TextTheme textTheme() {

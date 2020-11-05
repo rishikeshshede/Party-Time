@@ -1,9 +1,9 @@
-import 'package:bookario/screens/history/booking_history.dart';
 import 'package:bookario/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/components/custom_surfix_icon.dart';
 import 'package:bookario/components/form_error.dart';
 import 'package:bookario/screens/forgot_password/forgot_password_screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
@@ -18,6 +18,7 @@ class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
   String email;
   String password;
+  bool _obscureText = true;
   final List<String> errors = [];
 
   void addError({String error}) {
@@ -32,6 +33,12 @@ class _SignFormState extends State<SignForm> {
       setState(() {
         errors.remove(error);
       });
+  }
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
   }
 
   @override
@@ -52,6 +59,7 @@ class _SignFormState extends State<SignForm> {
                     context, ForgotPasswordScreen.routeName),
                 child: Text(
                   "Forgot Password?",
+                  style: TextStyle(color: kSecondaryColor),
                 ),
               )
             ],
@@ -63,43 +71,18 @@ class _SignFormState extends State<SignForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                Navigator.pushNamed(context, HomeScreen.routeName);
-                //  BookingHistory.routeName); // go to home
+                // Navigator.pushNamed(context, HomeScreen.routeName);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeScreen(),
+                  ),
+                  (Route<dynamic> route) => false,
+                );
               }
             },
           ),
         ],
-      ),
-    );
-  }
-
-  TextFormField buildPasswordFormField() {
-    return TextFormField(
-      obscureText: true,
-      onSaved: (newValue) => password = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kPassNullError);
-        } else if (value.length >= 8) {
-          removeError(error: kShortPassError);
-        }
-        return null;
-      },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kPassNullError);
-          return "";
-        } else if (value.length < 8) {
-          addError(error: kShortPassError);
-          return "";
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        labelText: "Password",
-        hintText: "Enter your password",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
       ),
     );
   }
@@ -130,7 +113,56 @@ class _SignFormState extends State<SignForm> {
         labelText: "Email",
         hintText: "Enter your email",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+        prefixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildPasswordFormField() {
+    return TextFormField(
+      obscureText: _obscureText,
+      onSaved: (newValue) => password = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kPassNullError);
+        } else if (value.length >= 8) {
+          removeError(error: kShortPassError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kPassNullError);
+          return "";
+        } else if (value.length < 8) {
+          addError(error: kShortPassError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Password",
+        hintText: "Enter your password",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        prefixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          child: _obscureText
+              ? GestureDetector(
+                  onTap: () => _toggle(),
+                  child: FaIcon(
+                    FontAwesomeIcons.eye,
+                    size: 17,
+                  ),
+                )
+              : GestureDetector(
+                  onTap: () => _toggle(),
+                  child: FaIcon(
+                    FontAwesomeIcons.eyeSlash,
+                    size: 17,
+                  ),
+                ),
+        ),
       ),
     );
   }
