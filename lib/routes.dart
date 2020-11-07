@@ -1,3 +1,4 @@
+import 'package:bookario/components/bottom_navbar.dart';
 import 'package:bookario/screens/details/details_screen.dart';
 import 'package:bookario/screens/forgot_password/forgot_password_screen.dart';
 import 'package:bookario/screens/history/booking_history.dart';
@@ -18,5 +19,6 @@ final Map<String, WidgetBuilder> routes = {
   SignUpScreen.routeName: (context) => SignUpScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
   DetailsScreen.routeName: (context) => DetailsScreen(),
-  BookingHistory.routeName: (context) => BookingHistory()
+  BookingHistory.routeName: (context) => BookingHistory(),
+  BottomCustomNavBar.routeName: (context) => BottomCustomNavBar()
 };

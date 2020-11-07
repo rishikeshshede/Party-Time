@@ -8,7 +8,7 @@ const kPrimaryLightColor = Color(0xFF191616);
 //   end: Alignment.bottomRight,
 //   colors: [const Color(0xFFFFA53E), const Color(0xFFFF7643)],
 // );
-const kSecondaryColor = Color(0xFFF72770);
+const kSecondaryColor = Color(0xFFD4005C);
 const kTextColor = Color(0xFF757575);
 
 const kAnimationDuration = Duration(milliseconds: 200);

@@ -1,3 +1,4 @@
+import 'package:bookario/components/bottom_navbar.dart';
 import 'package:bookario/models/History.dart';
 import 'package:bookario/screens/history/booking_history.dart';
 import 'package:bookario/screens/home/home_screen.dart';
@@ -23,9 +24,9 @@ class MyApp extends StatelessWidget {
       // home: SplashScreen(),
       // We use routeName so that we dont need to remember the name
       // initialRoute: SplashScreen.routeName,
-      initialRoute: SignInScreen.routeName,
+      initialRoute: BottomCustomNavBar.routeName,
       // initialRoute: HomeScreen.routeName,
-      // initialRoute: BookingHistory.routeName,
+      // initialRoute: Tabs.routeName,
       routes: routes,
     );
   }
