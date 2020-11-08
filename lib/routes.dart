@@ -4,6 +4,7 @@ import 'package:bookario/screens/forgot_password/forgot_password_screen.dart';
 import 'package:bookario/screens/history/booking_history.dart';
 import 'package:bookario/screens/home/home_screen.dart';
 import 'package:bookario/screens/login_success/login_success_screen.dart';
+import 'package:bookario/screens/premium_clubs/premium_club_list.dart';
 import 'package:bookario/screens/sign_in/sign_in_screen.dart';
 import 'package:bookario/screens/sign_up/sign_up_screen.dart';
 import 'package:bookario/screens/splash/splash_screen.dart';
@@ -20,5 +21,6 @@ final Map<String, WidgetBuilder> routes = {
   HomeScreen.routeName: (context) => HomeScreen(),
   DetailsScreen.routeName: (context) => DetailsScreen(),
   BookingHistory.routeName: (context) => BookingHistory(),
-  BottomCustomNavBar.routeName: (context) => BottomCustomNavBar()
+  BottomCustomNavBar.routeName: (context) => BottomCustomNavBar(),
+  PremiumClubsList.routeName: (context) => PremiumClubsList()
 };

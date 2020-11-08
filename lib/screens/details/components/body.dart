@@ -15,54 +15,69 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            ProductImages(club: club),
-            Container(
-              margin: EdgeInsets.only(top: getProportionateScreenWidth(10)),
-              padding: EdgeInsets.only(
-                  top: getProportionateScreenWidth(15),
-                  left: getProportionateScreenWidth(20),
-                  right: getProportionateScreenWidth(20)),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                ProductImages(club: club),
+                Container(
+                  margin: EdgeInsets.only(top: getProportionateScreenWidth(10)),
+                  padding: EdgeInsets.only(
+                      top: getProportionateScreenWidth(15),
+                      left: getProportionateScreenWidth(20),
+                      right: getProportionateScreenWidth(20)),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      ClubDescription(
+                        club: club,
+                        pressOnSeeMore: () {},
+                      ),
+                      SizedBox(
+                        height: getProportionateScreenHeight(20),
+                      ),
+
+                      // TODO: Display remaining stags here
+
+                      AllPrices(club: club),
+                      SizedBox(
+                        height: SizeConfig.orientation == Orientation.portrait
+                            ? SizeConfig.screenHeight * .1
+                            : SizeConfig.screenHeight * .2,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              color: Colors.white70,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: SizeConfig.screenWidth * 0.15,
+                  right: SizeConfig.screenWidth * 0.15,
+                  bottom: getProportionateScreenWidth(10),
+                  top: getProportionateScreenWidth(2),
+                ),
+                child: DefaultButton(
+                  text: "Get Pass",
+                  press: () {},
                 ),
               ),
-              child: Column(
-                children: [
-                  ClubDescription(
-                    club: club,
-                    pressOnSeeMore: () {},
-                  ),
-                  SizedBox(
-                    height: getProportionateScreenHeight(20),
-                  ),
-
-                  // TODO: Display remaining stags here
-
-                  AllPrices(club: club),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: SizeConfig.screenWidth * 0.15,
-                      right: SizeConfig.screenWidth * 0.15,
-                      bottom: getProportionateScreenWidth(20),
-                      top: getProportionateScreenWidth(30),
-                    ),
-                    child: DefaultButton(
-                      text: "Get Pass",
-                      press: () {},
-                    ),
-                  ),
-                ],
-              ),
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

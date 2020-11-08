@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
             divider(),
             SizedBox(height: getProportionateScreenWidth(10)),
             Clubs(),
-            SizedBox(height: getProportionateScreenWidth(20)),
+            SizedBox(height: getProportionateScreenWidth(10)),
           ],
         ),
       ),

@@ -15,8 +15,10 @@ class DefaultButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      height: getProportionateScreenHeight(56),
+      width: SizeConfig.screenWidth * 0.7,
+      height: SizeConfig.orientation == Orientation.portrait
+          ? SizeConfig.screenHeight * .07
+          : SizeConfig.screenHeight * .1,
       child: FlatButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         color: kPrimaryColor,
@@ -24,7 +26,9 @@ class DefaultButton extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-              fontSize: getProportionateScreenWidth(18),
+              fontSize: SizeConfig.orientation == Orientation.portrait
+                  ? SizeConfig.screenHeight * .03
+                  : SizeConfig.screenHeight * .05,
               color: Colors.white,
               fontWeight: FontWeight.bold),
         ),

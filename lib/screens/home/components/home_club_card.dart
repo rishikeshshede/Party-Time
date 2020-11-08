@@ -16,7 +16,7 @@ class HomeClubCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: SizeConfig.screenWidth * .95,
+      width: SizeConfig.screenWidth * .96,
       height: getProportionateScreenWidth(170),
       child: GestureDetector(
         onTap: () => Navigator.pushNamed(
@@ -25,7 +25,7 @@ class HomeClubCard extends StatelessWidget {
           arguments: ClubDetailsArguments(club: club),
         ),
         child: Container(
-          margin: EdgeInsets.only(bottom: 6),
+          margin: EdgeInsets.only(bottom: 5),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Stack(
@@ -55,7 +55,7 @@ class HomeClubCard extends StatelessWidget {
                 Positioned(
                   bottom: 0.0,
                   child: SizedBox(
-                    width: SizeConfig.screenWidth * 0.95,
+                    width: SizeConfig.screenWidth * 0.96,
                     child: Container(
                       padding: const EdgeInsets.fromLTRB(12, 2, 12, 5),
                       decoration: BoxDecoration(

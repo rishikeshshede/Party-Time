@@ -16,7 +16,7 @@ class BookedClubCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: SizeConfig.screenWidth * .95,
+      width: SizeConfig.screenWidth * .96,
       height: getProportionateScreenWidth(120),
       child: EachClubCard(club: club),
     );

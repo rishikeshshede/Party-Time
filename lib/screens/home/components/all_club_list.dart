@@ -3,16 +3,21 @@ import 'package:bookario/models/Product.dart';
 import 'package:flutter/material.dart';
 
 import '../../../size_config.dart';
-import 'section_title.dart';
+import '../../../components/section_title.dart';
 
-class Clubs extends StatelessWidget {
+class Clubs extends StatefulWidget {
+  @override
+  _ClubsState createState() => _ClubsState();
+}
+
+class _ClubsState extends State<Clubs> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
           padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(15)),
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
           child: SectionTitle(title: "Clubs in Pune", press: () {}),
         ),
         SizedBox(height: getProportionateScreenWidth(10)),
@@ -25,7 +30,7 @@ class Clubs extends StatelessWidget {
                   return HomeClubCard(club: demoClubs[index]);
                 },
               ),
-              SizedBox(width: getProportionateScreenWidth(20)),
+              SizedBox(width: getProportionateScreenWidth(10)),
             ],
           ),
         )

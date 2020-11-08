@@ -48,7 +48,10 @@ List<Club> demoClubs = [
       'Cover type 2': '849',
       'Cover type 3': '1000'
     },
-    maleStag: {'Only Entry': '600', 'Cover type 1': '1200'},
+    maleStag: {
+      'Only Entry': '600',
+      'Cover type 1': '1200',
+    },
     femaleStag: {
       'Only Entry': '549',
       'Cover type 1': '900',
@@ -123,6 +126,120 @@ List<Club> demoClubs = [
   ),
   Club(
     id: 4,
+    images: [
+      "assets/images/jockey-rafiki.png",
+      "assets/images/Buffer-rafiki.png",
+      "assets/images/jockey-rafiki.png",
+    ],
+    clubName: "Oak Lounge",
+    description: description,
+    address: "Marriott Suites Pune, 81, Mundhwa, Pune",
+    date: "31-Dec-2020",
+    time: "7 PM",
+    location: "Mundhwa",
+    male: 39,
+    female: 45,
+    couples: {'Only Entry': '1499.0', 'Cover type 1': '1600'},
+    maleStag: {'Only Entry': '2599.0'},
+    femaleStag: {'Only Entry': '2249.0'},
+  ),
+  Club(
+    id: 5,
+    images: [
+      "assets/images/Buffer-rafiki.png",
+      "assets/images/jockey-rafiki.png",
+      "assets/images/Buffer-rafiki.png",
+      "assets/images/jockey-rafiki.png",
+    ],
+    clubName: "Mi-A-Mi - JW Marriott",
+    description: description,
+    address: "JW Marriott, Senapati Bapat Road, Shivajinagar, Pune",
+    date: "10-Dec-2020",
+    time: "7 PM",
+    location: "Shivajinagar",
+    male: 9,
+    female: 5,
+    couples: {
+      'Only Entry': '499',
+      'Cover type 1': '599',
+      'Cover type 2': '849',
+      'Cover type 3': '1000'
+    },
+    maleStag: {'Only Entry': '600', 'Cover type 1': '1200'},
+    femaleStag: {
+      'Only Entry': '549',
+      'Cover type 1': '900',
+      'Cover type 2': '1400'
+    },
+  ),
+  Club(
+    id: 6,
+    images: [
+      "assets/images/jockey-rafiki.png",
+      "assets/images/Buffer-rafiki.png",
+    ],
+    clubName: "Penthouze",
+    description: description,
+    address:
+        "Onyx Tower, Next To Westin Hotel, North Main Road, Koregaon Park Annexe, Mundhwa, Pune",
+    date: "05-Dec-2020",
+    time: "8 PM",
+    location: "Mundhwa",
+    male: 12,
+    female: 15,
+    couples: {
+      'Only Entry': '699',
+      'Cover type 1': '599',
+      'Cover type 2': '1000'
+    },
+    maleStag: {
+      'Only Entry': '759',
+      'Cover type 1': '900',
+      'Cover type 2': '1200'
+    },
+    femaleStag: {
+      'Only Entry': '799',
+      'Cover type 1': '900',
+      'Cover type 2': '1400'
+    },
+  ),
+  Club(
+    id: 7,
+    images: [
+      "assets/images/Buffer-rafiki.png",
+      "assets/images/jockey-rafiki.png",
+    ],
+    clubName: "Publiq",
+    description: description,
+    address:
+        "White Square, 9th Floor, 901, Hinjewadi Phase 1 Road, Hinjewadi, Pune",
+    date: "22-Nov-2020",
+    time: "7:30 PM",
+    location: "Hinjewadi",
+    male: 11,
+    female: 11,
+    couples: {
+      'Only Entry': '299.0',
+      'Cover type 1': '699',
+      'Cover type 2': '599',
+      'Cover type 3': '1000',
+      'Cover type 4': '1600'
+    },
+    maleStag: {
+      'Only Entry': '299.0',
+      'Cover type 1': '759',
+      'Cover type 2': '900',
+      'Cover type 3': '1200'
+    },
+    femaleStag: {
+      'Only Entry': '299.0',
+      'Cover type 1': '799',
+      'Cover type 2': '900',
+      'Cover type 3': '1400'
+    },
+  ),
+  Club(
+    id: 8,
     images: [
       "assets/images/jockey-rafiki.png",
       "assets/images/Buffer-rafiki.png",
