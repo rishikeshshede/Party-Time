@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "459374668387",
+    "firebase_url": "https://bookario-eac4f.firebaseio.com",
+    "project_id": "bookario-eac4f",
+    "storage_bucket": "bookario-eac4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459374668387:android:ac91f44b8c77229bb16656",
+        "android_client_info": {
+          "package_name": "com.example.bookario"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "459374668387-hmj6h9nl60c9mafjs87n87nbg261gacq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6FUA2W-_1WG6SIjTuFH12P4tPczKnY-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "459374668387-hmj6h9nl60c9mafjs87n87nbg261gacq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -40,11 +40,11 @@ AppBarTheme appBarTheme() {
   return AppBarTheme(
     centerTitle: true,
     color: Colors.white,
-    elevation: 0,
+    elevation: 1,
     brightness: Brightness.light,
     iconTheme: IconThemeData(color: Colors.black),
     textTheme: TextTheme(
-      headline6: TextStyle(color: Color(0XFF8B8B8B), fontSize: 18),
+      headline6: TextStyle(color: kPrimaryColor, fontSize: 22),
     ),
   );
 }

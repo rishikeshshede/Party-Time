@@ -1,4 +1,7 @@
+import 'package:bookario/components/dialogueBox.dart';
+import 'package:bookario/screens/sign_in/sign_in_screen.dart';
 import 'package:bookario/screens/sign_up/sign_up_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/components/custom_surfix_icon.dart';
 import 'package:bookario/components/default_button.dart';
@@ -53,7 +56,81 @@ class ForgotPassForm extends StatefulWidget {
 class _ForgotPassFormState extends State<ForgotPassForm> {
   final _formKey = GlobalKey<FormState>();
   List<String> errors = [];
-  String email;
+  String _email;
+  bool loading = false;
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  void forgotPassword() async {
+    setState(() {
+      loading = true;
+    });
+    try {
+      print(_email.trim());
+      await _auth.sendPasswordResetEmail(email: _email.trim());
+      setState(() {
+        loading = false;
+      });
+      resetEmailSent(context);
+    } catch (e) {
+      setState(() {
+        loading = false;
+      });
+      ShowAlert.showAlert(context, "Invalid Email");
+    }
+  }
+
+  bool validateAndSave() {
+    final FormState form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> resetEmailSent(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          title: Text(
+            "An email to reset your password is sent to your email ID.",
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                  fontSize: 17,
+                ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SignInScreen(),
+                  ),
+                  (Route<dynamic> route) => false,
+                );
+              },
+              child: Text(
+                "Ok",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(color: kSecondaryColor),
+              ),
+              splashColor: Colors.red[50],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -62,7 +139,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
         children: [
           TextFormField(
             keyboardType: TextInputType.emailAddress,
-            onSaved: (newValue) => email = newValue,
+            onSaved: (newValue) => _email = newValue,
             onChanged: (value) {
               if (value.isNotEmpty && errors.contains(kEmailNullError)) {
                 setState(() {
@@ -100,10 +177,10 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
           FormError(errors: errors),
           SizedBox(height: SizeConfig.screenHeight * 0.1),
           DefaultButton(
-            text: "Continue",
-            press: () {
-              if (_formKey.currentState.validate()) {
-                // Send reset link and pop this screen
+            text: "Reset",
+            press: () async {
+              if (validateAndSave()) {
+                forgotPassword();
               }
             },
           ),

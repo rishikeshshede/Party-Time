@@ -1,10 +1,16 @@
-import 'package:bookario/screens/sign_in/sign_in_screen.dart';
+import 'package:bookario/components/bottom_navbar.dart';
+import 'package:bookario/components/dialogueBox.dart';
+import 'package:bookario/components/loading.dart';
+import 'package:bookario/components/persistence_handler.dart';
+import 'package:bookario/screens/club_UI_screens/home/club_home_screen.dart';
+import 'package:bookario/screens/sign_up/components/bottom_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/components/custom_surfix_icon.dart';
 import 'package:bookario/components/default_button.dart';
 import 'package:bookario/components/form_error.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-// import 'package:bookario/screens/complete_profile/complete_profile_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -15,11 +21,27 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
-  String customerName, email, phoneNumber, gender, password, confirmPassword;
-  int age;
-  bool remember = false, _obscureText = true;
+  String _customerName,
+      _email,
+      _phoneNumber,
+      _gender,
+      _password,
+      _confirmPassword,
+      _userType = 'Customer',
+      _age;
+  int _radioValue = 0;
+  bool _obscureText = true, loading = false;
   final List<String> errors = [];
+
+  FocusNode nameFocusNode = FocusNode();
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode phoneNumberFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
+  FocusNode confirmPasswordFocusNode = FocusNode();
+  FocusNode ageFocusNode = FocusNode();
+  FocusNode genderFocusNode = FocusNode();
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -41,56 +63,139 @@ class _SignUpFormState extends State<SignUpForm> {
     });
   }
 
+  bool validateAndSave() {
+    final FormState form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  // final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        children: [
-          buildNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(16)),
-          buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(16)),
-          buildPhoneNumberFormField(),
-          SizedBox(height: getProportionateScreenHeight(16)),
-          buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(16)),
-          buildConformPassFormField(),
-          SizedBox(height: getProportionateScreenHeight(16)),
-          Row(
-            children: [
-              buildAgeFormField(),
-              SizedBox(width: getProportionateScreenHeight(10)),
-              buildGenderFormField()
-            ],
-          ),
-          FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          DefaultButton(
-            text: "Register",
-            press: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
-                Navigator.pushAndRemoveUntil(
+      child: loading
+          ? Loading()
+          : Column(
+              children: [
+                buildNameFormField(),
+                SizedBox(height: getProportionateScreenHeight(16)),
+                buildEmailFormField(),
+                SizedBox(height: getProportionateScreenHeight(16)),
+                buildPhoneNumberFormField(),
+                SizedBox(height: getProportionateScreenHeight(16)),
+                buildPasswordFormField(),
+                SizedBox(height: getProportionateScreenHeight(16)),
+                buildConformPassFormField(),
+                SizedBox(height: getProportionateScreenHeight(16)),
+                Row(
+                  children: [
+                    buildAgeFormField(),
+                    SizedBox(width: getProportionateScreenHeight(10)),
+                    buildGenderFormField()
+                  ],
+                ),
+                SizedBox(height: getProportionateScreenHeight(16)),
+                buildUserTypeRadioButtons(),
+                FormError(errors: errors),
+                SizedBox(height: getProportionateScreenHeight(30)),
+                DefaultButton(
+                  text: "Register",
+                  press: () async {
+                    if (validateAndSave()) {
+                      setState(() {
+                        loading = true;
+                        signUp();
+                      });
+                    }
+                  },
+                ),
+                SignupScreenBottomText()
+              ],
+            ),
+    );
+  }
+
+  void signUp() async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+
+      try {
+        final databaseReference = FirebaseFirestore.instance;
+        UserCredential userCredential =
+            await _auth.createUserWithEmailAndPassword(
+                email: _email.trim(), password: _password.trim());
+        User user = userCredential.user;
+        user.sendEmailVerification().then((onValue) {
+          print("Verification mail sent on ${user.email}");
+        });
+        if (user != null) {
+          user.updateProfile(displayName: _customerName.trim());
+          if (_userType == 'Customer') {
+            try {
+              DocumentReference ref =
+                  await databaseReference.collection("customers").add({
+                'name': _customerName.trim(),
+                'email': _email.trim(),
+                'phoneNumber': _phoneNumber.trim(),
+                'age': _age.trim(),
+                'gender': _gender,
+                'userType': _userType,
+              });
+              print('User data of ${ref.id} customer updated to firestore');
+              Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SignInScreen(),
+                    builder: (context) => BottomCustomNavBar(),
                   ),
-                  (Route<dynamic> route) => false,
-                );
-              }
-            },
-          ),
-        ],
-      ),
-    );
+                  (Route<dynamic> route) => false);
+            } catch (e) {
+              print(e.toString());
+            }
+          } else {
+            try {
+              DocumentReference ref =
+                  await databaseReference.collection("clubs").add({
+                'name': _customerName.trim(),
+                'email': _email.trim(),
+                'phoneNumber': _phoneNumber.trim(),
+                'age': _age.trim(),
+                'gender': _gender,
+                'userType': _userType,
+              });
+              print('User data of ${ref.id} club updated to firestore');
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ClubHomeScreen(),
+                  ),
+                  (Route<dynamic> route) => false);
+            } catch (e) {
+              print(e.toString());
+            }
+          }
+          PersistenceHandler.setter("uid", user.uid);
+          PersistenceHandler.setter("userType", _userType);
+        }
+      } catch (e) {
+        loading = false;
+        ShowAlert.showAlert(context, e.errormessage);
+      }
+    }
   }
 
   TextFormField buildNameFormField() {
     return TextFormField(
       keyboardType: TextInputType.name,
+      textCapitalization: TextCapitalization.words,
       cursorColor: Colors.black,
-      onSaved: (newValue) => customerName = newValue,
+      textInputAction: TextInputAction.go,
+      focusNode: nameFocusNode,
+      onSaved: (newValue) => _customerName = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: "Please Enter your name");
@@ -110,6 +215,10 @@ class _SignUpFormState extends State<SignUpForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         prefixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
+      onFieldSubmitted: (value) {
+        nameFocusNode.unfocus();
+        FocusScope.of(context).requestFocus(emailFocusNode);
+      },
     );
   }
 
@@ -117,7 +226,9 @@ class _SignUpFormState extends State<SignUpForm> {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
       cursorColor: Colors.black,
-      onSaved: (newValue) => email = newValue,
+      textInputAction: TextInputAction.go,
+      focusNode: emailFocusNode,
+      onSaved: (newValue) => _email = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
@@ -142,13 +253,20 @@ class _SignUpFormState extends State<SignUpForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         prefixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
       ),
+      onFieldSubmitted: (value) {
+        emailFocusNode.unfocus();
+        FocusScope.of(context).requestFocus(phoneNumberFocusNode);
+      },
     );
   }
 
   TextFormField buildPhoneNumberFormField() {
     return TextFormField(
-      keyboardType: TextInputType.number,
-      onSaved: (newValue) => phoneNumber = newValue,
+      keyboardType: TextInputType.phone,
+      cursorColor: Colors.black,
+      textInputAction: TextInputAction.go,
+      focusNode: phoneNumberFocusNode,
+      onSaved: (newValue) => _phoneNumber = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: "Please Enter your Phone Number");
@@ -171,28 +289,35 @@ class _SignUpFormState extends State<SignUpForm> {
         labelText: "Phone Number",
         hintText: "Enter your Phone Number",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        prefixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Call.svg"),
+        prefixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Call-grey.svg"),
       ),
+      onFieldSubmitted: (value) {
+        phoneNumberFocusNode.unfocus();
+        FocusScope.of(context).requestFocus(passwordFocusNode);
+      },
     );
   }
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: _obscureText,
-      onSaved: (newValue) => password = newValue,
+      cursorColor: Colors.black,
+      textInputAction: TextInputAction.go,
+      focusNode: passwordFocusNode,
+      onSaved: (newValue) => _password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.length >= 8) {
+        } else if (value.length >= 6) {
           removeError(error: kShortPassError);
         }
-        password = value;
+        _password = value;
       },
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if (value.length < 8) {
+        } else if (value.length < 6) {
           addError(error: kShortPassError);
           return "";
         }
@@ -203,45 +328,34 @@ class _SignUpFormState extends State<SignUpForm> {
         hintText: "Enter your password",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         prefixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
-        suffixIcon: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          child: _obscureText
-              ? GestureDetector(
-                  onTap: () => _toggle(),
-                  child: FaIcon(
-                    FontAwesomeIcons.eye,
-                    size: 17,
-                  ),
-                )
-              : GestureDetector(
-                  onTap: () => _toggle(),
-                  child: FaIcon(
-                    FontAwesomeIcons.eyeSlash,
-                    size: 17,
-                  ),
-                ),
-        ),
       ),
+      onFieldSubmitted: (value) {
+        passwordFocusNode.unfocus();
+        FocusScope.of(context).requestFocus(confirmPasswordFocusNode);
+      },
     );
   }
 
   TextFormField buildConformPassFormField() {
     return TextFormField(
       obscureText: _obscureText,
-      onSaved: (newValue) => confirmPassword = newValue,
+      cursorColor: Colors.black,
+      textInputAction: TextInputAction.go,
+      focusNode: confirmPasswordFocusNode,
+      onSaved: (newValue) => _confirmPassword = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.isNotEmpty && password == confirmPassword) {
+        } else if (value.isNotEmpty && _password == _confirmPassword) {
           removeError(error: kMatchPassError);
         }
-        confirmPassword = value;
+        _confirmPassword = value;
       },
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if ((password != value)) {
+        } else if ((_password != value)) {
           addError(error: kMatchPassError);
           return "";
         }
@@ -258,18 +372,57 @@ class _SignUpFormState extends State<SignUpForm> {
               ? GestureDetector(
                   onTap: () => _toggle(),
                   child: FaIcon(
-                    FontAwesomeIcons.eye,
+                    FontAwesomeIcons.eyeSlash,
                     size: 17,
                   ),
                 )
               : GestureDetector(
                   onTap: () => _toggle(),
                   child: FaIcon(
-                    FontAwesomeIcons.eyeSlash,
+                    FontAwesomeIcons.eye,
                     size: 17,
                   ),
                 ),
         ),
+      ),
+      onFieldSubmitted: (value) {
+        confirmPasswordFocusNode.unfocus();
+        FocusScope.of(context).requestFocus(ageFocusNode);
+      },
+    );
+  }
+
+  Expanded buildAgeFormField() {
+    return Expanded(
+      child: TextFormField(
+        keyboardType: TextInputType.number,
+        cursorColor: Colors.black,
+        textInputAction: TextInputAction.done,
+        focusNode: ageFocusNode,
+        onSaved: (newValue) => _age = newValue,
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            removeError(error: "Please Enter your age");
+          }
+          return null;
+        },
+        validator: (value) {
+          if (value.isEmpty) {
+            addError(error: "Please Enter your age");
+            return "";
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          labelText: "Age",
+          hintText: "Enter your Age",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          prefixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Age.svg"),
+        ),
+        onFieldSubmitted: (value) {
+          ageFocusNode.unfocus();
+          FocusScope.of(context).requestFocus(genderFocusNode);
+        },
       ),
     );
   }
@@ -277,11 +430,11 @@ class _SignUpFormState extends State<SignUpForm> {
   Expanded buildGenderFormField() {
     return Expanded(
       child: DropdownButtonFormField<String>(
-        value: gender,
+        value: _gender,
         isExpanded: false,
         onChanged: (String value) {
           setState(() {
-            gender = value;
+            _gender = value;
           });
         },
         items: ['Male', 'Female', 'Others']
@@ -302,31 +455,44 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  Expanded buildAgeFormField() {
-    return Expanded(
-      child: TextFormField(
-        keyboardType: TextInputType.name,
-        onSaved: (newValue) => customerName = newValue,
-        onChanged: (value) {
-          if (value.isNotEmpty) {
-            removeError(error: "Please Enter your age");
-          }
-          return null;
-        },
-        validator: (value) {
-          if (value.isEmpty) {
-            addError(error: "Please Enter your age");
-            return "";
-          }
-          return null;
-        },
-        decoration: InputDecoration(
-          labelText: "Age",
-          hintText: "Enter your Age",
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          // suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Plus Icon.svg"),
+  Row buildUserTypeRadioButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Radio(
+          activeColor: kPrimaryColor,
+          value: 0,
+          groupValue: _radioValue,
+          onChanged: _handleRadioValueChange,
         ),
-      ),
+        Text(
+          "Customer",
+        ),
+        Radio(
+          activeColor: kPrimaryColor,
+          value: 1,
+          groupValue: _radioValue,
+          onChanged: _handleRadioValueChange,
+        ),
+        Text(
+          "Club",
+        ),
+      ],
     );
+  }
+
+  void _handleRadioValueChange(int value) {
+    setState(() {
+      _radioValue = value;
+
+      switch (_radioValue) {
+        case 0:
+          _userType = 'Customer';
+          break;
+        case 1:
+          _userType = 'Club';
+          break;
+      }
+    });
   }
 }

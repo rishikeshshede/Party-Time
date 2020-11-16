@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:bookario/constants.dart';
-import 'package:bookario/screens/history/booking_history.dart';
-import 'package:bookario/screens/home/home_screen.dart';
-import 'package:bookario/screens/premium_clubs/premium_club_list.dart';
+import 'package:bookario/screens/customer_UI_screens/history/booking_history.dart';
+import 'package:bookario/screens/customer_UI_screens/home/customer_home_screen.dart';
+import 'package:bookario/screens/customer_UI_screens/premium_clubs/premium_club_list.dart';
 import 'package:bookario/size_config.dart';
 import 'package:flutter/material.dart';
 

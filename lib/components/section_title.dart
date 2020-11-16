@@ -16,7 +16,7 @@ class SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           title,
@@ -25,26 +25,26 @@ class SectionTitle extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        GestureDetector(
-          onTap: press,
-          child: SizedBox(
-            width: getProportionateScreenWidth(40),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                  height: getProportionateScreenWidth(35),
-                  width: getProportionateScreenWidth(35),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEAEAEA),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: SvgPicture.asset('assets/icons/filter.svg'),
-                ),
-              ],
-            ),
-          ),
-        ),
+        // GestureDetector(
+        //   onTap: press,
+        //   child: SizedBox(
+        //     width: getProportionateScreenWidth(40),
+        //     child: Column(
+        //       children: [
+        //         Container(
+        //           padding: EdgeInsets.all(getProportionateScreenWidth(8)),
+        //           height: getProportionateScreenWidth(35),
+        //           width: getProportionateScreenWidth(35),
+        //           decoration: BoxDecoration(
+        //             color: Color(0xFFEAEAEA),
+        //             borderRadius: BorderRadius.circular(10),
+        //           ),
+        //           child: SvgPicture.asset('assets/icons/filter.svg'),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

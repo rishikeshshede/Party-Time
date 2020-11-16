@@ -63,8 +63,8 @@ class _BodyState extends State<Body> {
                 },
                 itemCount: splashData.length,
                 itemBuilder: (context, index) => SplashContent(
-                  image: splashData[index]["image"],
                   text: splashData[index]['text'],
+                  image: splashData[index]["image"],
                 ),
               ),
             ),

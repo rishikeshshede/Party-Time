@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../size_config.dart';
 
-class HomeHeader extends StatelessWidget {
-  const HomeHeader({Key key, this.title}) : super(key: key);
+class Header extends StatelessWidget {
+  const Header({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -24,8 +25,8 @@ class HomeHeader extends StatelessWidget {
                 color: Color(0xFFFFFFFF),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Image.asset(
-                "assets/images/onlylogo.png",
+              child: SvgPicture.asset(
+                "assets/icons/Back Icon.svg",
                 fit: BoxFit.cover,
               ),
             ),
