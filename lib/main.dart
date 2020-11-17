@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       theme: theme(),
       home: (user == null)
           ? SplashScreen()
-          : (userType == 'Customer' ? BottomCustomNavBar() : ClubHomeScreen()),
+          : (userType == 'customer' ? BottomCustomNavBar() : ClubHomeScreen()),
       // We use routeName so that we dont need to remember the name
       // initialRoute: SignUpScreen.routeName,
       routes: routes,

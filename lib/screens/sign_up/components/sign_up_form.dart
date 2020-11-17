@@ -29,7 +29,7 @@ class _SignUpFormState extends State<SignUpForm> {
       _gender,
       _password,
       _confirmPassword,
-      _userType = 'Customer',
+      _userType = 'customer',
       _age;
   int _radioValue = 0;
   bool _obscureText = true, loading = false;
@@ -121,70 +121,72 @@ class _SignUpFormState extends State<SignUpForm> {
   }
 
   void signUp() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-
-      try {
-        final databaseReference = FirebaseFirestore.instance;
-        UserCredential userCredential =
-            await _auth.createUserWithEmailAndPassword(
-                email: _email.trim(), password: _password.trim());
-        User user = userCredential.user;
+    try {
+      final databaseReference = FirebaseFirestore.instance;
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+              email: _email.trim(), password: _password.trim());
+      User user = userCredential.user;
+      if (user != null) {
         user.sendEmailVerification().then((onValue) {
           print("Verification mail sent on ${user.email}");
         });
-        if (user != null) {
-          user.updateProfile(displayName: _customerName.trim());
-          if (_userType == 'Customer') {
-            try {
-              DocumentReference ref =
-                  await databaseReference.collection("customers").add({
-                'name': _customerName.trim(),
-                'email': _email.trim(),
-                'phoneNumber': _phoneNumber.trim(),
-                'age': _age.trim(),
-                'gender': _gender,
-                'userType': _userType,
-              });
-              print('User data of ${ref.id} customer updated to firestore');
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BottomCustomNavBar(),
-                  ),
-                  (Route<dynamic> route) => false);
-            } catch (e) {
-              print(e.toString());
-            }
-          } else {
-            try {
-              DocumentReference ref =
-                  await databaseReference.collection("clubs").add({
-                'name': _customerName.trim(),
-                'email': _email.trim(),
-                'phoneNumber': _phoneNumber.trim(),
-                'age': _age.trim(),
-                'gender': _gender,
-                'userType': _userType,
-              });
-              print('User data of ${ref.id} club updated to firestore');
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ClubHomeScreen(),
-                  ),
-                  (Route<dynamic> route) => false);
-            } catch (e) {
-              print(e.toString());
-            }
+        user.updateProfile(displayName: _customerName.trim());
+        if (_userType == 'customer') {
+          try {
+            // DocumentReference ref =
+            //     await databaseReference.collection("customers").add({
+            //   'name': _customerName.trim(),
+            //   'email': _email.trim(),
+            //   'phoneNumber': _phoneNumber.trim(),
+            //   'age': _age.trim(),
+            //   'gender': _gender,
+            //   'userType': _userType,
+            // });
+            await databaseReference.collection("customers").doc(user.uid).set({
+              'name': _customerName.trim(),
+              'email': _email.trim(),
+              'phoneNumber': _phoneNumber.trim(),
+              'age': _age.trim(),
+              'gender': _gender,
+              'userType': _userType,
+            });
+            // print('User data of ${ref.id} customer updated to firestore');
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BottomCustomNavBar(),
+                ),
+                (Route<dynamic> route) => false);
+          } catch (e) {
+            print(e.toString());
           }
-          PersistenceHandler.setter("uid", user.uid);
-          PersistenceHandler.setter("userType", _userType);
+        } else {
+          try {
+            await databaseReference.collection("clubs").doc(user.uid).set({
+              'name': _customerName.trim(),
+              'email': _email.trim(),
+              'phoneNumber': _phoneNumber.trim(),
+              'age': _age.trim(),
+              'gender': _gender,
+              'userType': _userType,
+            });
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ClubHomeScreen(),
+                ),
+                (Route<dynamic> route) => false);
+          } catch (e) {
+            print(e.toString());
+          }
         }
-      } catch (e) {
-        loading = false;
-        ShowAlert.showAlert(context, e.errormessage);
+        PersistenceHandler.setter("uid", user.uid);
+        PersistenceHandler.setter("userType", _userType);
       }
+    } catch (e) {
+      loading = false;
+      ShowAlert.showAlert(context, e.errormessage);
     }
   }
 
@@ -487,10 +489,10 @@ class _SignUpFormState extends State<SignUpForm> {
 
       switch (_radioValue) {
         case 0:
-          _userType = 'Customer';
+          _userType = 'customer';
           break;
         case 1:
-          _userType = 'Club';
+          _userType = 'club';
           break;
       }
     });

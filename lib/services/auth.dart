@@ -28,7 +28,7 @@ class AuthService {
         PersistenceHandler.deleteStore("uid");
         PersistenceHandler.setter("uid", user.uid);
       }
-      if (userType == 'Customer') {
+      if (userType == 'customer') {
         try {
           DocumentReference ref =
               await databaseReference.collection("customers").add({

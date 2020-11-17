@@ -1,3 +1,4 @@
+import 'package:bookario/components/persistence_handler.dart';
 import 'package:bookario/screens/club_UI_screens/home/components/body.dart';
 import 'package:bookario/screens/splash/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -98,6 +99,7 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
                 setState(() {
                   loading = true;
                 });
+                PersistenceHandler.deleteStore('userType');
                 await FirebaseAuth.instance.signOut();
               },
               child: Text(

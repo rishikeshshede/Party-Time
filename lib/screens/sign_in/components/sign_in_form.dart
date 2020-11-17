@@ -5,6 +5,7 @@ import 'package:bookario/components/persistence_handler.dart';
 import 'package:bookario/screens/club_UI_screens/home/club_home_screen.dart';
 import 'package:bookario/screens/sign_in/components/bottom_text.dart';
 import 'package:bookario/screens/sign_in/components/forgot_password.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/components/custom_surfix_icon.dart';
@@ -95,14 +96,34 @@ class _SignFormState extends State<SignForm> {
   }
 
   void login() async {
+    final databaseReference = FirebaseFirestore.instance;
     String userType;
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
           email: _email.trim(), password: _password.trim());
       User user = userCredential.user;
       if (user != null) {
-        userType = await PersistenceHandler.getter("userType");
-        if (userType == 'Customer') {
+        try {
+          await databaseReference
+              .collection('customers')
+              .doc(user.uid)
+              .get()
+              .then((DocumentSnapshot documentSnapshot) {
+            if (documentSnapshot.exists) {
+              PersistenceHandler.setter("userType", 'customer');
+              // print('User is logging in as customer');
+              // print('customer data: ${documentSnapshot.data()}');
+              userType = 'customer';
+            } else {
+              PersistenceHandler.setter("userType", 'club');
+              // print('User is logging in as club');
+              userType = 'club';
+            }
+          });
+        } catch (e) {
+          print('cannot get userType : $e');
+        }
+        if (userType == 'customer') {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(

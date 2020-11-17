@@ -1,4 +1,5 @@
 import 'package:bookario/components/loading.dart';
+import 'package:bookario/components/persistence_handler.dart';
 import 'package:bookario/screens/splash/splash_screen.dart';
 import 'package:bookario/size_config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -99,6 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() {
                   loading = true;
                 });
+                PersistenceHandler.deleteStore('userType');
                 await FirebaseAuth.instance.signOut();
               },
               child: Text(
