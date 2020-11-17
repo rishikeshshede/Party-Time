@@ -2,13 +2,13 @@ import 'package:bookario/components/default_button.dart';
 import 'package:bookario/constants.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/all_prices.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/custom_app_bar.dart';
+import 'package:bookario/screens/club_UI_screens/details/components/row_display.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';
 import 'package:bookario/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'club_description.dart';
-import 'club_images.dart';
+import 'pie_chart_view.dart';
 
 class Body extends StatelessWidget {
   final Club club;
@@ -24,18 +24,12 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 CustomAppBar(title: club.clubName, location: club.location),
-                ClubImages(club: club),
+                ChartView(club: club),
                 Container(
-                  margin: const EdgeInsets.only(top: 12),
+                  margin: const EdgeInsets.only(top: 10),
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    // borderRadius: BorderRadius.only(
-                    //   topLeft: Radius.circular(40),
-                    //   topRight: Radius.circular(40),
-                    // ),
-                  ),
+                  color: Colors.white,
                   child: Column(
                     children: [
                       divider(),
@@ -110,47 +104,6 @@ class Body extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class RowDisplay extends StatelessWidget {
-  const RowDisplay({
-    Key key,
-    @required this.title,
-    @required this.value,
-    this.icon,
-  }) : super(key: key);
-
-  final String title;
-  final String value;
-  final String icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SvgPicture.asset(
-          icon,
-          height: 15,
-        ),
-        const SizedBox(
-          width: 5,
-        ),
-        RichText(
-          text: TextSpan(
-            text: title,
-            style: TextStyle(color: kPrimaryColor, fontSize: 16),
-            children: [
-              TextSpan(
-                text: value,
-                style: TextStyle(color: kSecondaryColor),
-              )
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

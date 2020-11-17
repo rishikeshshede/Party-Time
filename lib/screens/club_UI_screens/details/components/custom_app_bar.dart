@@ -75,10 +75,11 @@ class ActionButton extends StatelessWidget {
   final GestureTapCallback press;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      borderRadius: BorderRadius.circular(50),
       onTap: press,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         child: SvgPicture.asset(
           icon,
           height: 18,

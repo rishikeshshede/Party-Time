@@ -172,11 +172,12 @@ class _SignUpFormState extends State<SignUpForm> {
               'userType': _userType,
             });
             Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ClubHomeScreen(),
-                ),
-                (Route<dynamic> route) => false);
+              context,
+              MaterialPageRoute(
+                builder: (context) => ClubHomeScreen(),
+              ),
+              (Route<dynamic> route) => false,
+            );
           } catch (e) {
             print(e.toString());
           }
