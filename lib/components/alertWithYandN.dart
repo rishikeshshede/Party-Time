@@ -1,7 +1,7 @@
 import 'package:bookario/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import 'constants.dart';
 
 Future<bool> resetEmailSent(BuildContext context) {
   return showDialog(
@@ -10,7 +10,7 @@ Future<bool> resetEmailSent(BuildContext context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(10),
+            Radius.circular(5),
           ),
         ),
         title: Text(

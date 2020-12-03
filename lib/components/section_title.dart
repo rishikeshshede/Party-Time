@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
-import '../size_config.dart';
+import 'size_config.dart';
 
 class SectionTitle extends StatelessWidget {
   const SectionTitle({

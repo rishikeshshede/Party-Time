@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../size_config.dart';
+import '../../../../components/size_config.dart';
 
 class HomeClubCard extends StatelessWidget {
   const HomeClubCard({
@@ -17,7 +17,7 @@ class HomeClubCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: SizeConfig.screenWidth * .96,
-      height: getProportionateScreenWidth(170),
+      height: getProportionateScreenWidth(200),
       child: GestureDetector(
         onTap: () => Navigator.pushNamed(
           context,
@@ -27,7 +27,7 @@ class HomeClubCard extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.only(bottom: 5),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(5),
             child: Stack(
               children: [
                 SizedBox(

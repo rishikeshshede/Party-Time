@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../size_config.dart';
+import 'constants.dart';
+import 'size_config.dart';
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
@@ -20,7 +20,7 @@ class DefaultButton extends StatelessWidget {
           ? SizeConfig.screenHeight * .07
           : SizeConfig.screenHeight * .1,
       child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         color: kPrimaryColor,
         onPressed: press,
         child: Text(

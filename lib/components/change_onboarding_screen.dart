@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
-import '../constants.dart';
+import 'constants.dart';
 
 class ChangeOnboardingScreenText extends StatelessWidget {
   const ChangeOnboardingScreenText({

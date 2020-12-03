@@ -3,7 +3,7 @@ import 'package:bookario/models/Clubs.dart';
 import 'package:bookario/screens/customer_UI_screens/home/components/home_club_card.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../size_config.dart';
+import '../../../../components/size_config.dart';
 
 class Clubs extends StatefulWidget {
   @override

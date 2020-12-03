@@ -3,7 +3,7 @@ import 'package:bookario/models/History.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../size_config.dart';
+import '../../../../components/size_config.dart';
 
 class BookedClubCard extends StatelessWidget {
   const BookedClubCard({
@@ -36,7 +36,7 @@ class EachClubCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 6),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(5),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
           color: Color(0xFFd6d6d6).withOpacity(0.8),

@@ -1,7 +1,7 @@
 import 'package:bookario/screens/club_UI_screens/home/components/own_clubs.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../size_config.dart';
+import '../../../../components/size_config.dart';
 
 class Body extends StatelessWidget {
   @override

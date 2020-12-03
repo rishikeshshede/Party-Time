@@ -1,6 +1,6 @@
 import 'package:bookario/models/Clubs.dart';
 import 'package:bookario/screens/club_UI_screens/home/components/own_club_card.dart';
-import 'package:bookario/size_config.dart';
+import 'package:bookario/components/size_config.dart';
 import 'package:flutter/material.dart';
 
 class OwnClubs extends StatelessWidget {

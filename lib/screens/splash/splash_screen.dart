@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bookario/screens/splash/components/body.dart';
-import 'package:bookario/size_config.dart';
+import 'package:bookario/components/size_config.dart';
 
 class SplashScreen extends StatelessWidget {
   static String routeName = "/splash";

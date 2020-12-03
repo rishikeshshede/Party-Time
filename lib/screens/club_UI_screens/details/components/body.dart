@@ -1,12 +1,10 @@
 import 'package:bookario/components/default_button.dart';
-import 'package:bookario/constants.dart';
-import 'package:bookario/screens/club_UI_screens/details/components/all_prices.dart';
+import 'package:bookario/components/constants.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/custom_app_bar.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/row_display.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';
-import 'package:bookario/size_config.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:bookario/components/size_config.dart';
 
 import 'pie_chart_view.dart';
 

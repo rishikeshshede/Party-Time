@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../size_config.dart';
+import '../../../components/size_config.dart';
 import 'sign_in_form.dart';
 
 class Body extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:bookario/models/History.dart';
 import 'package:bookario/screens/customer_UI_screens/history/components/booked_club_card.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../size_config.dart';
+import '../../../../components/size_config.dart';
 
 class Body extends StatelessWidget {
   @override

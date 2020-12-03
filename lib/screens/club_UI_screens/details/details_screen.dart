@@ -10,7 +10,6 @@ class OwnClubDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ClubDetailsArguments agrs = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      // extendBodyBehindAppBar: true,
       body: Body(club: agrs.club),
     );
   }

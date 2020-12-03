@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../size_config.dart';
+import '../../../../components/size_config.dart';
 
 class PremiumClubCard extends StatelessWidget {
   const PremiumClubCard({

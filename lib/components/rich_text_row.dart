@@ -1,5 +1,5 @@
 import 'package:bookario/models/History.dart';
-import 'package:bookario/size_config.dart';
+import 'package:bookario/components/size_config.dart';
 import 'package:flutter/material.dart';
 
 class RichTextRow extends StatelessWidget {

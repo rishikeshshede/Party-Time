@@ -1,6 +1,7 @@
 import 'package:bookario/components/bottom_navbar.dart';
 import 'package:bookario/components/dialogueBox.dart';
 import 'package:bookario/components/loading.dart';
+import 'package:bookario/components/networking.dart';
 import 'package:bookario/components/persistence_handler.dart';
 import 'package:bookario/screens/club_UI_screens/home/club_home_screen.dart';
 import 'package:bookario/screens/sign_up/components/bottom_text.dart';
@@ -12,8 +13,8 @@ import 'package:bookario/components/default_button.dart';
 import 'package:bookario/components/form_error.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../constants.dart';
-import '../../../size_config.dart';
+import '../../../components/constants.dart';
+import '../../../components/size_config.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -79,7 +80,7 @@ class _SignUpFormState extends State<SignUpForm> {
     return Form(
       key: _formKey,
       child: loading
-          ? Loading()
+          ? Loading(text: "Please wait...\n Creating your account")
           : Column(
               children: [
                 buildNameFormField(),
@@ -152,6 +153,16 @@ class _SignUpFormState extends State<SignUpForm> {
               'userType': _userType,
             });
             // print('User data of ${ref.id} customer updated to firestore');
+            var response = await Networking.post('user/add-new-user', {
+              'name': _customerName.trim(),
+              'email': _email.trim(),
+              'phone': _phoneNumber.trim(),
+              'age': _age.trim(),
+              'gender': _gender,
+              'userCategory': _userType,
+              'userId': user.uid,
+            });
+            print('${user.uid} updated to server: $response');
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -171,6 +182,16 @@ class _SignUpFormState extends State<SignUpForm> {
               'gender': _gender,
               'userType': _userType,
             });
+            var response = await Networking.post('user/add-new-user', {
+              'name': _customerName.trim(),
+              'email': _email.trim(),
+              'phone': _phoneNumber.trim(),
+              'age': _age.trim(),
+              'gender': _gender,
+              'userCategory': _userType,
+              'userId': user.uid,
+            });
+            print('${user.uid} updated to server: $response');
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(

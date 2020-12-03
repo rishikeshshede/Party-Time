@@ -29,10 +29,10 @@ List<Club> demoClubs = [
   Club(
     id: 1,
     images: [
-      "assets/images/Buffer-rafiki.png",
-      "assets/images/jockey-rafiki.png",
-      "assets/images/Buffer-rafiki.png",
-      "assets/images/jockey-rafiki.png",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
     ],
     clubName: "Mi-A-Mi - JW Marriott",
     description: description,
@@ -61,8 +61,8 @@ List<Club> demoClubs = [
   Club(
     id: 2,
     images: [
-      "assets/images/jockey-rafiki.png",
-      "assets/images/Buffer-rafiki.png",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
     ],
     clubName: "Penthouze",
     description: description,
@@ -92,8 +92,8 @@ List<Club> demoClubs = [
   Club(
     id: 3,
     images: [
-      "assets/images/Buffer-rafiki.png",
-      "assets/images/jockey-rafiki.png",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
     ],
     clubName: "Publiq",
     description: description,
@@ -127,9 +127,9 @@ List<Club> demoClubs = [
   Club(
     id: 4,
     images: [
-      "assets/images/jockey-rafiki.png",
-      "assets/images/Buffer-rafiki.png",
-      "assets/images/jockey-rafiki.png",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
     ],
     clubName: "Oak Lounge",
     description: description,
@@ -146,10 +146,10 @@ List<Club> demoClubs = [
   Club(
     id: 5,
     images: [
-      "assets/images/Buffer-rafiki.png",
-      "assets/images/jockey-rafiki.png",
-      "assets/images/Buffer-rafiki.png",
-      "assets/images/jockey-rafiki.png",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
     ],
     clubName: "Mi-A-Mi - JW Marriott",
     description: description,
@@ -175,8 +175,8 @@ List<Club> demoClubs = [
   Club(
     id: 6,
     images: [
-      "assets/images/jockey-rafiki.png",
-      "assets/images/Buffer-rafiki.png",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
     ],
     clubName: "Penthouze",
     description: description,
@@ -206,8 +206,8 @@ List<Club> demoClubs = [
   Club(
     id: 7,
     images: [
-      "assets/images/Buffer-rafiki.png",
-      "assets/images/jockey-rafiki.png",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
     ],
     clubName: "Publiq",
     description: description,
@@ -241,9 +241,9 @@ List<Club> demoClubs = [
   Club(
     id: 8,
     images: [
-      "assets/images/jockey-rafiki.png",
-      "assets/images/Buffer-rafiki.png",
-      "assets/images/jockey-rafiki.png",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
+      "assets/images/dummyPub1.jpg",
     ],
     clubName: "Oak Lounge",
     description: description,

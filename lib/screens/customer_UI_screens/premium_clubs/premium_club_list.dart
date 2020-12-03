@@ -1,4 +1,4 @@
-import 'package:bookario/size_config.dart';
+import 'package:bookario/components/size_config.dart';
 import 'package:flutter/material.dart';
 
 import 'components/body.dart';

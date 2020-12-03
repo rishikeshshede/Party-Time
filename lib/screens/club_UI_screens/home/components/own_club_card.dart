@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../size_config.dart';
+import '../../../../components/size_config.dart';
 
 class OwnClubCard extends StatelessWidget {
   const OwnClubCard({
@@ -27,7 +27,7 @@ class OwnClubCard extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.only(bottom: 5),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(5),
             child: Column(
               children: [
                 Expanded(

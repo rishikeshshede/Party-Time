@@ -1,6 +1,5 @@
-import 'package:bookario/constants.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/select_date.dart';
-import 'package:bookario/size_config.dart';
+import 'package:bookario/components/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';
 import 'package:pie_chart/pie_chart.dart';

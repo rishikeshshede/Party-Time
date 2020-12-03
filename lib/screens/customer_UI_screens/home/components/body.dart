@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../size_config.dart';
+import '../../../../components/size_config.dart';
 import 'all_club_list.dart';
 
 class Body extends StatelessWidget {

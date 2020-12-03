@@ -1,11 +1,8 @@
-import 'package:bookario/components/persistence_handler.dart';
 import 'package:bookario/screens/club_UI_screens/home/components/body.dart';
 import 'package:bookario/screens/splash/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../../../constants.dart';
-import '../../../size_config.dart';
+import '../../../components/size_config.dart';
 
 class ClubHomeScreen extends StatefulWidget {
   static String routeName = "/clubHome";
@@ -49,71 +46,8 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
           ),
         ),
         title: Text("Home"),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: () {
-                _logout(context);
-              },
-              child: Icon(Icons.logout),
-            ),
-          ),
-        ],
       ),
       body: Body(),
-    );
-  }
-
-  Future<bool> _logout(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-          title: Text(
-            "Want to logout?",
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text(
-                "No",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    .copyWith(color: kSecondaryColor),
-              ),
-              splashColor: Colors.red[50],
-            ),
-            FlatButton(
-              onPressed: () async {
-                setState(() {
-                  loading = true;
-                });
-                PersistenceHandler.deleteStore('userType');
-                await FirebaseAuth.instance.signOut();
-              },
-              child: Text(
-                "Yes",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    .copyWith(color: kSecondaryColor),
-              ),
-              splashColor: Colors.red[50],
-            ),
-          ],
-        );
-      },
     );
   }
 }

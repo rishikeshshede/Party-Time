@@ -7,9 +7,9 @@ import 'package:bookario/components/custom_surfix_icon.dart';
 import 'package:bookario/components/default_button.dart';
 import 'package:bookario/components/form_error.dart';
 import 'package:bookario/components/change_onboarding_screen.dart';
-import 'package:bookario/size_config.dart';
+import 'package:bookario/components/size_config.dart';
 
-import '../../../constants.dart';
+import '../../../components/constants.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -96,7 +96,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(10),
+              Radius.circular(5),
             ),
           ),
           title: Text(

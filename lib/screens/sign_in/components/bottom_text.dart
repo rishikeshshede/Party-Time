@@ -2,7 +2,7 @@ import 'package:bookario/components/change_onboarding_screen.dart';
 import 'package:bookario/screens/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../size_config.dart';
+import '../../../components/size_config.dart';
 
 class SigninScreenBottomText extends StatelessWidget {
   const SigninScreenBottomText({

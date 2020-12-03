@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:bookario/constants.dart';
-import 'package:bookario/screens/customer_UI_screens/history/booking_history.dart';
+import 'package:bookario/components/constants.dart';
 import 'package:bookario/screens/customer_UI_screens/home/customer_home_screen.dart';
 import 'package:bookario/screens/customer_UI_screens/premium_clubs/premium_club_list.dart';
-import 'package:bookario/size_config.dart';
+import 'package:bookario/screens/customer_UI_screens/profile/profile_screen.dart';
+import 'package:bookario/components/size_config.dart';
 import 'package:flutter/material.dart';
 
 class BottomCustomNavBar extends StatefulWidget {
@@ -20,7 +20,7 @@ class _BottomCustomNavBarState extends State<BottomCustomNavBar>
   final List<Widget> _children = [
     HomeScreen(),
     PremiumClubsList(),
-    BookingHistory()
+    ProfileScreen()
   ];
 
   Future<bool> _exitApp(BuildContext context) {
@@ -30,7 +30,7 @@ class _BottomCustomNavBarState extends State<BottomCustomNavBar>
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(10),
+              Radius.circular(5),
             ),
           ),
           title: Text(
@@ -102,12 +102,12 @@ class _BottomCustomNavBarState extends State<BottomCustomNavBar>
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.star_border_rounded),
-              label: 'Premium Clubs',
+              icon: Icon(Icons.star),
+              label: 'Premium Events',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.history),
-              label: 'Bookings',
+              icon: Icon(Icons.person),
+              label: 'Profile',
             )
           ],
         ),

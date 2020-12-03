@@ -1,8 +1,11 @@
-import 'package:bookario/components/default_button.dart';
-import 'package:bookario/screens/customer_UI_screens/details/components/all_prices.dart';
+import 'package:bookario/components/hoveringBackButton.dart';
+import 'package:bookario/models/Events.dart';
+import 'package:bookario/screens/customer_UI_screens/details/components/eventCard.dart';
+import 'package:bookario/screens/customer_UI_screens/eventDetails/eventDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';
-import 'package:bookario/size_config.dart';
+import 'package:bookario/components/size_config.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'club_description.dart';
 import 'club_images.dart';
@@ -20,7 +23,12 @@ class Body extends StatelessWidget {
           SingleChildScrollView(
             child: Column(
               children: [
-                ClubImages(club: club),
+                Stack(
+                  children: [
+                    ClubImages(club: club),
+                    HoveringBackButton(),
+                  ],
+                ),
                 Container(
                   margin: EdgeInsets.only(top: getProportionateScreenWidth(10)),
                   padding: EdgeInsets.only(
@@ -39,7 +47,6 @@ class Body extends StatelessWidget {
                     children: [
                       ClubDescription(
                         club: club,
-                        pressOnSeeMore: () {},
                       ),
                       SizedBox(
                         height: getProportionateScreenHeight(20),
@@ -47,36 +54,41 @@ class Body extends StatelessWidget {
 
                       // TODO: Display remaining stags here
 
-                      AllPrices(club: club),
-                      SizedBox(
-                        height: SizeConfig.orientation == Orientation.portrait
-                            ? SizeConfig.screenHeight * .1
-                            : SizeConfig.screenHeight * .2,
+                      Container(
+                        alignment: Alignment.bottomLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: 6,
+                            bottom: 12,
+                          ),
+                          child: Text(
+                            "Upcoming events",
+                            style:
+                                TextStyle(fontSize: 18, color: Colors.black87),
+                          ),
+                        ),
                       ),
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ...List.generate(
+                              demoClubs.length,
+                              (index) {
+                                return EventCard(
+                                    event: demoEvents[index], index: index);
+                              },
+                            ),
+                            SizedBox(width: getProportionateScreenWidth(10)),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              color: Colors.white70,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: SizeConfig.screenWidth * 0.15,
-                  right: SizeConfig.screenWidth * 0.15,
-                  bottom: getProportionateScreenWidth(10),
-                  top: getProportionateScreenWidth(2),
-                ),
-                child: DefaultButton(
-                  text: "Get Pass",
-                  press: () {},
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );

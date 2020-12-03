@@ -13,8 +13,8 @@ import 'package:bookario/components/form_error.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../components/default_button.dart';
-import '../../../constants.dart';
-import '../../../size_config.dart';
+import '../../../components/constants.dart';
+import '../../../components/size_config.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -66,7 +66,7 @@ class _SignFormState extends State<SignForm> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Loading()
+        ? Loading(text: "Logging in...")
         : Form(
             key: _formKey,
             child: Column(
