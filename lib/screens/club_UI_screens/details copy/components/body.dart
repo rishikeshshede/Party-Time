@@ -1,9 +1,6 @@
 import 'package:bookario/components/default_button.dart';
 import 'package:bookario/components/constants.dart';
-import 'package:bookario/models/Events.dart';
-import 'package:bookario/screens/club_UI_screens/details/components/club_description.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/custom_app_bar.dart';
-import 'package:bookario/screens/club_UI_screens/details/components/eventCard.dart';
 import 'package:bookario/screens/club_UI_screens/eventDetails/components/row_display.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';
@@ -25,7 +22,7 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 CustomAppBar(title: club.clubName, location: club.location),
-                ClubDescription(club: club),
+                ChartView(club: club),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
                   padding: EdgeInsets.symmetric(horizontal: 20),
@@ -35,37 +32,50 @@ class Body extends StatelessWidget {
                     children: [
                       divider(),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
-                      Container(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 6,
-                            bottom: 18,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RowDisplay(
+                            icon: "assets/icons/group.svg",
+                            title: "Total Bookings :  ",
+                            value: (club.male + club.female).toString(),
                           ),
-                          child: Text(
-                            "Upcoming events",
-                            style:
-                                TextStyle(fontSize: 18, color: Colors.black87),
+                          RowDisplay(
+                            icon: "assets/icons/m-f.svg",
+                            title: "Male / Female : ",
+                            value: club.male.toString() +
+                                " / " +
+                                club.female.toString(),
                           ),
-                        ),
+                        ],
                       ),
-                      SingleChildScrollView(
-                        child: Column(
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: "Earnings\n",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5
+                              .copyWith(fontWeight: FontWeight.bold),
                           children: [
-                            ...List.generate(
-                              demoClubs.length,
-                              (index) {
-                                return EventCard(
-                                    event: demoEvents[index], index: index);
-                              },
-                            ),
-                            SizedBox(width: getProportionateScreenWidth(10)),
+                            TextSpan(
+                              text: "₹ " +
+                                  (club.male * 1000 + club.female * 1500)
+                                      .toString(),
+                              style: TextStyle(color: kSecondaryColor),
+                            )
                           ],
                         ),
                       ),
-                      SizedBox(height: 80),
+                      SizedBox(
+                        height: SizeConfig.orientation == Orientation.portrait
+                            ? SizeConfig.screenHeight * .1
+                            : SizeConfig.screenHeight * .2,
+                      ),
                     ],
                   ),
                 ),
@@ -84,7 +94,7 @@ class Body extends StatelessWidget {
                   top: getProportionateScreenWidth(2),
                 ),
                 child: DefaultButton(
-                  text: "Add Event",
+                  text: "View Bookings",
                   press: () {},
                 ),
               ),
