@@ -4,12 +4,9 @@ import 'package:bookario/models/Events.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/club_description.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/custom_app_bar.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/eventCard.dart';
-import 'package:bookario/screens/club_UI_screens/eventDetails/components/row_display.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';
 import 'package:bookario/components/size_config.dart';
-
-import 'pie_chart_view.dart';
 
 class Body extends StatelessWidget {
   final Club club;

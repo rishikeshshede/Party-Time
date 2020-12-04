@@ -1,4 +1,3 @@
-import 'package:bookario/screens/customer_UI_screens/details/components/all_prices.dart';
 import 'package:bookario/screens/customer_UI_screens/details/components/description_text.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';

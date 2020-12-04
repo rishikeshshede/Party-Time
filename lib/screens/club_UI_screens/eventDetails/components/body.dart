@@ -1,5 +1,4 @@
 import 'package:bookario/components/constants.dart';
-import 'package:bookario/components/default_button.dart';
 import 'package:bookario/components/hoveringBackButton.dart';
 import 'package:bookario/models/Clubs.dart';
 import 'package:bookario/models/Events.dart';

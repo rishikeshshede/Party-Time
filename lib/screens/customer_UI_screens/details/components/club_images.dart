@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-import '../../../../components/size_config.dart';
-
 class ClubImages extends StatefulWidget {
   const ClubImages({
     Key key,

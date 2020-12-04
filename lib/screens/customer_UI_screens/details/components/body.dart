@@ -1,11 +1,9 @@
 import 'package:bookario/components/hoveringBackButton.dart';
 import 'package:bookario/models/Events.dart';
 import 'package:bookario/screens/customer_UI_screens/details/components/eventCard.dart';
-import 'package:bookario/screens/customer_UI_screens/eventDetails/eventDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';
 import 'package:bookario/components/size_config.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'club_description.dart';
 import 'club_images.dart';
