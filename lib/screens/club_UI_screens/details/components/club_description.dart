@@ -13,7 +13,7 @@ class ClubDescription extends StatelessWidget {
     this.pressOnSeeMore,
   }) : super(key: key);
 
-  final Club club;
+  final club;
   final GestureTapCallback pressOnSeeMore;
 
   @override
@@ -32,7 +32,7 @@ class ClubDescription extends StatelessWidget {
               style: TextStyle(fontSize: 18, color: Colors.black87),
             ),
           ),
-          DescriptionTextWidget(text: club.description),
+          DescriptionTextWidget(text: club['description']),
           SizedBox(height: 20),
           Padding(
             padding: EdgeInsets.symmetric(
@@ -50,7 +50,7 @@ class ClubDescription extends StatelessWidget {
                 Flexible(
                   child: Container(
                     child: Text(
-                      club.address,
+                      club['address'],
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 String baseUrl = 'http://bookario.com/apis/';
+String imageBaseUrl = 'http://bookario.com/';
 
 Map<String, String> allHeaders = {
   "Content-Type": "application/json",

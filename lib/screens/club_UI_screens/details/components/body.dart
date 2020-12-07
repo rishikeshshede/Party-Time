@@ -1,6 +1,9 @@
-import 'package:bookario/components/default_button.dart';
 import 'package:bookario/components/constants.dart';
+import 'package:bookario/components/default_button.dart';
+import 'package:bookario/components/loading.dart';
+import 'package:bookario/components/networking.dart';
 import 'package:bookario/models/Events.dart';
+import 'package:bookario/screens/club_UI_screens/details/components/add_event.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/club_description.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/custom_app_bar.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/eventCard.dart';
@@ -8,10 +11,56 @@ import 'package:flutter/material.dart';
 import 'package:bookario/models/Clubs.dart';
 import 'package:bookario/components/size_config.dart';
 
-class Body extends StatelessWidget {
-  final Club club;
-
+class Body extends StatefulWidget {
+  final club;
   const Body({Key key, @required this.club}) : super(key: key);
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  bool hasEvents = false,
+      eventLoading = true,
+      loadMore = false,
+      loadingMore = false;
+  int offset, limit;
+  List<Map<String, dynamic>> eventData;
+
+  @override
+  void initState() {
+    offset = 0;
+    limit = 10;
+    getMyEvents();
+    super.initState();
+  }
+
+  getMyEvents() async {
+    // String clubId = await PersistenceHandler.getter('clubId');
+    // print('ClubID: $clubId');
+    try {
+      var response = await Networking.getData('events/get-club-event', {
+        "clubId": widget.club['clubId'].toString(),
+        "limit": limit.toString(),
+        "offset": offset.toString(),
+      });
+      print(response);
+      if (response['data'].length > 0) {
+        setState(() {
+          hasEvents = true;
+          loadMore = true;
+          loadingMore = false;
+          eventData = response['data'];
+        });
+      } else {
+        setState(() {
+          eventLoading = false;
+          loadMore = false;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +70,10 @@ class Body extends StatelessWidget {
           SingleChildScrollView(
             child: Column(
               children: [
-                CustomAppBar(title: club.clubName, location: club.location),
-                ClubDescription(club: club),
+                CustomAppBar(
+                    title: widget.club['name'],
+                    location: widget.club['location']),
+                ClubDescription(club: widget.club),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
                   padding: EdgeInsets.symmetric(horizontal: 20),
@@ -35,7 +86,7 @@ class Body extends StatelessWidget {
                         height: 10,
                       ),
                       Container(
-                        alignment: Alignment.bottomLeft,
+                        alignment: Alignment.center,
                         child: Padding(
                           padding: EdgeInsets.only(
                             top: 6,
@@ -48,20 +99,14 @@ class Body extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ...List.generate(
-                              demoClubs.length,
-                              (index) {
-                                return EventCard(
-                                    event: demoEvents[index], index: index);
-                              },
-                            ),
-                            SizedBox(width: getProportionateScreenWidth(10)),
-                          ],
-                        ),
-                      ),
+                      hasEvents
+                          ? showEvents(context)
+                          : eventLoading
+                              ? Loading()
+                              : Container(
+                                  alignment: Alignment.center,
+                                  child: Text('No Events.'),
+                                ),
                       SizedBox(height: 80),
                     ],
                   ),
@@ -82,11 +127,51 @@ class Body extends StatelessWidget {
                 ),
                 child: DefaultButton(
                   text: "Add Event",
-                  press: () {},
+                  // press: () => enterEventDetails(context),
+                  press: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddEvent(club: widget.club),
+                    ),
+                  ),
                 ),
               ),
             ),
-          )
+          ),
+        ],
+      ),
+    );
+  }
+
+  SingleChildScrollView showEvents(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ...List.generate(
+            demoClubs.length, // TODO: Events List of Club Owner
+            (index) {
+              return EventCard(event: demoEvents[index], index: index);
+            },
+          ),
+          SizedBox(width: getProportionateScreenWidth(10)),
+          loadMore
+              ? loadingMore
+                  ? Loading()
+                  : FlatButton(
+                      onPressed: () {
+                        setState(() {
+                          loadingMore = true;
+                          offset += limit;
+                        });
+                        getMyEvents();
+                      },
+                      child: Text(
+                        'load more',
+                      ),
+                      splashColor: Theme.of(context).primaryColorLight,
+                    )
+              : Container(),
+          SizedBox(height: getProportionateScreenWidth(10)),
         ],
       ),
     );

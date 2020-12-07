@@ -1,28 +1,40 @@
+import 'package:bookario/components/persistence_handler.dart';
 import 'package:bookario/screens/club_UI_screens/details/details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:bookario/models/Clubs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../components/size_config.dart';
 
-class OwnClubCard extends StatelessWidget {
+class OwnClubCard extends StatefulWidget {
   const OwnClubCard({
     Key key,
     @required this.club,
   }) : super(key: key);
 
-  final Club club;
+  final club;
+
+  @override
+  _OwnClubCardState createState() => _OwnClubCardState();
+}
+
+class _OwnClubCardState extends State<OwnClubCard> {
+  @override
+  void initState() {
+    PersistenceHandler.setter(
+        "clubId ${widget.club['clubId']}", widget.club['clubId'].toString());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: SizeConfig.screenWidth * .96,
+      width: SizeConfig.screenWidth,
       height: SizeConfig.screenHeight * .4,
       child: GestureDetector(
         onTap: () => Navigator.pushNamed(
           context,
           OwnClubDetailsScreen.routeName,
-          arguments: ClubDetailsArguments(club: club),
+          arguments: ClubDetailsArguments(club: widget.club),
         ),
         child: Container(
           margin: EdgeInsets.only(bottom: 5),
@@ -36,10 +48,10 @@ class OwnClubCard extends StatelessWidget {
                     width: SizeConfig.screenWidth,
                     child: Container(
                       child: Hero(
-                        tag: club.id.toString(),
-                        child: Image.asset(
-                          // club.images[0],
-                          "assets/images/dummyPub1.jpg",
+                        tag: widget.club['clubId'].toString(),
+                        child: Image.network(
+                          widget.club['image'],
+                          // "assets/images/dummyPub1.jpg",
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -57,7 +69,7 @@ class OwnClubCard extends StatelessWidget {
                       children: [
                         RichText(
                           text: TextSpan(
-                            text: club.clubName,
+                            text: widget.club['name'],
                             style:
                                 Theme.of(context).textTheme.headline6.copyWith(
                                       fontSize: getProportionateScreenWidth(16),
@@ -66,7 +78,7 @@ class OwnClubCard extends StatelessWidget {
                                     ),
                             children: [
                               TextSpan(
-                                text: '  (${club.location})',
+                                text: '  (${widget.club['location']})',
                                 style: TextStyle(
                                   fontSize: getProportionateScreenWidth(12),
                                   fontWeight: FontWeight.normal,
@@ -87,7 +99,7 @@ class OwnClubCard extends StatelessWidget {
                             Flexible(
                               child: Container(
                                 child: Text(
-                                  club.address,
+                                  widget.club['address'],
                                   style: TextStyle(color: Colors.white),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,

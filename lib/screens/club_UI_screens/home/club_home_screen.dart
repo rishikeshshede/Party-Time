@@ -1,11 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:bookario/components/constants.dart';
 import 'package:bookario/components/default_button.dart';
+import 'package:bookario/components/loading.dart';
 import 'package:bookario/components/networking.dart';
 import 'package:bookario/components/persistence_handler.dart';
-import 'package:bookario/screens/club_UI_screens/home/components/body.dart';
+import 'package:bookario/screens/club_UI_screens/home/components/own_clubs.dart';
 import 'package:bookario/screens/splash/splash_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,9 +26,15 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User user;
   File coverPhoto;
-  bool loading = false;
-  String _clubName, _location, _description, _coverPhotoPath, _address;
-  // final List<String> errors = [];
+  bool loading = false,
+      hasClubs = false,
+      homeLoading = true,
+      loadMore = false,
+      loadingMore = false,
+      closeDialog = false;
+  String _clubName, _location, _description, _address;
+  int offset, limit;
+  List<dynamic> clubData;
 
   FocusNode clubNameFocusNode = FocusNode();
   FocusNode locationFocusNode = FocusNode();
@@ -48,7 +54,34 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
   @override
   void initState() {
     this.checkAuthentification();
+    getMyClubs();
+    offset = 0;
+    limit = 10;
     super.initState();
+  }
+
+  getMyClubs() async {
+    String uid = await PersistenceHandler.getter('uid');
+    print(uid);
+    var response = await Networking.getData('clubs/get-club', {
+      "userId": uid,
+      "limit": limit.toString(),
+      "offset": offset.toString(),
+    });
+    if (response['data'].length > 0) {
+      setState(() {
+        hasClubs = true;
+        loadMore = true;
+        loadingMore = false;
+        clubData = response['data'];
+      });
+      // print(response);
+    } else {
+      setState(() {
+        homeLoading = false;
+        loadMore = false;
+      });
+    }
   }
 
   @override
@@ -65,12 +98,59 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
           ),
           title: Text("Home"),
         ),
-        body: Body(),
+        body: hasClubs
+            ? showClubs(context)
+            : homeLoading
+                ? Loading()
+                : Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Register your club by\nclicking on \'+\' button below.',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
         floatingActionButton: FloatingActionButton(
             elevation: 10,
             child: Icon(Icons.add),
             backgroundColor: kPrimaryLightColor,
-            onPressed: () => enterClubDetails(context)));
+            onPressed: () {
+              setState(() {
+                closeDialog = false;
+              });
+              enterClubDetails(context);
+            }));
+  }
+
+  SafeArea showClubs(BuildContext context) {
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: getProportionateScreenHeight(5)),
+            OwnClubs(clubData: clubData),
+            SizedBox(height: getProportionateScreenWidth(10)),
+            loadMore
+                ? loadingMore
+                    ? Loading()
+                    : FlatButton(
+                        onPressed: () {
+                          setState(() {
+                            loadingMore = true;
+                            offset += limit;
+                          });
+                          getMyClubs();
+                        },
+                        child: Text(
+                          'load more',
+                        ),
+                        splashColor: Theme.of(context).primaryColorLight,
+                      )
+                : Container(),
+            SizedBox(height: getProportionateScreenWidth(10)),
+          ],
+        ),
+      ),
+    );
   }
 
   enterClubDetails(BuildContext context) {
@@ -146,8 +226,8 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
                                 setState(() {
                                   loading = true;
                                   uploadImage();
-                                  // Navigator.of(context).pop();
                                 });
+                                closeDialog ?? Navigator.of(context).pop();
                               }
                             },
                           ),
@@ -191,7 +271,7 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
           .then((response) {
         print(response);
         String imageUrl = response.data["data"]["url"];
-        // print(imageUrl);
+        print(imageUrl);
         addClub(imageUrl);
       }).catchError((e) => print(e));
     } catch (e) {
@@ -211,6 +291,12 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
         'address': _address.trim(),
       });
       print(response);
+      if (response['success']) {
+        setState(() {
+          closeDialog = true;
+        });
+        getMyClubs();
+      }
     } catch (e) {
       print(e);
     }
@@ -244,7 +330,6 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
     if (image != null) {
       setState(() {
         coverPhoto = File(image.path);
-        _coverPhotoPath = image.path;
       });
     }
   }

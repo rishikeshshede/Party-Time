@@ -1,4 +1,3 @@
-import 'package:bookario/models/Clubs.dart';
 import 'package:flutter/material.dart';
 
 import 'components/body.dart';
@@ -16,7 +15,7 @@ class OwnClubDetailsScreen extends StatelessWidget {
 }
 
 class ClubDetailsArguments {
-  final Club club;
+  final club;
 
   ClubDetailsArguments({@required this.club});
 }
