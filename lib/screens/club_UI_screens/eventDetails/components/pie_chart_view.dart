@@ -1,4 +1,3 @@
-import 'package:bookario/models/Events.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/select_date.dart';
 import 'package:bookario/components/size_config.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +8,14 @@ import 'package:flutter/foundation.dart';
 class ChartView extends StatefulWidget {
   const ChartView({
     Key key,
-    @required this.eventId,
+    this.maleStag,
+    this.femaleStag,
+    this.couples,
   }) : super(key: key);
 
-  final int eventId;
+  final double maleStag;
+  final double femaleStag;
+  final double couples;
 
   @override
   _ChartViewState createState() => _ChartViewState();
@@ -25,6 +28,20 @@ class _ChartViewState extends State<ChartView> {
     Colors.blue,
   ];
   int key = 0;
+  Map<String, double> dataMap;
+
+  @override
+  void initState() {
+    print(widget.maleStag);
+    setState(() {
+      dataMap = {
+        "Male": widget.maleStag,
+        "Female": widget.femaleStag,
+        "Couples": widget.couples,
+      };
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

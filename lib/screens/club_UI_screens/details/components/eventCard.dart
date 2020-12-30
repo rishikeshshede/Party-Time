@@ -20,8 +20,7 @@ class EventCard extends StatelessWidget {
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  EventDetailsScreen(eventId: event['eventId'])),
+              builder: (context) => EventDetailsScreen(event: event)),
         ),
         child: Container(
           margin: EdgeInsets.only(bottom: 8),
@@ -32,14 +31,6 @@ class EventCard extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(0),
                 decoration: BoxDecoration(
-                  // gradient: LinearGradient(
-                  //   begin: Alignment.centerLeft,
-                  //   end: Alignment.centerRight,
-                  //   colors: [
-                  //     Color(0xFF343434).withOpacity(0.8),
-                  //     Color(0xFF343434).withOpacity(0.4),
-                  //   ],
-                  // ),
                   border: Border.all(color: Colors.black54),
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(8),
@@ -59,7 +50,10 @@ class EventCard extends StatelessWidget {
                     Flexible(
                       flex: 8,
                       child: Text(
-                        event['name'] + '\n' + event['date'],
+                        event['name'] + '\n' + event['date']
+                        // + '\t' +
+                        // event['eventTime']
+                        ,
                         style: Theme.of(context).textTheme.headline6.copyWith(
                               fontSize: getProportionateScreenWidth(14),
                               fontWeight: FontWeight.bold,

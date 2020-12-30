@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:bookario/components/size_config.dart';
 
 class Body extends StatelessWidget {
-  final int eventId;
+  final event;
 
-  Body({Key key, @required this.eventId}) : super(key: key);
+  Body({Key key, @required this.event}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class Body extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    Image.asset('assets/images/dummyPub1.jpg'),
+                    Image.network(event['image']),
                     HoveringBackButton(),
                   ],
                 ),
@@ -42,7 +42,7 @@ class Body extends StatelessWidget {
                   child: Column(
                     children: [
                       EventDescription(
-                        event: demoEvents[eventId - 1],
+                        event: event,
                         pressOnSeeMore: () {},
                       ),
                       SizedBox(
@@ -62,8 +62,12 @@ class Body extends StatelessWidget {
                           ),
                         ),
                       ),
-                      AllPrices(club: demoClubs[0]),
-                      ChartView(eventId: eventId),
+                      AllPrices(priceDescription: event['priceDescription']),
+                      ChartView(
+                        maleStag: event['maleCount'].toDouble(),
+                        femaleStag: event['femaleCount'].toDouble(),
+                        couples: event['coupleCount'].toDouble(),
+                      ),
                       Container(
                         margin: const EdgeInsets.only(top: 10),
                         width: double.infinity,
@@ -80,15 +84,17 @@ class Body extends StatelessWidget {
                                 RowDisplay(
                                   icon: "assets/icons/group.svg",
                                   title: "Total Bookings :  ",
-                                  value: (16 + 12).toString(),
+                                  value: (event['maleCount'] +
+                                          event['femaleCount'] +
+                                          event['coupleCount'])
+                                      .toString(),
                                 ),
                                 RowDisplay(
                                   icon: "assets/icons/m-f.svg",
                                   title: "Male / Female : ",
-                                  value:
-                                      16.toString() + // variable male & female count
-                                          " / " +
-                                          12.toString(),
+                                  value: event['maleCount'].toString() +
+                                      " / " +
+                                      event['femaleCount'].toString(),
                                 ),
                               ],
                             ),
@@ -97,7 +103,8 @@ class Body extends StatelessWidget {
                             ),
                             RichText(
                               text: TextSpan(
-                                text: "Earnings\n",
+                                text:
+                                    "Earnings\n", // TODO: replace by simply a table variable from database
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline5
@@ -105,8 +112,8 @@ class Body extends StatelessWidget {
                                 children: [
                                   TextSpan(
                                     text: "₹ " +
-                                        (16 * 1000 +
-                                                12 *
+                                        (event['maleCount'] * 1000 +
+                                                event['femaleCount'] *
                                                     1500) // variable male & female count
                                             .toString(),
                                     style: TextStyle(color: kSecondaryColor),

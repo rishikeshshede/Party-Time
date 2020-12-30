@@ -64,7 +64,7 @@ class Body extends StatelessWidget {
                           ),
                         ),
                       ),
-                      AllPrices(club: demoClubs[0]),
+                      // AllPrices(priceDescription: event['priceDescription']),
                       SizedBox(
                         height: SizeConfig.orientation == Orientation.portrait
                             ? SizeConfig.screenHeight * .1

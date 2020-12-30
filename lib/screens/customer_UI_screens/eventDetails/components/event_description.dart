@@ -1,4 +1,3 @@
-import 'package:bookario/models/Events.dart';
 import 'package:bookario/screens/customer_UI_screens/details/components/description_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,7 +12,7 @@ class EventDescription extends StatelessWidget {
     this.pressOnSeeMore,
   }) : super(key: key);
 
-  final Event event;
+  final event;
   final GestureTapCallback pressOnSeeMore;
 
   @override
@@ -22,7 +21,7 @@ class EventDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          event.eventName,
+          event['name'],
           style: Theme.of(context)
               .textTheme
               .headline6
@@ -33,7 +32,7 @@ class EventDescription extends StatelessWidget {
             vertical: getProportionateScreenWidth(6),
           ),
           child: Text(
-            event.date,
+            event['date'],
             style: TextStyle(color: Colors.black87),
           ),
         ),
@@ -51,7 +50,8 @@ class EventDescription extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  event.time,
+                  // event['eventtime'],
+                  '7 pm',
                   maxLines: 3,
                 ),
               ],
@@ -73,9 +73,9 @@ class EventDescription extends StatelessWidget {
                     style: TextStyle(color: kPrimaryColor),
                     children: [
                       TextSpan(
-                        text: event.male.toString() +
+                        text: event['maleCount'].toString() +
                             " / " +
-                            event.female.toString(),
+                            event['femaleCount'].toString(),
                         style: TextStyle(color: kSecondaryColor),
                       )
                     ],
@@ -95,7 +95,7 @@ class EventDescription extends StatelessWidget {
             style: TextStyle(fontSize: 18, color: Colors.black87),
           ),
         ),
-        DescriptionTextWidget(text: event.description),
+        DescriptionTextWidget(text: event['description']),
       ],
     );
   }

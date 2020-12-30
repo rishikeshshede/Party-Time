@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bookario/components/constants.dart';
@@ -557,6 +558,8 @@ class _AddEventState extends State<AddEvent> {
         "femaleStag": femaleStagPriceString,
         "couples": couplePriceString,
       };
+      // priceDescriptionString = jsonEncode(priceDescription);
+      // priceDescriptionString = json.encode(priceDescription);
       priceDescriptionString = priceDescription.toString();
     });
     try {
@@ -705,7 +708,7 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField dateFormField() {
     return TextFormField(
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.datetime,
       cursorColor: Colors.black,
       textInputAction: TextInputAction.go,
       focusNode: dateFocusNode,
@@ -740,12 +743,13 @@ class _AddEventState extends State<AddEvent> {
       validator: (value) {
         if (value.isEmpty) {
           return "Enter capacity";
-        } else if (int.parse(_maleCount) +
-                int.parse(_femaleCount) +
-                int.parse(_coupleCount) * 2 >
-            int.parse(value)) {
-          return 'Insuficient capacity';
         }
+        //  else if (int.parse(_maleCount) +
+        //         int.parse(_femaleCount) +
+        //         int.parse(_coupleCount) * 2 >
+        //     int.parse(value)) {
+        //   return 'Insuficient capacity';
+        // }
         return null;
       },
       decoration: InputDecoration(

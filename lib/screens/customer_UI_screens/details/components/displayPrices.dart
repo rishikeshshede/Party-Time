@@ -50,7 +50,7 @@ class ListofEntryPrices extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                     Text(
-                      "₹ " + e.value,
+                      "₹ " + e.value.toString(),
                       style: TextStyle(fontSize: 16),
                     ),
                   ],
