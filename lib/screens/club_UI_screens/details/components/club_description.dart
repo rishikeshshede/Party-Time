@@ -1,6 +1,5 @@
 import 'package:bookario/screens/customer_UI_screens/details/components/description_text.dart';
 import 'package:flutter/material.dart';
-import 'package:bookario/models/Clubs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../components/constants.dart';

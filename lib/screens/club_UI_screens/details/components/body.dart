@@ -2,13 +2,11 @@ import 'package:bookario/components/constants.dart';
 import 'package:bookario/components/default_button.dart';
 import 'package:bookario/components/loading.dart';
 import 'package:bookario/components/networking.dart';
-import 'package:bookario/models/Events.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/add_event.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/club_description.dart';
+import 'package:bookario/screens/club_UI_screens/details/components/club_events.dart';
 import 'package:bookario/screens/club_UI_screens/details/components/custom_app_bar.dart';
-import 'package:bookario/screens/club_UI_screens/details/components/eventCard.dart';
 import 'package:flutter/material.dart';
-import 'package:bookario/models/Clubs.dart';
 import 'package:bookario/components/size_config.dart';
 
 class Body extends StatefulWidget {
@@ -24,7 +22,7 @@ class _BodyState extends State<Body> {
       loadMore = false,
       loadingMore = false;
   int offset, limit;
-  List<Map<String, dynamic>> eventData;
+  List<dynamic> eventData;
 
   @override
   void initState() {
@@ -43,14 +41,16 @@ class _BodyState extends State<Body> {
         "limit": limit.toString(),
         "offset": offset.toString(),
       });
-      print(response);
+      // print(response['data']);
       if (response['data'].length > 0) {
         setState(() {
           hasEvents = true;
+          // eventLoading = false;
           loadMore = true;
           loadingMore = false;
           eventData = response['data'];
         });
+        print(eventData);
       } else {
         setState(() {
           eventLoading = false;
@@ -147,12 +147,7 @@ class _BodyState extends State<Body> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ...List.generate(
-            demoClubs.length, // TODO: Events List of Club Owner
-            (index) {
-              return EventCard(event: demoEvents[index], index: index);
-            },
-          ),
+          ClubEvents(eventData: eventData),
           SizedBox(width: getProportionateScreenWidth(10)),
           loadMore
               ? loadingMore

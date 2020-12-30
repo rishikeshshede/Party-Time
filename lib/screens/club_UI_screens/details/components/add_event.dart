@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:bookario/components/constants.dart';
@@ -575,7 +574,7 @@ class _AddEventState extends State<AddEvent> {
         'capacity': int.parse(_capacity),
         'isPremium': '0',
         'stagWithCouple': 1,
-        'date': _eventDate,
+        'date': _eventDate.trim(),
       });
       print(response);
       if (response['success']) {
@@ -741,11 +740,11 @@ class _AddEventState extends State<AddEvent> {
       validator: (value) {
         if (value.isEmpty) {
           return "Enter capacity";
-          // } else if (int.parse(_maleCount) +
-          //         int.parse(_femaleCount) +
-          //         int.parse(_coupleCount) * 2 >
-          //     int.parse(value)) {
-          //   return 'Insuficient capacity';
+        } else if (int.parse(_maleCount) +
+                int.parse(_femaleCount) +
+                int.parse(_coupleCount) * 2 >
+            int.parse(value)) {
+          return 'Insuficient capacity';
         }
         return null;
       },
@@ -894,7 +893,7 @@ class _AddEventState extends State<AddEvent> {
     return TextFormField(
       keyboardType: TextInputType.number,
       cursorColor: Colors.black,
-      textInputAction: TextInputAction.go,
+      textInputAction: TextInputAction.done,
       focusNode: pricesFocusNode,
       onSaved: (newValue) => _maleStagBasicPass = newValue,
       validator: (value) {
@@ -1012,7 +1011,7 @@ class _AddEventState extends State<AddEvent> {
     return TextFormField(
       keyboardType: TextInputType.number,
       cursorColor: Colors.black,
-      textInputAction: TextInputAction.go,
+      textInputAction: TextInputAction.done,
       onSaved: (newValue) => _femaleStagBasicPass = newValue,
       validator: (value) {
         // if (value.isEmpty &&
@@ -1129,7 +1128,7 @@ class _AddEventState extends State<AddEvent> {
     return TextFormField(
       keyboardType: TextInputType.number,
       cursorColor: Colors.black,
-      textInputAction: TextInputAction.go,
+      textInputAction: TextInputAction.done,
       onSaved: (newValue) => _coupleBasicPass = newValue,
       validator: (value) {
         // if (value.isEmpty &&

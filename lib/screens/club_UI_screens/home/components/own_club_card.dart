@@ -51,7 +51,6 @@ class _OwnClubCardState extends State<OwnClubCard> {
                         tag: widget.club['clubId'].toString(),
                         child: Image.network(
                           widget.club['image'],
-                          // "assets/images/dummyPub1.jpg",
                           fit: BoxFit.cover,
                         ),
                       ),
