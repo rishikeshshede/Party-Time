@@ -9,9 +9,9 @@ import 'club_description.dart';
 import 'club_images.dart';
 
 class Body extends StatelessWidget {
-  final Club club;
+  final event;
 
-  const Body({Key key, @required this.club}) : super(key: key);
+  const Body({Key key, @required this.event}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class Body extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    ClubImages(club: club),
+                    // ClubImages(club: club),
                     HoveringBackButton(),
                   ],
                 ),
@@ -44,7 +44,7 @@ class Body extends StatelessWidget {
                   child: Column(
                     children: [
                       ClubDescription(
-                        club: club,
+                        club: event,
                       ),
                       SizedBox(
                         height: getProportionateScreenHeight(20),

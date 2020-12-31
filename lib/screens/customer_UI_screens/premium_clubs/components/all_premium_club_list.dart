@@ -15,7 +15,7 @@ class PremiumClubs extends StatelessWidget {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(6)),
-          child: SectionTitle(title: " Premium Clubs in Pune", press: () {}),
+          child: SectionTitle(title: " Premium Clubs in Pune"),
         ),
         SizedBox(height: getProportionateScreenWidth(10)),
         SingleChildScrollView(

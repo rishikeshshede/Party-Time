@@ -1,6 +1,5 @@
 import 'package:bookario/screens/customer_UI_screens/details/details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:bookario/models/Clubs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../components/size_config.dart';
@@ -8,10 +7,10 @@ import '../../../../components/size_config.dart';
 class HomeClubCard extends StatelessWidget {
   const HomeClubCard({
     Key key,
-    @required this.club,
+    @required this.eventData,
   }) : super(key: key);
 
-  final Club club;
+  final eventData;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class HomeClubCard extends StatelessWidget {
         onTap: () => Navigator.pushNamed(
           context,
           DetailsScreen.routeName,
-          arguments: ClubDetailsArguments(club: club),
+          arguments: ClubDetailsArguments(event: eventData),
         ),
         child: Container(
           margin: EdgeInsets.only(bottom: 5),
@@ -44,9 +43,9 @@ class HomeClubCard extends StatelessWidget {
                       ),
                     ),
                     child: Hero(
-                      tag: club.id.toString(),
-                      child: Image.asset(
-                        club.images[0],
+                      tag: eventData['eventId'].toString(),
+                      child: Image.network(
+                        eventData['image'],
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -74,7 +73,7 @@ class HomeClubCard extends StatelessWidget {
                         children: [
                           RichText(
                             text: TextSpan(
-                              text: club.clubName,
+                              text: eventData['name'],
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -85,7 +84,7 @@ class HomeClubCard extends StatelessWidget {
                                   ),
                               children: [
                                 TextSpan(
-                                  text: '  (${club.location})',
+                                  text: '  (${eventData['location']})',
                                   style: TextStyle(
                                     fontSize: getProportionateScreenWidth(12),
                                     fontWeight: FontWeight.normal,
@@ -106,7 +105,7 @@ class HomeClubCard extends StatelessWidget {
                               Flexible(
                                 child: Container(
                                   child: Text(
-                                    club.address,
+                                    eventData['address'],
                                     style: TextStyle(color: Colors.white),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,

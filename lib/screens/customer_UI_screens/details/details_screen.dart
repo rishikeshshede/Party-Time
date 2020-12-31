@@ -1,4 +1,3 @@
-import 'package:bookario/models/Clubs.dart';
 import 'package:flutter/material.dart';
 
 import 'components/body.dart';
@@ -10,13 +9,13 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ClubDetailsArguments agrs = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      body: Body(club: agrs.club),
+      body: Body(event: agrs.event),
     );
   }
 }
 
 class ClubDetailsArguments {
-  final Club club;
+  final event;
 
-  ClubDetailsArguments({@required this.club});
+  ClubDetailsArguments({@required this.event});
 }

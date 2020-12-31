@@ -158,25 +158,33 @@ class _EditProfileState extends State<EditProfile> {
                               setState(() {
                                 loading = true;
                               });
-                              String uid =
-                                  await PersistenceHandler.getter('uid');
-                              var response =
-                                  await Networking.post('user/update-user', {
-                                'userId': uid,
-                                'name': nameEditingController.text.trim(),
-                                'phone': phoneNumberEditingController.text
-                                    .trim()
-                                    .toString(),
-                                'age':
-                                    ageEditingController.text.trim().toString(),
-                              });
-                              print(response);
-                              if (response['success']) {
-                                Navigator.of(context).pop();
-                                // Navigator.of(context).pop();
-                                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content: Text("Details Updated Successfully"),
-                                ));
+                              try {
+                                String uid =
+                                    await PersistenceHandler.getter('uid');
+                                var response =
+                                    await Networking.post('user/update-user', {
+                                  'userId': uid,
+                                  'name': nameEditingController.text.trim(),
+                                  'phone': phoneNumberEditingController.text
+                                      .trim()
+                                      .toString(),
+                                  'age': ageEditingController.text
+                                      .trim()
+                                      .toString(),
+                                });
+                                print(response);
+                                if (response['success']) {
+                                  Navigator.of(context).pop();
+                                  // Navigator.of(context).pop();
+                                  _scaffoldKey.currentState
+                                      .showSnackBar(SnackBar(
+                                    content:
+                                        Text("Details Updated Successfully"),
+                                  ));
+                                }
+                              } catch (e) {
+                                print('Error updating user profile: ');
+                                print(e);
                               }
                             },
                           ),

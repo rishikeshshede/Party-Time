@@ -439,7 +439,7 @@ class _SignUpFormState extends State<SignUpForm> {
         },
         decoration: InputDecoration(
           labelText: "Age",
-          hintText: "Enter your Age",
+          hintText: "Your Age",
           floatingLabelBehavior: FloatingLabelBehavior.always,
           prefixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Age.svg"),
         ),

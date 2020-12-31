@@ -20,7 +20,8 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
 
   final _bodyController = TextEditingController();
   final _recipientController = TextEditingController(
-    text: 'rishikeshshede@gmail.com',
+    text:
+        'rishikeshshede@gmail.com', // TODO: change email address to bookario's
   );
 
   Future<void> send() async {

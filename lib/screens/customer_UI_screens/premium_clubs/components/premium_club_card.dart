@@ -16,11 +16,11 @@ class PremiumClubCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(
-        context,
-        DetailsScreen.routeName,
-        arguments: ClubDetailsArguments(club: club),
-      ),
+      // onTap: () => Navigator.pushNamed(
+      //   context,
+      //   DetailsScreen.routeName,
+      //   arguments: ClubDetailsArguments(club: club),
+      // ),
       child: Container(
         margin: EdgeInsets.only(bottom: 5, right: 2, left: 2),
         child: ClipRRect(

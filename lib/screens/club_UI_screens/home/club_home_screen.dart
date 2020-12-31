@@ -87,6 +87,11 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
             ),
           ),
           title: Text("Home"),
+          actions: [
+            IconButton(
+                onPressed: () => _logout(context),
+                icon: Icon(Icons.exit_to_app))
+          ],
         ),
         body: hasClubs
             ? showClubs(context)
@@ -144,6 +149,55 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<bool> _logout(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(5),
+            ),
+          ),
+          title: Text(
+            "Want to logout?",
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(
+                "No",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(color: kSecondaryColor),
+              ),
+              splashColor: Colors.red[50],
+            ),
+            FlatButton(
+              onPressed: () async {
+                PersistenceHandler.deleteStore('userType');
+                await _auth.signOut();
+              },
+              child: Text(
+                "Yes",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(color: kSecondaryColor),
+              ),
+              splashColor: kPrimaryColor,
+            ),
+          ],
+        );
+      },
     );
   }
 

@@ -19,11 +19,11 @@ class HomeClubCard extends StatelessWidget {
       width: SizeConfig.screenWidth * .95,
       height: getProportionateScreenWidth(170),
       child: GestureDetector(
-        onTap: () => Navigator.pushNamed(
-          context,
-          DetailsScreen.routeName,
-          arguments: ClubDetailsArguments(club: club),
-        ),
+        // onTap: () => Navigator.pushNamed(
+        //   context,
+        //   DetailsScreen.routeName,
+        //   arguments: ClubDetailsArguments(club: club),
+        // ),
         child: Container(
           margin: EdgeInsets.only(bottom: 6),
           child: ClipRRect(
