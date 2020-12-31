@@ -1,8 +1,5 @@
 import 'package:bookario/components/hoveringBackButton.dart';
-import 'package:bookario/models/Events.dart';
-import 'package:bookario/screens/customer_UI_screens/details/components/eventCard.dart';
 import 'package:flutter/material.dart';
-import 'package:bookario/models/Clubs.dart';
 import 'package:bookario/components/size_config.dart';
 
 import 'club_description.dart';
@@ -23,7 +20,7 @@ class Body extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    // ClubImages(club: club),
+                    ClubImage(image: event['image'], eventId: event['eventId']),
                     HoveringBackButton(),
                   ],
                 ),
