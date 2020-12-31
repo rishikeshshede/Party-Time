@@ -183,7 +183,7 @@ class _AddNewClubState extends State<AddNewClub> {
       if (response['success']) {
         setState(() {
           loading = false;
-          Navigator.of(context).pop(true);
+          Navigator.pop(context, true);
         });
       } else
         errorWhileAddingClub(context);

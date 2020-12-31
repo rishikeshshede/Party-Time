@@ -1,3 +1,4 @@
+import 'package:bookario/components/loading.dart';
 import 'package:bookario/components/networking.dart';
 import 'package:bookario/components/section_title.dart';
 import 'package:bookario/screens/customer_UI_screens/home/components/home_club_card.dart';
@@ -32,7 +33,6 @@ class _ClubsState extends State<Clubs> {
         "limit": limit.toString(),
         "offset": offset.toString(),
       });
-      print(response['data'].length);
       if (response['data'].length > 0) {
         setState(() {
           hasEvents = true;
@@ -59,22 +59,54 @@ class _ClubsState extends State<Clubs> {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
-          child: SectionTitle(title: "Clubs in Pune"),
+          child: SectionTitle(title: "Events in Pune"),
         ),
         SizedBox(height: getProportionateScreenWidth(10)),
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              ...List.generate(
-                eventData.length,
-                (index) {
-                  return HomeEventCard(eventData: eventData[index]);
-                },
-              ),
-              SizedBox(width: getProportionateScreenWidth(10)),
-            ],
-          ),
-        )
+        hasEvents
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ...List.generate(
+                          eventData.length,
+                          (index) {
+                            return HomeEventCard(eventData: eventData[index]);
+                          },
+                        ),
+                        SizedBox(width: getProportionateScreenWidth(10)),
+                      ],
+                    ),
+                  ),
+                  loadMore
+                      ? loadingMore
+                          ? Loading()
+                          : FlatButton(
+                              onPressed: () {
+                                setState(() {
+                                  offset += limit;
+                                  loadingMore = true;
+                                });
+                                getAllEvents();
+                              },
+                              child: Text(
+                                'load more',
+                              ),
+                              splashColor: Theme.of(context).primaryColorLight,
+                            )
+                      : Container(),
+                ],
+              )
+            : homeLoading
+                ? Loading()
+                : Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Register your club by\nclicking on \'+\' button below.',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
       ],
     );
   }

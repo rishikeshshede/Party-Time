@@ -26,7 +26,6 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
       homeLoading = true,
       loadMore = false,
       loadingMore = false;
-  // clubAdded = false;
   int offset, limit;
   List<dynamic> clubData;
 
@@ -109,14 +108,14 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
             child: Icon(Icons.add),
             backgroundColor: kPrimaryLightColor,
             onPressed: () async {
-              Navigator.push(
+              bool clubAdded = await Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => AddNewClub()),
               );
-              // if (clubAdded && clubAdded != null) {
-              getMyClubs();
-              // clubAddedAlert(context);
-              // }
+              if (clubAdded) {
+                getMyClubs();
+                clubAddedAlert(context);
+              }
             }));
   }
 

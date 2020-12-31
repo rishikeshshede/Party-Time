@@ -1,3 +1,4 @@
+import 'package:bookario/components/default_button.dart';
 import 'package:bookario/components/hoveringBackButton.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/components/size_config.dart';
@@ -47,11 +48,29 @@ class Body extends StatelessWidget {
                         height: getProportionateScreenHeight(20),
                       ),
                       // TODO: Display remaining stags here
-                      SizedBox(height: 20),
+                      SizedBox(height: 60),
                     ],
                   ),
                 ),
               ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              color: Colors.white70,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: SizeConfig.screenWidth * 0.15,
+                  right: SizeConfig.screenWidth * 0.15,
+                  bottom: getProportionateScreenWidth(10),
+                  top: getProportionateScreenWidth(2),
+                ),
+                child: DefaultButton(
+                  text: "Get Pass",
+                  press: () => {},
+                ),
+              ),
             ),
           ),
         ],

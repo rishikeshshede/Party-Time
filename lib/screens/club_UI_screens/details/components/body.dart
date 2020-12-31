@@ -127,13 +127,17 @@ class _BodyState extends State<Body> {
                 ),
                 child: DefaultButton(
                   text: "Add Event",
-                  // press: () => enterEventDetails(context),
-                  press: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AddEvent(club: widget.club),
-                    ),
-                  ),
+                  press: () async {
+                    bool eventAdded = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddEvent(club: widget.club),
+                      ),
+                    );
+                    if (eventAdded) {
+                      getMyEvents();
+                    }
+                  },
                 ),
               ),
             ),
