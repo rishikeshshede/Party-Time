@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../components/size_config.dart';
 
-class HomeClubCard extends StatelessWidget {
-  const HomeClubCard({
+class HomeEventCard extends StatelessWidget {
+  const HomeEventCard({
     Key key,
     @required this.eventData,
   }) : super(key: key);
@@ -21,7 +21,7 @@ class HomeClubCard extends StatelessWidget {
         onTap: () => Navigator.pushNamed(
           context,
           DetailsScreen.routeName,
-          arguments: ClubDetailsArguments(event: eventData),
+          arguments: EventDetailsArguments(event: eventData),
         ),
         child: Container(
           margin: EdgeInsets.only(bottom: 5),
@@ -105,7 +105,8 @@ class HomeClubCard extends StatelessWidget {
                               Flexible(
                                 child: Container(
                                   child: Text(
-                                    eventData['address'],
+                                    'temp',
+                                    // eventData['address'],
                                     style: TextStyle(color: Colors.white),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,

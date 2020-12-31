@@ -1,18 +1,18 @@
+import 'package:bookario/models/Events.dart';
 import 'package:bookario/screens/customer_UI_screens/details/components/description_text.dart';
 import 'package:flutter/material.dart';
-import 'package:bookario/models/Clubs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../components/constants.dart';
 import '../../../../components/size_config.dart';
 
-class ClubDescription extends StatelessWidget {
-  const ClubDescription({
+class EventDescription extends StatelessWidget {
+  const EventDescription({
     Key key,
-    @required this.club,
+    @required this.event,
   }) : super(key: key);
 
-  final Club club;
+  final event;
   // final GestureTapCallback pressOnSeeMore;
 
   @override
@@ -21,7 +21,7 @@ class ClubDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          club.clubName,
+          event['name'],
           style: Theme.of(context)
               .textTheme
               .headline6
@@ -43,7 +43,8 @@ class ClubDescription extends StatelessWidget {
               Flexible(
                 child: Container(
                   child: Text(
-                    club.address,
+                    'temp',
+                    // event['address'],
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -85,7 +86,7 @@ class ClubDescription extends StatelessWidget {
             style: TextStyle(fontSize: 18, color: Colors.black87),
           ),
         ),
-        DescriptionTextWidget(text: club.description),
+        DescriptionTextWidget(text: event['description']),
       ],
     );
   }

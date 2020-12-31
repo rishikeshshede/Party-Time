@@ -43,43 +43,13 @@ class Body extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      ClubDescription(
-                        club: event,
+                      EventDescription(
+                        event: event,
                       ),
                       SizedBox(
                         height: getProportionateScreenHeight(20),
                       ),
-
                       // TODO: Display remaining stags here
-
-                      Container(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 6,
-                            bottom: 12,
-                          ),
-                          child: Text(
-                            "Upcoming events",
-                            style:
-                                TextStyle(fontSize: 18, color: Colors.black87),
-                          ),
-                        ),
-                      ),
-                      SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ...List.generate(
-                              demoClubs.length,
-                              (index) {
-                                return EventCard(
-                                    event: demoEvents[index], index: index);
-                              },
-                            ),
-                            SizedBox(width: getProportionateScreenWidth(10)),
-                          ],
-                        ),
-                      ),
                       SizedBox(height: 20),
                     ],
                   ),

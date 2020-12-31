@@ -28,10 +28,12 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       userType = userType;
     });
+    print(userType);
   }
 
   @override
   void initState() {
+    print(userType);
     getUserType();
     super.initState();
   }
@@ -42,9 +44,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Bookario',
       theme: theme(),
-      home: (user == null)
-          ? SplashScreen()
-          : (userType == 'customer' ? BottomCustomNavBar() : ClubHomeScreen()),
+      home: (user != null && userType != null)
+          ? (userType == 'customer' ? BottomCustomNavBar() : ClubHomeScreen())
+          : SplashScreen(),
       routes: routes,
     );
   }

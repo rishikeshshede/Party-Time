@@ -52,7 +52,7 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
 
   getMyClubs() async {
     String uid = await PersistenceHandler.getter('uid');
-    print(uid);
+    print("club " + uid);
     var response = await Networking.getData('clubs/get-club', {
       "userId": uid,
       "limit": limit.toString(),

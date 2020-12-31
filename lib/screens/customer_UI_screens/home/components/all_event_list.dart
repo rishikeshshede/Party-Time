@@ -28,7 +28,11 @@ class _ClubsState extends State<Clubs> {
 
   getAllEvents() async {
     try {
-      var response = await Networking.getData('events/get-all-events', {});
+      var response = await Networking.getData('events/get-all-events', {
+        "limit": limit.toString(),
+        "offset": offset.toString(),
+      });
+      print(response['data'].length);
       if (response['data'].length > 0) {
         setState(() {
           hasEvents = true;
@@ -36,7 +40,7 @@ class _ClubsState extends State<Clubs> {
           loadingMore = false;
           eventData = response['data'];
         });
-        print(response);
+        print(eventData[0]);
       } else {
         setState(() {
           homeLoading = false;
@@ -64,7 +68,7 @@ class _ClubsState extends State<Clubs> {
               ...List.generate(
                 eventData.length,
                 (index) {
-                  return HomeClubCard(eventData: eventData[index]);
+                  return HomeEventCard(eventData: eventData[index]);
                 },
               ),
               SizedBox(width: getProportionateScreenWidth(10)),
