@@ -111,11 +111,13 @@ class _SignFormState extends State<SignForm> {
               .then((DocumentSnapshot documentSnapshot) {
             if (documentSnapshot.exists) {
               PersistenceHandler.setter("userType", 'customer');
+              PersistenceHandler.setter("uid", user.uid);
               // print('User is logging in as customer');
               // print('customer data: ${documentSnapshot.data()}');
               userType = 'customer';
             } else {
               PersistenceHandler.setter("userType", 'club');
+              PersistenceHandler.setter("uid", user.uid);
               // print('User is logging in as club');
               userType = 'club';
             }

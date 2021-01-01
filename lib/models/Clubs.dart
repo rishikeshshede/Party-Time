@@ -260,7 +260,7 @@ List<Club> demoClubs = [
 ];
 
 const String description =
-    "Publiq has free entry through the week and offers ladies night on Wednesdays. If you're one who loves dancing to Bollywood songs, then you must hit the club on a Friday night. Publiq has three locations in Pune, each offering a refined crowd that's both fun; and pours good alcohol. You will always find some or the other deal at the bar or on food, so your experience here will be better.";
+    "Publiq has free entry through the week and offers ladies night on Wednesdays. If you are one who loves dancing to Bollywood songs, then you must hit the club on a Friday night. Publiq has three locations in Pune, each offering a refined crowd that is both fun; and pours good alcohol. You will always find some or the other deal at the bar or on food, so your experience here will be better.";
 
 Map<String, double> dataMap = {
   "Male Stag": 8,

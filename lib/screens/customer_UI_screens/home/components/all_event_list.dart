@@ -21,9 +21,9 @@ class _ClubsState extends State<Clubs> {
 
   @override
   void initState() {
-    getAllEvents();
     offset = 0;
     limit = 10;
+    getAllEvents();
     super.initState();
   }
 

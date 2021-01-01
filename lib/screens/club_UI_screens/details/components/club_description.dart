@@ -33,55 +33,51 @@ class ClubDescription extends StatelessWidget {
           ),
           DescriptionTextWidget(text: club['description']),
           SizedBox(height: 20),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: getProportionateScreenWidth(5),
-            ),
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/Location point.svg",
-                  height: getProportionateScreenWidth(15),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Flexible(
-                  child: Container(
-                    child: Text(
-                      club['address'],
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Flexible(
-                child: Container(
-                  child: Text(
-                    "Directions",
-                    style: TextStyle(
-                      color: kSecondaryColor,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
+              SvgPicture.asset(
+                "assets/icons/Location point.svg",
+                height: getProportionateScreenWidth(15),
               ),
               const SizedBox(
                 width: 5,
               ),
-              SvgPicture.asset(
-                "assets/icons/directions.svg",
-                height: getProportionateScreenWidth(12),
-                color: kSecondaryColor,
+              Flexible(
+                child: Container(
+                  padding: EdgeInsets.only(top: 15),
+                  child: SelectableText(
+                    club['address'],
+                    maxLines: 2,
+                    // overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ),
             ],
           ),
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   children: [
+          //     Flexible(
+          //       child: Container(
+          //         child: Text(
+          //           "Directions",
+          //           style: TextStyle(
+          //             color: kSecondaryColor,
+          //             decoration: TextDecoration.underline,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //     const SizedBox(
+          //       width: 5,
+          //     ),
+          //     SvgPicture.asset(
+          //       "assets/icons/directions.svg",
+          //       height: getProportionateScreenWidth(12),
+          //       color: kSecondaryColor,
+          //     ),
+          //   ],
+          // ),
           SizedBox(height: 20),
         ],
       ),

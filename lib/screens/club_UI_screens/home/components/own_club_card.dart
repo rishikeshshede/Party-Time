@@ -29,7 +29,7 @@ class _OwnClubCardState extends State<OwnClubCard> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: SizeConfig.screenWidth,
-      height: SizeConfig.screenHeight * .4,
+      height: SizeConfig.screenHeight * .35,
       child: GestureDetector(
         onTap: () => Navigator.pushNamed(
           context,
@@ -37,6 +37,11 @@ class _OwnClubCardState extends State<OwnClubCard> {
           arguments: ClubDetailsArguments(club: widget.club),
         ),
         child: Container(
+          decoration: BoxDecoration(
+              // border: Border(
+              //   bottom: BorderSide(color: Colors.black54),
+              // ),
+              ),
           margin: EdgeInsets.only(bottom: 5),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
@@ -60,10 +65,10 @@ class _OwnClubCardState extends State<OwnClubCard> {
                 Expanded(
                   flex: 3,
                   child: Container(
-                    padding: const EdgeInsets.fromLTRB(12, 2, 12, 5),
-                    color: Colors.black.withOpacity(.8),
+                    padding: const EdgeInsets.fromLTRB(5, 4, 12, 5),
+                    // color: Colors.black.withOpacity(.8),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         RichText(
@@ -73,7 +78,7 @@ class _OwnClubCardState extends State<OwnClubCard> {
                                 Theme.of(context).textTheme.headline6.copyWith(
                                       fontSize: getProportionateScreenWidth(16),
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                                      // color: Colors.white,
                                     ),
                             children: [
                               TextSpan(
@@ -99,7 +104,7 @@ class _OwnClubCardState extends State<OwnClubCard> {
                               child: Container(
                                 child: Text(
                                   widget.club['address'],
-                                  style: TextStyle(color: Colors.white),
+                                  // style: TextStyle(color: Colors.white),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -107,6 +112,11 @@ class _OwnClubCardState extends State<OwnClubCard> {
                             ),
                           ],
                         ),
+                        // Spacer(),
+                        // Divider(
+
+                        //   color: Colors.black,
+                        // )
                       ],
                     ),
                   ),

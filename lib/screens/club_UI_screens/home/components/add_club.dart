@@ -39,6 +39,10 @@ class _AddNewClubState extends State<AddNewClub> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add New Club'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(false),
+        ),
       ),
       body: Container(
         child: loading

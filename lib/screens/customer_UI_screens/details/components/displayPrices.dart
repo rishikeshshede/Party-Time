@@ -43,18 +43,20 @@ class ListofEntryPrices extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: widget.entries
               .map<Widget>(
-                (e) => Row(
-                  children: [
-                    Text(
-                      e.key + " : ",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    Text(
-                      "₹ " + e.value.toString(),
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
+                (e) => e.value.toString() == "Not Available"
+                    ? Container()
+                    : Row(
+                        children: [
+                          Text(
+                            e.key + " : ",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          Text(
+                            "₹ " + e.value.toString(),
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
               )
               .toList(),
         ),

@@ -43,16 +43,16 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
   @override
   void initState() {
     this.checkAuthentification();
-    getMyClubs();
     offset = 0;
     limit = 10;
+    getMyClubs();
     super.initState();
   }
 
   getMyClubs() async {
     String uid = await PersistenceHandler.getter('uid');
     print("club " + uid);
-    var response = await Networking.getData('clubs/get-club', {
+    var response = await Networking.getData('clubs/get-user-club', {
       "userId": uid,
       "limit": limit.toString(),
       "offset": offset.toString(),

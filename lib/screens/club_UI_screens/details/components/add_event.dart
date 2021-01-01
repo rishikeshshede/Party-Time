@@ -28,6 +28,7 @@ class _AddEventState extends State<AddEvent> {
   FocusNode eventNameFocusNode = FocusNode();
   FocusNode descriptionFocusNode = FocusNode();
   FocusNode dateFocusNode = FocusNode();
+  FocusNode timeFocusNode = FocusNode();
   FocusNode capacityFocusNode = FocusNode();
   FocusNode maleCountFocusNode = FocusNode();
   FocusNode femaleCountFocusNode = FocusNode();
@@ -42,6 +43,7 @@ class _AddEventState extends State<AddEvent> {
   String _eventName,
       _description,
       _eventDate,
+      _eventTime,
       _maleCount,
       _femaleCount,
       _coupleCount,
@@ -79,6 +81,10 @@ class _AddEventState extends State<AddEvent> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add New Event'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(false),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -126,6 +132,10 @@ class _AddEventState extends State<AddEvent> {
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: dateFormField(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: timeFormField(),
                       ),
                       Padding(
                         padding: EdgeInsets.all(8.0),
@@ -514,53 +524,71 @@ class _AddEventState extends State<AddEvent> {
     String uid = await PersistenceHandler.getter('uid');
     setState(() {
       maleStagPrices = {
-        'Basic Pass':
-            _maleStagBasicPass != null ? _maleStagBasicPass : 'Not Available',
-        'Cover type 1':
-            _maleCover1Pass != null ? _maleCover1Pass : 'Not Available',
-        'Cover type 2':
-            _maleCover2Pass != null ? _maleCover2Pass : 'Not Available',
-        'Cover type 4':
-            _maleCover4Pass != null ? _maleCover4Pass : 'Not Available',
-        'Cover type 3':
-            _maleCover3Pass != null ? _maleCover3Pass : 'Not Available',
+        'Basic Pass': _maleStagBasicPass == null || _maleStagBasicPass == ''
+            ? 'Not Available'
+            : _maleStagBasicPass,
+        'Cover type 1': _maleCover1Pass == null || _maleCover1Pass == ''
+            ? 'Not Available'
+            : _maleCover1Pass,
+        'Cover type 2': _maleCover2Pass == null || _maleCover2Pass == ''
+            ? 'Not Available'
+            : _maleCover2Pass,
+        'Cover type 3': _maleCover3Pass == null || _maleCover3Pass == ''
+            ? 'Not Available'
+            : _maleCover3Pass,
+        'Cover type 4': _maleCover4Pass == null || _maleCover4Pass == ''
+            ? 'Not Available'
+            : _maleCover4Pass,
       };
       // maleStagPriceString = maleStagPrices.toString();
+      maleStagPriceString = json.encode(maleStagPrices);
       femaleStagPrices = {
-        'Basic Pass': _femaleStagBasicPass != null
-            ? _femaleStagBasicPass
-            : 'Not Available',
-        'Cover type 1':
-            _femaleCover1Pass != null ? _femaleCover1Pass : 'Not Available',
-        'Cover type 2':
-            _femaleCover2Pass != null ? _femaleCover1Pass : 'Not Available',
-        'Cover type 3':
-            _femaleCover3Pass != null ? _femaleCover2Pass : 'Not Available',
-        'Cover type 4':
-            _femaleCover4Pass != null ? _femaleCover3Pass : 'Not Available',
+        'Basic Pass': _femaleStagBasicPass == null || _femaleStagBasicPass == ''
+            ? 'Not Available'
+            : _femaleStagBasicPass,
+        'Cover type 1': _femaleCover1Pass == null || _femaleCover1Pass == ''
+            ? 'Not Available'
+            : _femaleCover1Pass,
+        'Cover type 2': _femaleCover2Pass == null || _femaleCover2Pass == ''
+            ? 'Not Available'
+            : _femaleCover2Pass,
+        'Cover type 3': _femaleCover3Pass == null || _femaleCover3Pass == ''
+            ? 'Not Available'
+            : _femaleCover3Pass,
+        'Cover type 4': _femaleCover4Pass == null || _femaleCover4Pass == ''
+            ? 'Not Available'
+            : _femaleCover4Pass,
       };
       // femaleStagPriceString = femaleStagPrices.toString();
+      femaleStagPriceString = json.encode(femaleStagPrices);
       couplePrices = {
-        'Basic Pass':
-            _coupleBasicPass != null ? _coupleBasicPass : 'Not Available',
-        'Cover type 1':
-            _coupleCover1Pass != null ? _coupleCover1Pass : 'Not Available',
-        'Cover type 2':
-            _coupleCover2Pass != null ? _coupleCover1Pass : 'Not Available',
-        'Cover type 3':
-            _coupleCover3Pass != null ? _coupleCover2Pass : 'Not Available',
-        'Cover type 4':
-            _coupleCover4Pass != null ? _coupleCover3Pass : 'Not Available',
+        'Basic Pass': _coupleBasicPass == null || _coupleBasicPass == ''
+            ? 'Not Available'
+            : _coupleBasicPass,
+        'Cover type 1': _coupleCover1Pass == null || _coupleCover1Pass == ''
+            ? 'Not Available'
+            : _coupleCover1Pass,
+        'Cover type 2': _coupleCover2Pass == null || _coupleCover2Pass == ''
+            ? 'Not Available'
+            : _coupleCover2Pass,
+        'Cover type 3': _coupleCover3Pass == null || _coupleCover3Pass == ''
+            ? 'Not Available'
+            : _coupleCover3Pass,
+        'Cover type 4': _coupleCover4Pass == null || _coupleCover4Pass == ''
+            ? 'Not Available'
+            : _coupleCover4Pass,
       };
       // couplePriceString = couplePrices.toString();
+      couplePriceString = json.encode(couplePrices);
       priceDescription = {
         "maleStag": maleStagPriceString,
         "femaleStag": femaleStagPriceString,
         "couples": couplePriceString,
       };
       // priceDescriptionString = jsonEncode(priceDescription);
-      // priceDescriptionString = json.encode(priceDescription);
-      priceDescriptionString = priceDescription.toString();
+      priceDescriptionString = json.encode(priceDescription);
+      // priceDescriptionString = priceDescription.toString();
+      print(priceDescriptionString);
     });
     try {
       var response = await Networking.post('events/add-event', {
@@ -569,7 +597,7 @@ class _AddEventState extends State<AddEvent> {
         'clubId': widget.club['clubId'],
         'description': _description.trim(),
         'coverPhoto': imageUrl,
-        'priceDescription': priceDescriptionString,
+        'priceDescription': priceDescriptionString.toString(),
         'maleCount': int.parse(_maleCount),
         'femaleCount': int.parse(_femaleCount),
         'coupleCount': int.parse(_coupleCount),
@@ -578,10 +606,11 @@ class _AddEventState extends State<AddEvent> {
         'isPremium': '0',
         'stagWithCouple': 1,
         'date': _eventDate.trim(),
+        'time': _eventTime.trim(),
       });
       print(response);
       if (response['success']) {
-        Navigator.pop(context);
+        Navigator.pop(context, true);
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -631,7 +660,7 @@ class _AddEventState extends State<AddEvent> {
                 children: <Widget>[
                   ListTile(
                       leading: Icon(Icons.photo_library),
-                      title: Text('Select from Gallary'),
+                      title: Text('Select from Gallery'),
                       onTap: () {
                         _imgFromGallery();
                         Navigator.of(context).pop();
@@ -728,6 +757,33 @@ class _AddEventState extends State<AddEvent> {
       ),
       onFieldSubmitted: (value) {
         dateFocusNode.unfocus();
+        FocusScope.of(context).requestFocus(timeFocusNode);
+      },
+    );
+  }
+
+  TextFormField timeFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.number,
+      cursorColor: Colors.black,
+      textInputAction: TextInputAction.go,
+      focusNode: timeFocusNode,
+      onSaved: (newValue) => _eventTime = newValue,
+      validator: (value) {
+        if (value.isEmpty) {
+          return "Enter event time";
+        } else if (value.length > 2) {
+          return "Invalid time";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Time",
+        hintText: "24 hour format",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+      onFieldSubmitted: (value) {
+        timeFocusNode.unfocus();
         FocusScope.of(context).requestFocus(capacityFocusNode);
       },
     );

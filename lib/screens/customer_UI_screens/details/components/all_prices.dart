@@ -60,13 +60,16 @@ class AllPrices extends StatefulWidget {
 }
 
 class _AllPricesState extends State<AllPrices> {
-  static Map prices;
+  static Map prices, maleStag, femaleStag, couples;
   AllPricesString user;
   @override
   void initState() {
-    user = AllPricesString.fromJson(jsonDecode(widget.priceDescription));
-    // prices = json.decode(widget.priceDescription);
-    print(user);
+    // user = AllPricesString.fromJson(jsonDecode(widget.priceDescription));
+    prices = json.decode(widget.priceDescription);
+    print(prices);
+    maleStag = json.decode(prices['maleStag']);
+    femaleStag = json.decode(prices['femaleStag']);
+    couples = json.decode(prices['couples']);
     super.initState();
   }
 
@@ -74,39 +77,10 @@ class _AllPricesState extends State<AllPrices> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(widget.priceDescription)
-        // ListofEntryPrices(widget: prices['couples'], passType: "Couple Pass"),
-        // ListofEntryPrices(
-        //     widget: prices['maleStag'], passType: "Male Stag Pass"),
-        // ListofEntryPrices(
-        //     widget: prices['femaleStag'], passType: "Female Stag Pass"),
+        ListofEntryPrices(widget: couples, passType: "Couple Pass"),
+        ListofEntryPrices(widget: maleStag, passType: "Male Stag Pass"),
+        ListofEntryPrices(widget: femaleStag, passType: "Female Stag Pass"),
       ],
     );
   }
 }
-
-// class DisplayPrices extends StatelessWidget {
-//   const DisplayPrices({
-//     Key key,
-//     @required this.widget,
-//   }) : super(key: key);
-
-//   final AllPrices widget;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         ListofEntryPrices(
-//             widget: widget.priceDescription['couples'],
-//             passType: "Couple Pass"),
-//         ListofEntryPrices(
-//             widget: widget.priceDescription['maleStag'],
-//             passType: "Male Stag Pass"),
-//         ListofEntryPrices(
-//             widget: widget.priceDescription['femaleStag'],
-//             passType: "Female Stag Pass"),
-//       ],
-//     );
-//   }
-// }
