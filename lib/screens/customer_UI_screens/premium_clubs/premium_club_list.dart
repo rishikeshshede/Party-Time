@@ -12,6 +12,15 @@ class PremiumClubsList extends StatefulWidget {
 
 class _PremiumClubsListState extends State<PremiumClubsList> {
   @override
+  void dispose() {
+    super.dispose();
+    // WidgetsBinding.instance.removeObserver(this);
+
+    //this method not called when user press android back button or quit
+    print('dispose');
+  }
+
+  @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(

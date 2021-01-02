@@ -34,6 +34,13 @@ class _ReferAFriendTileState extends State<ReferAFriendTile> {
               fontWeight: FontWeight.bold,
             ),
           ),
+          content: Text(
+            'Send your friend this referral code to get discount in your next booking',
+            style: TextStyle(
+              fontSize: 14,
+              letterSpacing: 0.7,
+            ),
+          ),
           actions: <Widget>[
             Container(
               width: SizeConfig.screenWidth,

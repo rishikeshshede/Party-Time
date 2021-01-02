@@ -1,6 +1,5 @@
 import 'package:bookario/screens/customer_UI_screens/details/details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../components/size_config.dart';
 
@@ -82,31 +81,25 @@ class HomeEventCard extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
-                              children: [
-                                TextSpan(
-                                  text: '  (${eventData['location']})',
-                                  style: TextStyle(
-                                    fontSize: getProportionateScreenWidth(12),
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                )
-                              ],
                             ),
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SvgPicture.asset(
-                                "assets/icons/Location point.svg",
-                                height: getProportionateScreenWidth(13),
-                              ),
-                              const SizedBox(
-                                width: 3,
+                              Flexible(
+                                child: Container(
+                                  child: Text(
+                                    'on ${eventData['date']}',
+                                    style: TextStyle(color: Colors.white),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
                               ),
                               Flexible(
                                 child: Container(
                                   child: Text(
-                                    'temp',
-                                    // eventData['address'],
+                                    'Time: ${eventData['time']}',
                                     style: TextStyle(color: Colors.white),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,

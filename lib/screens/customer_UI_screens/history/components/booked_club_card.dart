@@ -1,24 +1,25 @@
 import 'package:bookario/components/rich_text_row.dart';
-import 'package:bookario/models/History.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../components/size_config.dart';
 
-class BookedClubCard extends StatelessWidget {
-  const BookedClubCard({
+class BookedEventCard extends StatelessWidget {
+  const BookedEventCard({
     Key key,
-    @required this.club,
+    @required this.bookingData,
+    // @required this.clubData,
   }) : super(key: key);
 
-  final History club;
+  final bookingData;
+  // final clubData;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: SizeConfig.screenWidth * .96,
       height: getProportionateScreenWidth(120),
-      child: EachClubCard(club: club),
+      child: EachClubCard(bookingData: bookingData),
     );
   }
 }
@@ -26,10 +27,12 @@ class BookedClubCard extends StatelessWidget {
 class EachClubCard extends StatelessWidget {
   const EachClubCard({
     Key key,
-    @required this.club,
+    @required this.bookingData,
+    // this.clubData,
   }) : super(key: key);
 
-  final History club;
+  final bookingData;
+  // final clubData;
 
   @override
   Widget build(BuildContext context) {
@@ -46,58 +49,56 @@ class EachClubCard extends StatelessWidget {
             children: [
               RichText(
                 text: TextSpan(
-                  text: club.clubName,
+                  text: bookingData['name'],
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: getProportionateScreenWidth(17),
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                   children: [
-                    TextSpan(
-                      text: '  (${club.location})',
-                      style: TextStyle(
-                          fontSize: getProportionateScreenWidth(12),
-                          fontWeight: FontWeight.normal),
-                    )
+                    // TextSpan(
+                    //   text: '  (${clubData['location']})',
+                    //   style: TextStyle(
+                    //       fontSize: getProportionateScreenWidth(12),
+                    //       fontWeight: FontWeight.normal),
+                    // )
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      "assets/icons/Location point.svg",
-                      height: getProportionateScreenWidth(13),
-                    ),
-                    const SizedBox(
-                      width: 3,
-                    ),
-                    Flexible(
-                      child: Container(
-                        child: Text(
-                          club.address,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(vertical: 4),
+              //   child: Row(
+              //     children: [
+              //       SvgPicture.asset(
+              //         "assets/icons/Location point.svg",
+              //         height: getProportionateScreenWidth(13),
+              //       ),
+              //       const SizedBox(
+              //         width: 3,
+              //       ),
+              //       Flexible(
+              //         child: Container(
+              //           child: Text(
+              //             bookingData['address'],
+              //             style: TextStyle(
+              //               color: Colors.black,
+              //               fontWeight: FontWeight.bold,
+              //             ),
+              //             maxLines: 1,
+              //             overflow: TextOverflow.ellipsis,
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               RichTextRow(
-                club: club,
                 textLeft: "Booked on:  ",
-                textRight: club.bookingDate,
+                textRight: bookingData['date'],
               ),
               RichTextRow(
-                club: club,
                 textLeft: "Paid:  ",
-                textRight: club.amountPaid.toString(),
+                textRight: bookingData['bookingAmount'].toString(),
               ),
             ],
           ),

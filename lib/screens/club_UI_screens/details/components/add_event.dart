@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bookario/components/constants.dart';
 import 'package:bookario/components/default_button.dart';
+import 'package:bookario/components/loading.dart';
 import 'package:bookario/components/networking.dart';
 import 'package:bookario/components/persistence_handler.dart';
 import 'package:bookario/components/size_config.dart';
@@ -28,7 +29,8 @@ class _AddEventState extends State<AddEvent> {
   FocusNode eventNameFocusNode = FocusNode();
   FocusNode descriptionFocusNode = FocusNode();
   FocusNode dateFocusNode = FocusNode();
-  FocusNode timeFocusNode = FocusNode();
+  FocusNode timeHrFocusNode = FocusNode();
+  FocusNode timeMinFocusNode = FocusNode();
   FocusNode capacityFocusNode = FocusNode();
   FocusNode maleCountFocusNode = FocusNode();
   FocusNode femaleCountFocusNode = FocusNode();
@@ -43,7 +45,8 @@ class _AddEventState extends State<AddEvent> {
   String _eventName,
       _description,
       _eventDate,
-      _eventTime,
+      _eventTimeHr,
+      _eventTimeMin,
       _maleCount,
       _femaleCount,
       _coupleCount,
@@ -91,404 +94,420 @@ class _AddEventState extends State<AddEvent> {
           child: Column(
             // overflow: Overflow.visible,
             children: <Widget>[
-              Form(
-                key: _formKey,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      SizedBox(height: 20),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            _showPicker(context);
-                          },
-                          child: coverPhoto != null
-                              ? Image.file(
-                                  coverPhoto,
-                                  width: SizeConfig.screenWidth * 0.9,
-                                  height: 150,
-                                  fit: BoxFit.fitHeight,
-                                )
-                              : Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                  ),
-                                  width: SizeConfig.screenWidth * 0.75,
-                                  height: 150,
-                                  child: Center(child: Text('Add cover Photo')),
-                                ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: eventNameFormField(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: eventDescriptionFormField(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: dateFormField(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: timeFormField(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: capacityFormField(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: maleCountFormField(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: femaleCountFormField(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: coupleCountFormField(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 6),
-                        child: Row(
-                          children: [
+              loading
+                  ? Loading()
+                  : Form(
+                      key: _formKey,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            SizedBox(height: 20),
                             Padding(
                               padding: EdgeInsets.all(8.0),
-                              child: Text('M/F Ratio:  '),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 8.0, horizontal: 3),
-                                child: mfmRatioFormField(),
+                              child: GestureDetector(
+                                onTap: () {
+                                  _showPicker(context);
+                                },
+                                child: coverPhoto != null
+                                    ? Image.file(
+                                        coverPhoto,
+                                        width: SizeConfig.screenWidth * 0.9,
+                                        height: 150,
+                                        fit: BoxFit.fitHeight,
+                                      )
+                                    : Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[200],
+                                        ),
+                                        width: SizeConfig.screenWidth * 0.75,
+                                        height: 150,
+                                        child: Center(
+                                            child: Text('Add cover Photo')),
+                                      ),
                               ),
                             ),
-                            Text(' : '),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 8.0, horizontal: 3),
-                                child: mffRatioFormField(),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: eventNameFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: eventDescriptionFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: dateFormField(),
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: timeHrFormField(),
+                                  ),
+                                ),
+                                Text(':'),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: timeMinFormField(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: capacityFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: maleCountFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: femaleCountFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: coupleCountFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 6),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text('M/F Ratio:  '),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 8.0, horizontal: 3),
+                                      child: mfmRatioFormField(),
+                                    ),
+                                  ),
+                                  Text(' : '),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 8.0, horizontal: 3),
+                                      child: mffRatioFormField(),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 6),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 6),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '* Male Stag Entry Prices',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black87),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Basic Pass:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: maleStagBasicPass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Cover Type 1:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: maleStagCover1Pass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Cover Type 2:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: maleStagCover2Pass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Cover Type 3:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: maleStagCover3Pass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Cover Type 4:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: maleStagCover4Pass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 6),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '* Female Stag Entry Prices',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black87),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Basic Pass:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: femaleStagBasicPass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Cover Type 1:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: femaleStagCover1Pass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Cover Type 2:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: femaleStagCover2Pass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Cover Type 3:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: femaleStagCover3Pass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Cover Type 4:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: femaleStagCover4Pass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 6),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '* Couples Entry Prices',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black87),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Basic Pass:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: couplesBasicPass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Cover Type 1:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: coupleCover1Pass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Cover Type 2:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: coupleCover2Pass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Cover Type 3:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: coupleCover3Pass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Cover Type 4:  '),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 3),
+                                          child: coupleCover4Pass(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
-                                '* Male Stag Entry Prices',
+                                'Which entry you want to make available with each couple entry?',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black87),
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Basic Pass:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: maleStagBasicPass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Cover Type 1:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: maleStagCover1Pass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Cover Type 2:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: maleStagCover2Pass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Cover Type 3:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: maleStagCover3Pass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Cover Type 4:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: maleStagCover4Pass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 6),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
                             Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                '* Female Stag Entry Prices',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black87),
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: buildUserTypeRadioButtons(),
                             ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Basic Pass:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: femaleStagBasicPass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Cover Type 1:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: femaleStagCover1Pass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Cover Type 2:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: femaleStagCover2Pass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Cover Type 3:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: femaleStagCover3Pass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Cover Type 4:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: femaleStagCover4Pass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 6),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                            SizedBox(height: 10),
                             Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                '* Couples Entry Prices',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black87),
+                              padding: const EdgeInsets.all(8.0),
+                              child: DefaultButton(
+                                text: "Add",
+                                press: () async {
+                                  if (_formKey.currentState.validate()) {
+                                    _formKey.currentState.save();
+                                    setState(() {
+                                      loading = true;
+                                      uploadImage();
+                                      // Navigator.of(context).pop();
+                                    });
+                                  }
+                                },
                               ),
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Basic Pass:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: couplesBasicPass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Cover Type 1:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: coupleCover1Pass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Cover Type 2:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: coupleCover2Pass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Cover Type 3:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: coupleCover3Pass(),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Cover Type 4:  '),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 3),
-                                    child: coupleCover4Pass(),
-                                  ),
-                                )
-                              ],
-                            ),
+                            )
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'Which entry you want to make available with each couple entry?',
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-                        child: buildUserTypeRadioButtons(),
-                      ),
-                      SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: DefaultButton(
-                          text: "Add",
-                          press: () async {
-                            if (_formKey.currentState.validate()) {
-                              _formKey.currentState.save();
-                              setState(() {
-                                loading = true;
-                                uploadImage();
-                                // Navigator.of(context).pop();
-                              });
-                            }
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+                    ),
             ],
           ),
         ),
@@ -512,7 +531,6 @@ class _AddEventState extends State<AddEvent> {
           .then((response) {
         print(response);
         String imageUrl = response.data["data"]["url"];
-        print(imageUrl);
         addEvent(imageUrl);
       }).catchError((e) => print(e));
     } catch (e) {
@@ -585,10 +603,8 @@ class _AddEventState extends State<AddEvent> {
         "femaleStag": femaleStagPriceString,
         "couples": couplePriceString,
       };
-      // priceDescriptionString = jsonEncode(priceDescription);
       priceDescriptionString = json.encode(priceDescription);
-      // priceDescriptionString = priceDescription.toString();
-      print(priceDescriptionString);
+      // print('${_eventTimeHr.trim()}:${_eventTimeMin.trim()}');
     });
     try {
       var response = await Networking.post('events/add-event', {
@@ -606,7 +622,7 @@ class _AddEventState extends State<AddEvent> {
         'isPremium': '0',
         'stagWithCouple': 1,
         'date': _eventDate.trim(),
-        'time': _eventTime.trim(),
+        'time': '${_eventTimeHr.trim()}:${_eventTimeMin.trim()}',
       });
       print(response);
       if (response['success']) {
@@ -757,18 +773,18 @@ class _AddEventState extends State<AddEvent> {
       ),
       onFieldSubmitted: (value) {
         dateFocusNode.unfocus();
-        FocusScope.of(context).requestFocus(timeFocusNode);
+        FocusScope.of(context).requestFocus(timeHrFocusNode);
       },
     );
   }
 
-  TextFormField timeFormField() {
+  TextFormField timeHrFormField() {
     return TextFormField(
       keyboardType: TextInputType.number,
       cursorColor: Colors.black,
       textInputAction: TextInputAction.go,
-      focusNode: timeFocusNode,
-      onSaved: (newValue) => _eventTime = newValue,
+      focusNode: timeHrFocusNode,
+      onSaved: (newValue) => _eventTimeHr = newValue,
       validator: (value) {
         if (value.isEmpty) {
           return "Enter event time";
@@ -778,12 +794,39 @@ class _AddEventState extends State<AddEvent> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Time",
-        hintText: "24 hour format",
+        labelText: "Time (24 hour format)",
+        hintText: "eg: 19 (Hour)",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       onFieldSubmitted: (value) {
-        timeFocusNode.unfocus();
+        timeHrFocusNode.unfocus();
+        FocusScope.of(context).requestFocus(timeMinFocusNode);
+      },
+    );
+  }
+
+  TextFormField timeMinFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.number,
+      cursorColor: Colors.black,
+      textInputAction: TextInputAction.go,
+      focusNode: timeMinFocusNode,
+      onSaved: (newValue) => _eventTimeMin = newValue,
+      validator: (value) {
+        if (value.isEmpty) {
+          return "Cannot be empty";
+        } else if (value.length > 2) {
+          return "Invalid time";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "(Minutes)",
+        hintText: "eg: 30",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+      onFieldSubmitted: (value) {
+        timeMinFocusNode.unfocus();
         FocusScope.of(context).requestFocus(capacityFocusNode);
       },
     );

@@ -1,7 +1,5 @@
 import 'package:bookario/components/constants.dart';
 import 'package:bookario/components/hoveringBackButton.dart';
-import 'package:bookario/models/Clubs.dart';
-import 'package:bookario/models/Events.dart';
 import 'package:bookario/screens/club_UI_screens/eventDetails/components/pie_chart_view.dart';
 import 'package:bookario/screens/club_UI_screens/eventDetails/components/row_display.dart';
 import 'package:bookario/screens/customer_UI_screens/details/components/all_prices.dart';
@@ -48,7 +46,6 @@ class Body extends StatelessWidget {
                       SizedBox(
                         height: 12,
                       ),
-                      // TODO: Display remaining stags here
                       Container(
                         alignment: Alignment.bottomLeft,
                         child: Padding(
@@ -64,6 +61,7 @@ class Body extends StatelessWidget {
                       ),
                       AllPrices(priceDescription: event['priceDescription']),
                       ChartView(
+                        // TODO: these values will be tickets booked values
                         maleStag: event['maleCount'].toDouble(),
                         femaleStag: event['femaleCount'].toDouble(),
                         couples: event['coupleCount'].toDouble(),
@@ -82,6 +80,7 @@ class Body extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 RowDisplay(
+                                  // TODO: this number will be total tickets booked value
                                   icon: "assets/icons/group.svg",
                                   title: "Total Bookings :  ",
                                   value: (event['maleCount'] +
@@ -89,13 +88,13 @@ class Body extends StatelessWidget {
                                           event['coupleCount'])
                                       .toString(),
                                 ),
-                                RowDisplay(
-                                  icon: "assets/icons/m-f.svg",
-                                  title: "Male / Female : ",
-                                  value: event['maleCount'].toString() +
-                                      " / " +
-                                      event['femaleCount'].toString(),
-                                ),
+                                // RowDisplay(
+                                //   icon: "assets/icons/m-f.svg",
+                                //   title: "Male / Female : ",
+                                //   value: event['maleCount'].toString() +
+                                //       " / " +
+                                //       event['femaleCount'].toString(),
+                                // ),
                               ],
                             ),
                             const SizedBox(

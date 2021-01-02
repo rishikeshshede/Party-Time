@@ -1,17 +1,19 @@
+import 'package:bookario/screens/customer_UI_screens/details/components/all_prices.dart';
 import 'package:bookario/screens/customer_UI_screens/details/components/description_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../components/constants.dart';
 import '../../../../components/size_config.dart';
 
 class EventDescription extends StatelessWidget {
   const EventDescription({
     Key key,
     @required this.event,
+    this.clubData,
   }) : super(key: key);
 
   final event;
+  final clubData;
   // final GestureTapCallback pressOnSeeMore;
 
   @override
@@ -41,11 +43,11 @@ class EventDescription extends StatelessWidget {
               ),
               Flexible(
                 child: Container(
-                  child: Text(
-                    'temp',
-                    // event['address'],
+                  padding: EdgeInsets.only(top: 15),
+                  child: SelectableText(
+                    clubData['address'],
                     maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                    // overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),
@@ -53,40 +55,64 @@ class EventDescription extends StatelessWidget {
           ),
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Flexible(
-              child: Container(
-                child: Text(
-                  "Directions",
-                  style: TextStyle(
-                    color: kSecondaryColor,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 5,
-            ),
             SvgPicture.asset(
-              "assets/icons/directions.svg",
-              height: getProportionateScreenWidth(12),
-              color: kSecondaryColor,
+              "assets/icons/clock.svg",
+              height: getProportionateScreenWidth(14),
+            ),
+            Text(
+              ' ${event['time']}',
             ),
           ],
         ),
+        // Row(
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   children: [
+        //     Flexible(
+        //       child: Container(
+        //         child: Text(
+        //           "Directions",
+        //           style: TextStyle(
+        //             color: kSecondaryColor,
+        //             decoration: TextDecoration.underline,
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //     const SizedBox(
+        //       width: 5,
+        //     ),
+        //     SvgPicture.asset(
+        //       "assets/icons/directions.svg",
+        //       height: getProportionateScreenWidth(12),
+        //       color: kSecondaryColor,
+        //     ),
+        //   ],
+        // ),
         Padding(
           padding: EdgeInsets.only(
             top: 25,
           ),
           child: Text(
-            "About us",
+            "About the event",
             style: TextStyle(fontSize: 18, color: Colors.black87),
           ),
         ),
         DescriptionTextWidget(text: event['description']),
-        // TODO: fetch club data using clubId from event['clubId'] and show prices here
+        Padding(
+          padding: EdgeInsets.only(
+            top: 25,
+          ),
+          child: Text(
+            "Availabe Passes:",
+            style: TextStyle(
+                fontSize: 18,
+                color: Colors.black87,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        AllPrices(priceDescription: event['priceDescription']),
       ],
     );
   }

@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/size_config.dart';
 
-class EventDescription extends StatelessWidget {
+class EventDescription extends StatefulWidget {
   const EventDescription({
     Key key,
     @required this.event,
@@ -16,28 +16,71 @@ class EventDescription extends StatelessWidget {
   final GestureTapCallback pressOnSeeMore;
 
   @override
+  _EventDescriptionState createState() => _EventDescriptionState();
+}
+
+class _EventDescriptionState extends State<EventDescription> {
+  // int time;
+  // String amPm = 'Pm';
+  // @override
+  // void initState() {
+  //   time = int.parse(widget.event['time']);
+  //   if (time > 12) {
+  //     setState(() {
+  //       time -= 12;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       amPm = 'Am';
+  //     });
+  //   }
+  //   super.initState();
+  // }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          event['name'],
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              .copyWith(fontWeight: FontWeight.bold),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.event['name'],
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                margin: EdgeInsets.only(right: 20, top: 0),
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.grey[350],
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: SvgPicture.asset(
+                  'assets/icons/Camera Icon.svg',
+                  height: getProportionateScreenWidth(20),
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ],
         ),
         Padding(
           padding: EdgeInsets.symmetric(
             vertical: getProportionateScreenWidth(6),
           ),
           child: Text(
-            event['date'],
+            widget.event['date'],
             style: TextStyle(color: Colors.black87),
           ),
         ),
         Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -50,13 +93,11 @@ class EventDescription extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  // event['eventtime'],
-                  '7 pm',
-                  maxLines: 3,
-                ),
+                    // '${time.toString()} $amPm',
+                    '${widget.event['time']}'),
               ],
             ),
-            Spacer(),
+            // Spacer(),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -69,13 +110,13 @@ class EventDescription extends StatelessWidget {
                 ),
                 RichText(
                   text: TextSpan(
-                    text: "Male / Female : ",
+                    text: "Male : Female : ",
                     style: TextStyle(color: kPrimaryColor),
                     children: [
                       TextSpan(
-                        text: event['maleCount'].toString() +
-                            " / " +
-                            event['femaleCount'].toString(),
+                        text: widget.event['mfRatio'].toString(),
+                        // + " / " +
+                        // event['femaleCount'].toString(),
                         style: TextStyle(color: kSecondaryColor),
                       )
                     ],
@@ -83,7 +124,7 @@ class EventDescription extends StatelessWidget {
                 ),
               ],
             ),
-            Spacer(),
+            // Spacer(),
           ],
         ),
         Padding(
@@ -95,7 +136,7 @@ class EventDescription extends StatelessWidget {
             style: TextStyle(fontSize: 18, color: Colors.black87),
           ),
         ),
-        DescriptionTextWidget(text: event['description']),
+        DescriptionTextWidget(text: widget.event['description']),
       ],
     );
   }

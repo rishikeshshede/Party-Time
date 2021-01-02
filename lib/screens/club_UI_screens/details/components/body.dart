@@ -50,7 +50,7 @@ class _BodyState extends State<Body> {
           loadingMore = false;
           eventData = response['data'];
         });
-        print(eventData);
+        // print(eventData);
       } else {
         setState(() {
           eventLoading = false;
@@ -71,6 +71,7 @@ class _BodyState extends State<Body> {
             child: Column(
               children: [
                 CustomAppBar(
+                    clubId: widget.club['clubId'],
                     title: widget.club['name'],
                     location: widget.club['location']),
                 ClubDescription(club: widget.club),
@@ -93,7 +94,7 @@ class _BodyState extends State<Body> {
                             bottom: 18,
                           ),
                           child: Text(
-                            "Upcoming events",
+                            "Your upcoming events",
                             style:
                                 TextStyle(fontSize: 18, color: Colors.black87),
                           ),

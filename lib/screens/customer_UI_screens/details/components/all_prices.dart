@@ -66,7 +66,7 @@ class _AllPricesState extends State<AllPrices> {
   void initState() {
     // user = AllPricesString.fromJson(jsonDecode(widget.priceDescription));
     prices = json.decode(widget.priceDescription);
-    print(prices);
+    // print(prices);
     maleStag = json.decode(prices['maleStag']);
     femaleStag = json.decode(prices['femaleStag']);
     couples = json.decode(prices['couples']);

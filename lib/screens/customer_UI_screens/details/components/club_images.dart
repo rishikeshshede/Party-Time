@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:bookario/models/Clubs.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class ClubImage extends StatefulWidget {
   const ClubImage({

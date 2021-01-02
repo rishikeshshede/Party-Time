@@ -11,7 +11,7 @@ class Body extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: getProportionateScreenHeight(5)),
-            Clubs(),
+            Events(),
             SizedBox(height: getProportionateScreenWidth(10)),
           ],
         ),

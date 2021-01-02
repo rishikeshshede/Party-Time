@@ -1,11 +1,13 @@
+import 'package:bookario/screens/club_UI_screens/details/components/edit_club_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends PreferredSize {
   final String title;
   final String location;
+  final clubId;
 
-  CustomAppBar({@required this.title, @required this.location});
+  CustomAppBar({this.clubId, @required this.title, @required this.location});
 
   @override
   // AppBar().preferredSize.height provide us the height that appy on our app bar
@@ -27,7 +29,11 @@ class CustomAppBar extends PreferredSize {
             Spacer(),
             ActionButton(
               icon: "assets/icons/edit.svg",
-              press: () {},
+              press: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EditClubDetails(clubId: clubId)),
+              ),
             ),
           ],
         ),

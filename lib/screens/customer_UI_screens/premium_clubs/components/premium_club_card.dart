@@ -1,26 +1,24 @@
 import 'package:bookario/screens/customer_UI_screens/details/details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:bookario/models/Clubs.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../components/size_config.dart';
 
-class PremiumClubCard extends StatelessWidget {
-  const PremiumClubCard({
+class PremiumEventCard extends StatelessWidget {
+  const PremiumEventCard({
     Key key,
-    @required this.club,
+    @required this.event,
   }) : super(key: key);
 
-  final Club club;
+  final event;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: () => Navigator.pushNamed(
-      //   context,
-      //   DetailsScreen.routeName,
-      //   arguments: ClubDetailsArguments(club: club),
-      // ),
+      onTap: () => Navigator.pushNamed(
+        context,
+        DetailsScreen.routeName,
+        arguments: EventDetailsArguments(event: event),
+      ),
       child: Container(
         margin: EdgeInsets.only(bottom: 5, right: 2, left: 2),
         child: ClipRRect(
@@ -41,9 +39,9 @@ class PremiumClubCard extends StatelessWidget {
                     ),
                   ),
                   child: Hero(
-                    tag: club.id.toString(),
-                    child: Image.asset(
-                      club.images[0],
+                    tag: event['eventId'],
+                    child: Image.network(
+                      event['image'],
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -73,45 +71,70 @@ class PremiumClubCard extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           text: TextSpan(
-                            text: club.clubName,
+                            text: event['name'],
                             style:
                                 Theme.of(context).textTheme.headline6.copyWith(
                                       fontSize: getProportionateScreenWidth(16),
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
-                            children: [
-                              TextSpan(
-                                text: '  (${club.location})',
-                                style: TextStyle(
-                                  fontSize: getProportionateScreenWidth(12),
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ],
+                            // children: [
+                            //   TextSpan(
+                            //     text: '  (${event['location']})',
+                            //     style: TextStyle(
+                            //       fontSize: getProportionateScreenWidth(12),
+                            //       fontWeight: FontWeight.normal,
+                            //     ),
+                            //   ),
+                            // ],
                           ),
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SvgPicture.asset(
-                              "assets/icons/Location point.svg",
-                              height: getProportionateScreenWidth(13),
-                            ),
-                            const SizedBox(
-                              width: 3,
-                            ),
                             Flexible(
                               child: Container(
                                 child: Text(
-                                  club.address,
+                                  'on ${event['date']}',
                                   style: TextStyle(color: Colors.white),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ),
+                            // Flexible(
+                            //   child: Container(
+                            //     child: Text(
+                            //       'Time: ${event['time']}',
+                            //       style: TextStyle(color: Colors.white),
+                            //       maxLines: 1,
+                            //       overflow: TextOverflow.ellipsis,
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
+                        // Row(
+                        //   children: [
+                        //     SvgPicture.asset(
+                        //       "assets/icons/Location point.svg",
+                        //       height: getProportionateScreenWidth(13),
+                        //     ),
+                        //     const SizedBox(
+                        //       width: 3,
+                        //     ),
+                        //     Flexible(
+                        //       child: Container(
+                        //         child: Text(
+                        //           club.address,
+                        //           style: TextStyle(color: Colors.white),
+                        //           maxLines: 1,
+                        //           overflow: TextOverflow.ellipsis,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),

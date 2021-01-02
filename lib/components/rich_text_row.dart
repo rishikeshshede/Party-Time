@@ -1,16 +1,13 @@
-import 'package:bookario/models/History.dart';
 import 'package:bookario/components/size_config.dart';
 import 'package:flutter/material.dart';
 
 class RichTextRow extends StatelessWidget {
   const RichTextRow({
     Key key,
-    @required this.club,
     @required this.textLeft,
     @required this.textRight,
   }) : super(key: key);
 
-  final History club;
   final String textLeft, textRight;
 
   @override
