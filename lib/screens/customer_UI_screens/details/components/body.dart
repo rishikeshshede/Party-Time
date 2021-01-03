@@ -2,6 +2,7 @@ import 'package:bookario/components/default_button.dart';
 import 'package:bookario/components/hoveringBackButton.dart';
 import 'package:bookario/components/loading.dart';
 import 'package:bookario/components/networking.dart';
+import 'package:bookario/screens/customer_UI_screens/bookings/bookPass.dart';
 import 'package:flutter/material.dart';
 import 'package:bookario/components/size_config.dart';
 
@@ -127,7 +128,13 @@ class _BodyState extends State<Body> {
                 ),
                 child: DefaultButton(
                   text: "Get Pass",
-                  press: () => {},
+                  press: () => {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                BookPass(event: widget.event)))
+                  },
                 ),
               ),
             ),

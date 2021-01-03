@@ -1,6 +1,5 @@
 import 'package:bookario/components/default_button.dart';
 import 'package:bookario/components/hoveringBackButton.dart';
-import 'package:bookario/models/Clubs.dart';
 import 'package:bookario/models/Events.dart';
 import 'package:bookario/screens/customer_UI_screens/details/components/all_prices.dart';
 import 'package:bookario/screens/customer_UI_screens/eventDetails/components/event_description.dart';
