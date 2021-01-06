@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:bookario/components/constants.dart';
-import 'package:bookario/screens/customer_UI_screens/bookings/bookingCardList.dart';
+import 'package:bookario/screens/customer_UI_screens/bookings/makePayment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -15,16 +15,16 @@ class BookPass extends StatefulWidget {
 
 class _BookPassState extends State<BookPass> {
   GlobalKey<FormState> _bookingFormKey = GlobalKey<FormState>();
-  bool booked = false; // TODO: change to false
+  bool booked = false;
   bool addClicked = false, isPassCoupleType = false;
   final List<Map> bookings = [];
   final List<String> errors = [];
   static Map prices, maleStag, femaleStag, couples;
   String bookingByName,
+      gender,
       name1,
       age1,
       _gender1 = "Male",
-      _passtype1 = "None",
       name2,
       age2,
       _gender2 = "Female",
@@ -37,8 +37,10 @@ class _BookPassState extends State<BookPass> {
       passtype,
       passCat = "Male Stag";
 
+  int totalPrice = 0;
+
   void addStagBooking(String name) {
-    print(name1);
+    // print(name1);
     setState(() {
       bookings.add({
         'passCategory': passCat,
@@ -46,7 +48,7 @@ class _BookPassState extends State<BookPass> {
         'price': price1,
         'name': name,
         'age': age1,
-        'gender': _gender1,
+        'gender': gender,
       });
     });
   }
@@ -320,7 +322,9 @@ class _BookPassState extends State<BookPass> {
                                                               e.key.toString();
                                                           price1 = e.value
                                                               .toString();
-                                                          print(price1);
+                                                          gender = "Male";
+                                                          // print(price1);
+                                                          // print(gender);
                                                           addClicked = true;
                                                         });
                                                       })
@@ -399,7 +403,9 @@ class _BookPassState extends State<BookPass> {
                                                               e.key.toString();
                                                           price1 = e.value
                                                               .toString();
-                                                          print(price1);
+                                                          gender = "Female";
+                                                          // print(price1);
+                                                          // print(gender);
                                                           addClicked = true;
                                                         });
                                                       })
@@ -439,7 +445,8 @@ class _BookPassState extends State<BookPass> {
                                               SizedBox(height: 5),
                                               Row(
                                                 children: [
-                                                  age1FormField(),
+                                                  Expanded(
+                                                      child: age1FormField()),
                                                   SizedBox(width: 5),
                                                   gender1FormField()
                                                 ],
@@ -492,6 +499,8 @@ class _BookPassState extends State<BookPass> {
                                                       if (!booked)
                                                         booked = !booked;
                                                       addClicked = false;
+                                                      totalPrice +=
+                                                          int.parse(price1);
                                                     });
                                                   }
                                                 },
@@ -531,13 +540,7 @@ class _BookPassState extends State<BookPass> {
                                                   ? name1FormField()
                                                   : bookByNameFormField(),
                                               SizedBox(height: 5),
-                                              Row(
-                                                children: [
-                                                  age1FormField(),
-                                                  SizedBox(width: 5),
-                                                  gender1FormField()
-                                                ],
-                                              ),
+                                              age1FormField(),
                                               SizedBox(height: 5),
                                             ],
                                           ),
@@ -576,6 +579,8 @@ class _BookPassState extends State<BookPass> {
                                                       if (!booked)
                                                         booked = !booked;
                                                       addClicked = false;
+                                                      totalPrice +=
+                                                          int.parse(price1);
                                                     });
                                                   }
                                                 },
@@ -601,7 +606,286 @@ class _BookPassState extends State<BookPass> {
                     booked && bookings.length > 0
                         ? Container(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: BookingCardList(bookings: bookings),
+                            child: Column(
+                              children: List.generate(
+                                bookings.length,
+                                (index) => Dismissible(
+                                  key: Key(bookings[index].toString()),
+                                  onDismissed: (direction) {
+                                    // print(index);
+                                    // print(bookings[index].toString());
+                                    setState(() {
+                                      totalPrice -=
+                                          int.parse(bookings[index]['price']);
+                                    });
+                                    bookings.removeAt(index);
+                                    String action = "discarded";
+                                    Scaffold.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text("booking $action"),
+                                      ),
+                                    );
+                                  },
+                                  direction: DismissDirection.endToStart,
+                                  background: Container(
+                                    color: Colors.red,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    alignment: AlignmentDirectional.centerEnd,
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 6),
+                                    margin: EdgeInsets.symmetric(vertical: 2),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.black54),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(3)),
+                                    ),
+                                    child: ClipRRect(
+                                      child: bookings[index]['passCategory'] ==
+                                              "Couples"
+                                          ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          'Couple\'s Entry, ',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        Text(
+                                                          bookings[index]
+                                                              ['passType'],
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        Text(
+                                                          ', ₹${bookings[index]['price']}',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  Colors.black),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          bookings[index]
+                                                                  ['maleName'] +
+                                                              ',',
+                                                          style: TextStyle(
+                                                              fontSize: 17),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                        Text(
+                                                          bookings[index][
+                                                                  'maleGender'] +
+                                                              ',',
+                                                          style: TextStyle(
+                                                              fontSize: 17),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                        Text(
+                                                          bookings[index]
+                                                              ['maleAge'],
+                                                          style: TextStyle(
+                                                              fontSize: 17),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          bookings[index][
+                                                                  'femaleName'] +
+                                                              ',',
+                                                          style: TextStyle(
+                                                              fontSize: 17),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                        Text(
+                                                          bookings[index][
+                                                                  'femaleGender'] +
+                                                              ',',
+                                                          style: TextStyle(
+                                                              fontSize: 17),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                        Text(
+                                                          bookings[index]
+                                                              ['femaleAge'],
+                                                          style: TextStyle(
+                                                              fontSize: 17),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return AlertDialog(
+                                                            title: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .arrow_back,
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  size: 15,
+                                                                ),
+                                                                Text(
+                                                                  ' Swipe left to discard this booking',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          14),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        });
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red,
+                                                  ),
+                                                )
+                                              ],
+                                            )
+                                          : Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          'Single Entry, ',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        Text(
+                                                          bookings[index]
+                                                              ['passType'],
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        Text(
+                                                          ', ₹${bookings[index]['price']}',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  Colors.black),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          bookings[index]
+                                                                  ['name'] +
+                                                              ',',
+                                                          style: TextStyle(
+                                                              fontSize: 17),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                        Text(
+                                                          bookings[index]
+                                                                  ['gender'] +
+                                                              ',',
+                                                          style: TextStyle(
+                                                              fontSize: 17),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                        Text(
+                                                          bookings[index]
+                                                              ['age'],
+                                                          style: TextStyle(
+                                                              fontSize: 17),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return AlertDialog(
+                                                            title: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .arrow_back,
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  size: 15,
+                                                                ),
+                                                                Text(
+                                                                  ' Swipe left to discard this booking',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          14),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        });
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           )
                         : Text('You have not added any bookings yet'),
                     SizedBox(height: 50)
@@ -617,9 +901,25 @@ class _BookPassState extends State<BookPass> {
                         height: 50,
                         padding: EdgeInsets.all(5),
                         child: FlatButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            bool paymentSuccess = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MakePayment(
+                                    event: widget.event,
+                                    totalAmount: totalPrice),
+                              ),
+                            );
+                            if (!paymentSuccess) {
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Payment error, try again."),
+                                ),
+                              );
+                            }
+                          },
                           child: Text(
-                            'Proceed to pay',
+                            'Proceed to pay ₹${totalPrice.toString()}',
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.white,
@@ -693,30 +993,28 @@ class _BookPassState extends State<BookPass> {
     );
   }
 
-  Expanded age1FormField() {
-    return Expanded(
-      child: TextFormField(
-        keyboardType: TextInputType.number,
-        cursorColor: Colors.black,
-        textInputAction: TextInputAction.go,
-        onSaved: (newValue) => age1 = newValue,
-        onChanged: (value) {
-          if (value.isNotEmpty) {
-            removeError(error: "Please Enter age");
-          }
-          return null;
-        },
-        validator: (value) {
-          if (value.isEmpty) {
-            addError(error: "Please Enter age");
-            return "";
-          }
-          return null;
-        },
-        decoration: InputDecoration(
-          labelText: "Age",
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-        ),
+  TextFormField age1FormField() {
+    return TextFormField(
+      keyboardType: TextInputType.number,
+      cursorColor: Colors.black,
+      textInputAction: TextInputAction.go,
+      onSaved: (newValue) => age1 = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: "Please Enter age");
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: "Please Enter age");
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Age",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
     );
   }

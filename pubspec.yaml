@@ -43,6 +43,7 @@ dependencies:
   clipboard: ^0.1.2+8
   random_string: ^2.1.0
   image_picker: ^0.6.7+14
+  razorpay_flutter: ^1.2.1
 
 dev_dependencies:
   flutter_test:

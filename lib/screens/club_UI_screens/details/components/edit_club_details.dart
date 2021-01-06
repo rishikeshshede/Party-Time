@@ -17,6 +17,7 @@ class _EditClubDetailsState extends State<EditClubDetails> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool loading;
   final List<String> errors = [];
+  String photoUrl;
 
   FocusNode nameFocusNode = FocusNode();
   FocusNode locationFocusNode = FocusNode();
@@ -51,8 +52,11 @@ class _EditClubDetailsState extends State<EditClubDetails> {
         locaitonEditingController.text = data['location'].toString();
         addressEditingController.text = data['address'];
         descriptionEditingController.text = data['description'];
+        photoUrl = data[
+            'imageLink']; // TODO: solve the imageURL undefined error while updating club info
         loading = false;
       });
+      print(photoUrl);
     }
   }
 
@@ -181,6 +185,7 @@ class _EditClubDetailsState extends State<EditClubDetails> {
                                       .text
                                       .trim()
                                       .toString(),
+                                  'imageLink': photoUrl,
                                 });
                                 print(response);
                                 if (response['success']) {

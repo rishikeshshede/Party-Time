@@ -20,37 +20,35 @@ class _BodyState extends State<Body> {
   bool hasEvents = false,
       eventLoading = true,
       loadMore = false,
-      loadingMore = false;
+      loadingMore = false,
+      clubDataLoading = true;
   int offset, limit;
-  List<dynamic> eventData;
+  List<dynamic> eventData, clubData;
 
   @override
   void initState() {
     offset = 0;
     limit = 10;
+    // eventData = widget.club;
+    getClubDetails();
     getMyEvents();
     super.initState();
   }
 
   getMyEvents() async {
-    // String clubId = await PersistenceHandler.getter('clubId');
-    // print('ClubID: $clubId');
     try {
       var response = await Networking.getData('events/get-club-event', {
         "clubId": widget.club['clubId'].toString(),
         "limit": limit.toString(),
         "offset": offset.toString(),
       });
-      // print(response['data']);
       if (response['data'].length > 0) {
         setState(() {
           hasEvents = true;
-          // eventLoading = false;
           loadMore = true;
           loadingMore = false;
           eventData = response['data'];
         });
-        // print(eventData);
       } else {
         setState(() {
           eventLoading = false;
@@ -62,89 +60,107 @@ class _BodyState extends State<Body> {
     }
   }
 
+  getClubDetails() async {
+    try {
+      var response = await Networking.getData('clubs/get-club-details', {
+        "clubId": widget.club['clubId'].toString(),
+      });
+      if (response['data'].length > 0) {
+        setState(() {
+          clubData = response['data'];
+          clubDataLoading = false;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
+      child: clubDataLoading
+          ? Loading()
+          : Stack(
               children: [
-                CustomAppBar(
-                    clubId: widget.club['clubId'],
-                    title: widget.club['name'],
-                    location: widget.club['location']),
-                ClubDescription(club: widget.club),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  width: double.infinity,
-                  color: Colors.white,
+                SingleChildScrollView(
                   child: Column(
                     children: [
-                      divider(),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      CustomAppBar(
+                          clubId: widget.club['clubId'],
+                          title: clubData[0]['name'],
+                          location: clubData[0]['location']),
+                      ClubDescription(club: clubData[0]),
                       Container(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 6,
-                            bottom: 18,
-                          ),
-                          child: Text(
-                            "Your upcoming events",
-                            style:
-                                TextStyle(fontSize: 18, color: Colors.black87),
-                          ),
+                        margin: const EdgeInsets.only(top: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        width: double.infinity,
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            divider(),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  top: 6,
+                                  bottom: 18,
+                                ),
+                                child: Text(
+                                  "Your upcoming events",
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.black87),
+                                ),
+                              ),
+                            ),
+                            hasEvents
+                                ? showEvents(context)
+                                : eventLoading
+                                    ? Loading()
+                                    : Container(
+                                        alignment: Alignment.center,
+                                        child: Text('No Events.'),
+                                      ),
+                            SizedBox(height: 80),
+                          ],
                         ),
                       ),
-                      hasEvents
-                          ? showEvents(context)
-                          : eventLoading
-                              ? Loading()
-                              : Container(
-                                  alignment: Alignment.center,
-                                  child: Text('No Events.'),
-                                ),
-                      SizedBox(height: 80),
                     ],
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    color: Colors.white70,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: SizeConfig.screenWidth * 0.15,
+                        right: SizeConfig.screenWidth * 0.15,
+                        bottom: getProportionateScreenWidth(10),
+                        top: getProportionateScreenWidth(2),
+                      ),
+                      child: DefaultButton(
+                        text: "Add Event",
+                        press: () async {
+                          bool eventAdded = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddEvent(club: clubData[0]),
+                            ),
+                          );
+                          if (eventAdded) {
+                            getMyEvents();
+                          }
+                        },
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              color: Colors.white70,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: SizeConfig.screenWidth * 0.15,
-                  right: SizeConfig.screenWidth * 0.15,
-                  bottom: getProportionateScreenWidth(10),
-                  top: getProportionateScreenWidth(2),
-                ),
-                child: DefaultButton(
-                  text: "Add Event",
-                  press: () async {
-                    bool eventAdded = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddEvent(club: widget.club),
-                      ),
-                    );
-                    if (eventAdded) {
-                      getMyEvents();
-                    }
-                  },
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 

@@ -22,6 +22,7 @@ class Body extends StatelessWidget {
           divider(),
           LogoutTile(),
           divider(),
+          divider(),
         ],
       ),
     );
