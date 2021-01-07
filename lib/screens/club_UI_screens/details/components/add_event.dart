@@ -68,8 +68,7 @@ class _AddEventState extends State<AddEvent> {
       _coupleCover2Pass,
       _coupleCover3Pass,
       _coupleCover4Pass,
-      _availableWithCouple = 'none',
-      _imageUrl = '';
+      _availableWithCouple = 'none';
   var priceDescriptionString,
       maleStagPriceString,
       femaleStagPriceString,
@@ -513,11 +512,10 @@ class _AddEventState extends State<AddEvent> {
                                         _coupleBasicPass == '') {
                                       showErrors(context,
                                           "Enter at least 1 Basic Pass price.");
-                                    } else if (_imageUrl == '') {
+                                    } else if (coverPhoto == null) {
                                       showErrors(context,
                                           "Upload an image for your event.");
                                     } else {
-                                      print('looks good!');
                                       setState(() {
                                         loading = true;
                                         uploadImage();
@@ -640,8 +638,8 @@ class _AddEventState extends State<AddEvent> {
           .post("http://bookario.com/apis/file/upload", data: formData)
           .then((response) {
         print(response);
-        _imageUrl = response.data["data"]["url"];
-        addEvent(_imageUrl);
+        String imageUrl = response.data["data"]["url"];
+        addEvent(imageUrl);
       }).catchError((e) => print(e));
     } catch (e) {
       print("Error uploading image: $e");
