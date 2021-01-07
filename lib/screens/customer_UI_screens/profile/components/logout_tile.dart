@@ -1,5 +1,5 @@
 import 'package:bookario/components/persistence_handler.dart';
-import 'package:bookario/screens/splash/splash_screen.dart';
+import 'package:bookario/screens/sign_in/sign_in_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,7 +23,7 @@ class _LogoutTileState extends State<LogoutTile> {
       if (user == null) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SplashScreen()),
+          MaterialPageRoute(builder: (context) => SignInScreen()),
         );
       }
     });

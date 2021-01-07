@@ -1,11 +1,21 @@
 import 'package:bookario/components/bottom_navbar.dart';
+import 'package:bookario/components/networking.dart';
+import 'package:bookario/components/persistence_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class MakePayment extends StatefulWidget {
-  final int totalAmount;
-  final event;
-  const MakePayment({Key key, this.totalAmount, this.event}) : super(key: key);
+  final int totalAmount, maleCount, femaleCount, couplesCount;
+  final event, bookings;
+  const MakePayment(
+      {Key key,
+      this.totalAmount,
+      this.event,
+      this.bookings,
+      this.maleCount,
+      this.femaleCount,
+      this.couplesCount})
+      : super(key: key);
 
   @override
   _MakePaymentState createState() => _MakePaymentState();
@@ -13,6 +23,8 @@ class MakePayment extends StatefulWidget {
 
 class _MakePaymentState extends State<MakePayment> {
   Razorpay razorpay;
+  String uid, date;
+
   @override
   void initState() {
     super.initState();
@@ -20,6 +32,7 @@ class _MakePaymentState extends State<MakePayment> {
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+    getUid();
     openCheckOut();
   }
 
@@ -46,21 +59,52 @@ class _MakePaymentState extends State<MakePayment> {
     }
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  void getUid() async {
+    String userId = await PersistenceHandler.getter('uid');
+    print('uid is: $userId');
+    DateTime now = new DateTime.now();
+    date = new DateTime(now.year, now.month, now.day).toString();
+    setState(() {
+      uid = userId;
+      date = date.replaceAll('-', '/').substring(0, 10);
+    });
+    print('date: $date');
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     print('payment successful');
-    // TODO: send 'await' data to server
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => BottomCustomNavBar(),
-      ),
-    );
+    try {
+      var response = await Networking.post('bookings/add-booking', {
+        'name': widget.bookings[0]['name'],
+        'userId': uid,
+        'clubId': widget.event['clubId'].toString(),
+        'eventId': widget.event['eventId'].toString(),
+        'bookingDetails': widget.bookings.toString(),
+        'amountPaid': widget.totalAmount.toString(),
+        'bookingDate': date,
+        'maleCount': widget.maleCount.toString(),
+        'femaleCount': widget.femaleCount.toString(),
+        'coupleCount': widget.couplesCount.toString(),
+      });
+      print(response);
+      if (response['success']) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BottomCustomNavBar(),
+          ),
+        );
+      } else {
+        // _handlePaymentSuccess(response); i.e try again
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     print('payment error');
-    Navigator.pop(
-        context, false); // TODO: show scackbar to user that payment failed
+    Navigator.pop(context, false);
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
@@ -72,7 +116,13 @@ class _MakePaymentState extends State<MakePayment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Make Payment')),
-      body: Container(),
+      body: Container(
+        alignment: Alignment.center,
+        child: Text(
+          'Payment successful',
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
     );
   }
 }

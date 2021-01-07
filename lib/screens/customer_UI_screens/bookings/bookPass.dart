@@ -37,7 +37,7 @@ class _BookPassState extends State<BookPass> {
       passtype,
       passCat = "Male Stag";
 
-  int totalPrice = 0;
+  int totalPrice = 0, maleCount = 0, femaleCount = 0, couplesCount = 0;
 
   void addStagBooking(String name) {
     // print(name1);
@@ -112,7 +112,7 @@ class _BookPassState extends State<BookPass> {
             ),
           ),
           title: Text(
-            "All added passes will get discarded. Do you will want to go back?",
+            "All added passes will get discarded. Do you still want to go back?",
             style: Theme.of(context).textTheme.headline6.copyWith(
                   fontSize: 17,
                 ),
@@ -323,8 +323,6 @@ class _BookPassState extends State<BookPass> {
                                                           price1 = e.value
                                                               .toString();
                                                           gender = "Male";
-                                                          // print(price1);
-                                                          // print(gender);
                                                           addClicked = true;
                                                         });
                                                       })
@@ -404,8 +402,6 @@ class _BookPassState extends State<BookPass> {
                                                           price1 = e.value
                                                               .toString();
                                                           gender = "Female";
-                                                          // print(price1);
-                                                          // print(gender);
                                                           addClicked = true;
                                                         });
                                                       })
@@ -501,7 +497,10 @@ class _BookPassState extends State<BookPass> {
                                                       addClicked = false;
                                                       totalPrice +=
                                                           int.parse(price1);
+                                                      ++couplesCount;
                                                     });
+                                                    print(
+                                                        'couplesCount: $couplesCount');
                                                   }
                                                 },
                                                 child: Text(
@@ -526,7 +525,7 @@ class _BookPassState extends State<BookPass> {
                                           Padding(
                                             padding: const EdgeInsets.only(
                                                 bottom: 10),
-                                            child: Text('Add Stag Pass',
+                                            child: Text('Add $passCat',
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold,
@@ -581,7 +580,14 @@ class _BookPassState extends State<BookPass> {
                                                       addClicked = false;
                                                       totalPrice +=
                                                           int.parse(price1);
+                                                      if (passCat ==
+                                                          "Male Stag")
+                                                        maleCount += 1;
+                                                      else
+                                                        femaleCount += 1;
                                                     });
+                                                    print(
+                                                        'maleCount: $maleCount, femaleCount: $femaleCount');
                                                   }
                                                 },
                                                 child: Text(
@@ -612,12 +618,21 @@ class _BookPassState extends State<BookPass> {
                                 (index) => Dismissible(
                                   key: Key(bookings[index].toString()),
                                   onDismissed: (direction) {
-                                    // print(index);
-                                    // print(bookings[index].toString());
                                     setState(() {
                                       totalPrice -=
                                           int.parse(bookings[index]['price']);
+                                      if (bookings[index]['passCategory'] ==
+                                          "Male Stag")
+                                        --maleCount;
+                                      else if (bookings[index]
+                                              ['passCategory'] ==
+                                          "Female Stag")
+                                        --femaleCount;
+                                      else
+                                        --couplesCount;
                                     });
+                                    print(
+                                        'couplesCount $couplesCount, maleCount: $maleCount, femaleCount: $femaleCount');
                                     bookings.removeAt(index);
                                     String action = "discarded";
                                     Scaffold.of(context).showSnackBar(
@@ -902,20 +917,35 @@ class _BookPassState extends State<BookPass> {
                         padding: EdgeInsets.all(5),
                         child: FlatButton(
                           onPressed: () async {
-                            bool paymentSuccess = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MakePayment(
-                                    event: widget.event,
-                                    totalAmount: totalPrice),
-                              ),
-                            );
-                            if (!paymentSuccess) {
+                            if (totalPrice == 0) {
                               Scaffold.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text("Payment error, try again."),
+                                  content:
+                                      Text("Add a pass first to make payment."),
                                 ),
                               );
+                            } else {
+                              bool paymentSuccess = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MakePayment(
+                                    event: widget.event,
+                                    totalAmount: totalPrice,
+                                    bookings: bookings,
+                                    maleCount: maleCount,
+                                    femaleCount: femaleCount,
+                                    couplesCount: couplesCount,
+                                  ),
+                                ),
+                              );
+                              if (!paymentSuccess || paymentSuccess == null) {
+                                Scaffold.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        "Payment not completed, try again."),
+                                  ),
+                                );
+                              }
                             }
                           },
                           child: Text(

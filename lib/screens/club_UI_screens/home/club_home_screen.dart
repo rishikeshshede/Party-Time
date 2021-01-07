@@ -6,7 +6,7 @@ import 'package:bookario/components/networking.dart';
 import 'package:bookario/components/persistence_handler.dart';
 import 'package:bookario/screens/club_UI_screens/home/components/add_club.dart';
 import 'package:bookario/screens/club_UI_screens/home/components/own_clubs.dart';
-import 'package:bookario/screens/splash/splash_screen.dart';
+import 'package:bookario/screens/sign_in/sign_in_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../components/size_config.dart';
@@ -34,7 +34,7 @@ class _ClubHomeScreenState extends State<ClubHomeScreen> {
       if (user == null) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SplashScreen()),
+          MaterialPageRoute(builder: (context) => SignInScreen()),
         );
       }
     });

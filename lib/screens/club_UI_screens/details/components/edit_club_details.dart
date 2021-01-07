@@ -45,18 +45,17 @@ class _EditClubDetailsState extends State<EditClubDetails> {
   populateFields() async {
     var response = await getDetails();
     if (response['success']) {
-      // print(res['data'][0]);
+      // print(response['data'][0]);
       var data = response['data'][0];
       setState(() {
         nameEditingController.text = data['name'];
         locaitonEditingController.text = data['location'].toString();
         addressEditingController.text = data['address'];
         descriptionEditingController.text = data['description'];
-        photoUrl = data[
-            'imageLink']; // TODO: solve the imageURL undefined error while updating club info
+        photoUrl = data['image'];
         loading = false;
       });
-      print(photoUrl);
+      // print(photoUrl);
     }
   }
 
@@ -185,7 +184,7 @@ class _EditClubDetailsState extends State<EditClubDetails> {
                                       .text
                                       .trim()
                                       .toString(),
-                                  'imageLink': photoUrl,
+                                  'coverPhoto': photoUrl,
                                 });
                                 print(response);
                                 if (response['success']) {

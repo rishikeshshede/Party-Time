@@ -53,22 +53,23 @@ class _AddEventState extends State<AddEvent> {
       _mfmRatio,
       _mffRatio,
       _capacity,
-      _maleStagBasicPass,
+      _maleStagBasicPass = '',
       _maleCover1Pass,
       _maleCover2Pass,
       _maleCover3Pass,
       _maleCover4Pass,
-      _femaleStagBasicPass,
+      _femaleStagBasicPass = '',
       _femaleCover1Pass,
       _femaleCover2Pass,
       _femaleCover3Pass,
       _femaleCover4Pass,
-      _coupleBasicPass,
+      _coupleBasicPass = '',
       _coupleCover1Pass,
       _coupleCover2Pass,
       _coupleCover3Pass,
       _coupleCover4Pass,
-      _availableWithCouple = 'none';
+      _availableWithCouple = 'none',
+      _imageUrl = '';
   var priceDescriptionString,
       maleStagPriceString,
       femaleStagPriceString,
@@ -86,7 +87,7 @@ class _AddEventState extends State<AddEvent> {
         title: Text('Add New Event'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(false),
+          onPressed: () => confirmDiscard(context),
         ),
       ),
       body: SafeArea(
@@ -495,11 +496,36 @@ class _AddEventState extends State<AddEvent> {
                                 press: () async {
                                   if (_formKey.currentState.validate()) {
                                     _formKey.currentState.save();
-                                    setState(() {
-                                      loading = true;
-                                      uploadImage();
-                                      // Navigator.of(context).pop();
-                                    });
+                                    if (int.parse(_maleCount) +
+                                            int.parse(_femaleCount) +
+                                            int.parse(_coupleCount) * 2 >
+                                        int.parse(_capacity)) {
+                                      showErrors(context,
+                                          "Insufficient Capacity\n\nEither increase the capacity or decrease the stag or couple counts allowed for your event.");
+                                    } else if (int.parse(_mfmRatio) /
+                                            int.parse(_mffRatio) !=
+                                        int.parse(_maleCount) /
+                                            int.parse(_femaleCount)) {
+                                      showErrors(context,
+                                          "Male/Female count is not as per your mentioned male/female ratio.");
+                                    } else if (_maleStagBasicPass == '' &&
+                                        _femaleStagBasicPass == '' &&
+                                        _coupleBasicPass == '') {
+                                      showErrors(context,
+                                          "Enter at least 1 Basic Pass price.");
+                                    } else if (_imageUrl == '') {
+                                      showErrors(context,
+                                          "Upload an image for your event.");
+                                    } else {
+                                      print('looks good!');
+                                      setState(() {
+                                        loading = true;
+                                        uploadImage();
+                                      });
+                                    }
+                                  } else {
+                                    showErrors(context,
+                                        "Error\n\nCheck event details again.");
                                   }
                                 },
                               ),
@@ -512,6 +538,90 @@ class _AddEventState extends State<AddEvent> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<bool> showErrors(BuildContext context, String text) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(5),
+            ),
+          ),
+          title: Text(
+            text,
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                  fontSize: 17,
+                ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "Ok",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(color: kSecondaryColor),
+              ),
+              splashColor: kSecondaryColor,
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<bool> confirmDiscard(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(5),
+            ),
+          ),
+          title: Text(
+            "All added details will get discarded. Do you still want to go back?",
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                  fontSize: 17,
+                ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                "No",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(color: kSecondaryColor),
+              ),
+              splashColor: Colors.red[50],
+            ),
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop(false);
+              },
+              child: Text(
+                "Yes",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(color: kSecondaryColor),
+              ),
+              splashColor: Colors.red[50],
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -530,8 +640,8 @@ class _AddEventState extends State<AddEvent> {
           .post("http://bookario.com/apis/file/upload", data: formData)
           .then((response) {
         print(response);
-        String imageUrl = response.data["data"]["url"];
-        addEvent(imageUrl);
+        _imageUrl = response.data["data"]["url"];
+        addEvent(_imageUrl);
       }).catchError((e) => print(e));
     } catch (e) {
       print("Error uploading image: $e");
@@ -843,12 +953,6 @@ class _AddEventState extends State<AddEvent> {
         if (value.isEmpty) {
           return "Enter capacity";
         }
-        //  else if (int.parse(_maleCount) +
-        //         int.parse(_femaleCount) +
-        //         int.parse(_coupleCount) * 2 >
-        //     int.parse(value)) {
-        //   return 'Insuficient capacity';
-        // }
         return null;
       },
       decoration: InputDecoration(
@@ -999,14 +1103,6 @@ class _AddEventState extends State<AddEvent> {
       textInputAction: TextInputAction.done,
       focusNode: pricesFocusNode,
       onSaved: (newValue) => _maleStagBasicPass = newValue,
-      validator: (value) {
-        // if (value.isEmpty &&
-        //     _femaleStagBasicPass == null &&
-        //     _coupleBasicPass == null) {
-        //   return "Enter at least one basic pass price";
-        // }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 749",
