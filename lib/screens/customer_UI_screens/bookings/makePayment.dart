@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bookario/components/bottom_navbar.dart';
 import 'package:bookario/components/networking.dart';
 import 'package:bookario/components/persistence_handler.dart';
@@ -79,7 +81,7 @@ class _MakePaymentState extends State<MakePayment> {
         'userId': uid,
         'clubId': widget.event['clubId'].toString(),
         'eventId': widget.event['eventId'].toString(),
-        'bookingDetails': widget.bookings.toString(),
+        'bookingDetails': jsonEncode(widget.bookings),
         'amountPaid': widget.totalAmount.toString(),
         'bookingDate': date,
         'maleCount': widget.maleCount.toString(),
@@ -119,7 +121,7 @@ class _MakePaymentState extends State<MakePayment> {
       body: Container(
         alignment: Alignment.center,
         child: Text(
-          'Payment successful',
+          'Redirecting...',
           style: TextStyle(fontSize: 18),
         ),
       ),

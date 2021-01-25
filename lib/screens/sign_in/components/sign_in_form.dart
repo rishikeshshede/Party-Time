@@ -123,7 +123,12 @@ class _SignFormState extends State<SignForm> {
             }
           });
         } catch (e) {
-          print('cannot get userType : $e');
+          setState(() {
+            loading = false;
+          });
+          ShowAlert.showAlert(
+              context, "Error logging in, try again after sometime.");
+          // print('cannot get userType : $e');
         }
         if (userType == 'customer') {
           Navigator.pushAndRemoveUntil(

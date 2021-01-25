@@ -19,7 +19,7 @@ class _EventsState extends State<Events> {
       loadMore = false,
       loadingMore = false,
       filterApplied = false;
-  String _location = 'Kondhwa';
+  String _location = 'Magerpatta';
 
   @override
   void initState() {

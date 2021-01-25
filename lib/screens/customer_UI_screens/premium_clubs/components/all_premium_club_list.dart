@@ -2,7 +2,6 @@ import 'package:bookario/components/loading.dart';
 import 'package:bookario/components/networking.dart';
 import 'package:bookario/screens/customer_UI_screens/premium_clubs/components/premium_club_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../../../../components/size_config.dart';
 
 class PremiumEvents extends StatefulWidget {
@@ -14,28 +13,22 @@ class _PremiumEventsState extends State<PremiumEvents> {
   int offset, limit;
   List<dynamic> eventData = [], locations;
   List<String> allLocations = [];
-  bool hasEvents = false,
-      screenLoading = true,
-      loadMore = false,
-      loadingMore = false,
-      filterApplied = false;
+  bool hasEvents, screenLoading, loadMore, loadingMore, filterApplied;
   String _location = 'Kondhwa';
 
   @override
   void initState() {
+    hasEvents = false;
+    screenLoading = true;
+    loadMore = false;
+    loadingMore = false;
+    filterApplied = false;
     offset = 0;
     limit = 10;
     getPremiumEvents();
     getAllLocations();
     super.initState();
   }
-
-  // Future<dynamic> platformCallHandler(MethodCall call) async {
-  //   if (call.method == "destroy") {
-  //     print("destroy");
-  //     dispose();
-  //   }
-  // }
 
   @override
   void dispose() {
@@ -53,6 +46,7 @@ class _PremiumEventsState extends State<PremiumEvents> {
         "offset": offset.toString(),
       });
       if (response['data'].length > 0) {
+        print(response['data'].length);
         setState(() {
           hasEvents = true;
           loadMore = true;
@@ -75,11 +69,12 @@ class _PremiumEventsState extends State<PremiumEvents> {
     try {
       var response =
           await Networking.getData('events/get-unique-locations', {});
+      // print(response);
       if (response['data'].length > 0) {
         setState(() {
-          hasEvents = true;
-          loadMore = true;
-          loadingMore = false;
+          // hasEvents = true;
+          // loadMore = true;
+          // loadingMore = false;
           locations = response['data'];
           for (int i = 0; i < locations.length; i++) {
             addLocation(locations[i]);
@@ -87,12 +82,13 @@ class _PremiumEventsState extends State<PremiumEvents> {
           // print(allLocations);
         });
         // print(locations[0]['location']);
-      } else {
-        setState(() {
-          screenLoading = false;
-          loadMore = false;
-        });
       }
+      //  else {
+      //   setState(() {
+      //     screenLoading = false;
+      //     loadMore = false;
+      //   });
+      // }
     } catch (e) {
       print(e);
     }
@@ -231,12 +227,13 @@ class _PremiumEventsState extends State<PremiumEvents> {
               )
             : screenLoading
                 ? Loading()
-                : Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'No events listed yet.\n Please check after sometime.',
-                      textAlign: TextAlign.center,
-                    ),
+                : Column(
+                    children: [
+                      Text(
+                        'No premium events listed yet.',
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
       ],
     );

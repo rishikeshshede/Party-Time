@@ -100,10 +100,15 @@ class _AddNewClubState extends State<AddNewClub> {
                           press: () async {
                             if (_formKey.currentState.validate()) {
                               _formKey.currentState.save();
-                              setState(() {
-                                loading = true;
-                                uploadImage();
-                              });
+                              if (coverPhoto == null) {
+                                showErrors(
+                                    context, "Upload an image for your club.");
+                              } else {
+                                setState(() {
+                                  loading = true;
+                                  uploadImage();
+                                });
+                              }
                             }
                           },
                         ),
@@ -113,6 +118,42 @@ class _AddNewClubState extends State<AddNewClub> {
                 ),
               ),
       ),
+    );
+  }
+
+  Future<bool> showErrors(BuildContext context, String text) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(5),
+            ),
+          ),
+          title: Text(
+            text,
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                  fontSize: 17,
+                ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "Ok",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(color: kSecondaryColor),
+              ),
+              splashColor: kSecondaryColor,
+            ),
+          ],
+        );
+      },
     );
   }
 

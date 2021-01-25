@@ -768,6 +768,41 @@ class _AddEventState extends State<AddEvent> {
             );
           },
         );
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5),
+                ),
+              ),
+              title: Text(
+                "An Error Occured.\nPlease try again.",
+                style: Theme.of(context).textTheme.headline6.copyWith(
+                      fontSize: 17,
+                    ),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "Ok",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(color: kSecondaryColor),
+                  ),
+                  splashColor: kSecondaryColor,
+                ),
+              ],
+            );
+          },
+        );
       }
     } catch (e) {
       print(e);
