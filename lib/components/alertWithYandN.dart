@@ -8,6 +8,7 @@ Future<bool> resetEmailSent(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
+        backgroundColor: Colors.grey[900],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(5),
@@ -15,9 +16,10 @@ Future<bool> resetEmailSent(BuildContext context) {
         ),
         title: Text(
           "An email to reset your password is sent to your email ID.",
-          style: Theme.of(context).textTheme.headline6.copyWith(
-                fontSize: 17,
-              ),
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .copyWith(fontSize: 17, color: Colors.white),
         ),
         actions: <Widget>[
           FlatButton(

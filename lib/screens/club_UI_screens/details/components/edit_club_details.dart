@@ -78,6 +78,7 @@ class _EditClubDetailsState extends State<EditClubDetails> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -87,7 +88,8 @@ class _EditClubDetailsState extends State<EditClubDetails> {
               style: TextStyle(
                   fontSize: 17,
                   letterSpacing: 0.7,
-                  fontWeight: FontWeight.bold)),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white)),
           actions: <Widget>[
             FlatButton(
               onPressed: () => Navigator.of(context).pop(false),
@@ -155,12 +157,12 @@ class _EditClubDetailsState extends State<EditClubDetails> {
                           FlatButton(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5)),
-                            color: kPrimaryColor,
+                            color: kSecondaryColor,
                             child: Text(
                               "Update",
                               style: TextStyle(
                                 fontSize: 17,
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -215,9 +217,10 @@ class _EditClubDetailsState extends State<EditClubDetails> {
 
   TextFormField nameFormField(BuildContext context) {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.name,
       textCapitalization: TextCapitalization.words,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: nameFocusNode,
       controller: nameEditingController,
@@ -248,8 +251,9 @@ class _EditClubDetailsState extends State<EditClubDetails> {
 
   TextFormField locationFormField(BuildContext context) {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.text,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: locationFocusNode,
       controller: locaitonEditingController,
@@ -280,8 +284,9 @@ class _EditClubDetailsState extends State<EditClubDetails> {
 
   TextFormField addressFormFIeld() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.text,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: addressFocusNode,
       controller: addressEditingController,
@@ -312,8 +317,9 @@ class _EditClubDetailsState extends State<EditClubDetails> {
 
   TextFormField descriptionFormFIeld() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.text,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       focusNode: descriptionFocusNode,
       controller: descriptionEditingController,
@@ -349,7 +355,7 @@ class _EditClubDetailsState extends State<EditClubDetails> {
         "Discard",
         style: TextStyle(
           fontSize: 17,
-          color: Colors.black,
+          color: Colors.white70,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -364,6 +370,7 @@ class _EditClubDetailsState extends State<EditClubDetails> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -371,9 +378,10 @@ class _EditClubDetailsState extends State<EditClubDetails> {
           ),
           title: Text(
             "An error occured, please try again after sometime.",
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  fontSize: 17,
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                .copyWith(fontSize: 17, color: Colors.white),
           ),
           actions: <Widget>[
             FlatButton(

@@ -77,6 +77,7 @@ class _OwnClubCardState extends State<OwnClubCard> {
                             style:
                                 Theme.of(context).textTheme.headline6.copyWith(
                                       fontSize: getProportionateScreenWidth(16),
+                                      color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       // color: Colors.white,
                                     ),

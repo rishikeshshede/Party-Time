@@ -33,16 +33,14 @@ class ViewBookings extends StatelessWidget {
                 ),
                 Text(
                   'Bookings',
+                  style: TextStyle(color: Colors.white70),
                 ),
               ],
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: SvgPicture.asset(
-                "assets/icons/arrow_right.svg",
-                height: 14,
-                fit: BoxFit.cover,
-              ),
+              child: SvgPicture.asset("assets/icons/arrow_right.svg",
+                  height: 14, fit: BoxFit.cover, color: Colors.white70),
             ),
           ],
         ),

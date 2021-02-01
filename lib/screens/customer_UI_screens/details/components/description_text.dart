@@ -45,6 +45,7 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
                 Text(
                   flag ? (firstHalf + "...") : (firstHalf + secondHalf),
                   textAlign: TextAlign.justify,
+                  style: TextStyle(color: Colors.white54),
                 ),
                 InkWell(
                   child: Row(

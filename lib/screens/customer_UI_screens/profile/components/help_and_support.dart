@@ -102,10 +102,11 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
 
   TextFormField emailSubject() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       controller: _subjectController,
       keyboardType: TextInputType.multiline,
       maxLines: null,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: subjectFocusNode,
       // onSaved: (newValue) => _subject = newValue,
@@ -129,11 +130,12 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
 
   TextFormField emailBody() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       controller: _bodyController,
       keyboardType: TextInputType.text,
       minLines: 1,
       maxLines: 10,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       focusNode: bodyFocusNode,
       validator: (value) {

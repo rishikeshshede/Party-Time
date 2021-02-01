@@ -28,6 +28,7 @@ class _BottomCustomNavBarState extends State<BottomCustomNavBar>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -36,9 +37,7 @@ class _BottomCustomNavBarState extends State<BottomCustomNavBar>
           title: Text(
             "Want to exit?",
             style: Theme.of(context).textTheme.headline6.copyWith(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
+                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           actions: <Widget>[
             FlatButton(
@@ -93,7 +92,10 @@ class _BottomCustomNavBarState extends State<BottomCustomNavBar>
             controller: _pageController,
             children: _children),
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Color(0xFF141414),
+          unselectedItemColor: Colors.grey,
           fixedColor: kSecondaryColor,
+          // elevation: 10,
           onTap: onTabTapped,
           currentIndex: _currentIndex,
           items: [

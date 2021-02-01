@@ -39,8 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8),
+        leading: Container(
+          margin: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            color: Colors.white,
+          ),
           child: Image.asset(
             "assets/images/onlylogo.png",
             fit: BoxFit.cover,

@@ -70,6 +70,7 @@ class _EditProfileState extends State<EditProfile> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -79,16 +80,15 @@ class _EditProfileState extends State<EditProfile> {
               style: TextStyle(
                   fontSize: 17,
                   letterSpacing: 0.7,
-                  fontWeight: FontWeight.bold)),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white)),
           actions: <Widget>[
             FlatButton(
               onPressed: () => Navigator.of(context).pop(false),
               child: Text(
                 'No',
                 style: TextStyle(
-                    fontSize: 14,
-                    letterSpacing: .8,
-                    color: Theme.of(context).primaryColor),
+                    fontSize: 14, letterSpacing: .8, color: Colors.white70),
               ),
               splashColor: Theme.of(context).primaryColorLight,
               color: Colors.black12,
@@ -101,7 +101,7 @@ class _EditProfileState extends State<EditProfile> {
               child: Text(
                 'Discard',
                 style: TextStyle(
-                    fontSize: 14, letterSpacing: .8, color: Colors.white),
+                    fontSize: 14, letterSpacing: .8, color: Colors.white70),
               ),
               splashColor: Theme.of(context).primaryColorLight,
               color: Theme.of(context).primaryColor,
@@ -145,7 +145,7 @@ class _EditProfileState extends State<EditProfile> {
                           FlatButton(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5)),
-                            color: kPrimaryColor,
+                            color: kSecondaryColor,
                             child: Text(
                               "Update",
                               style: TextStyle(
@@ -200,9 +200,10 @@ class _EditProfileState extends State<EditProfile> {
 
   TextFormField nameFormField(BuildContext context) {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.name,
       textCapitalization: TextCapitalization.words,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: nameFocusNode,
       controller: nameEditingController,
@@ -234,8 +235,9 @@ class _EditProfileState extends State<EditProfile> {
 
   TextFormField phoneNumberFormField(BuildContext context) {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.phone,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: phoneNumberFocusNode,
       controller: phoneNumberEditingController,
@@ -272,8 +274,9 @@ class _EditProfileState extends State<EditProfile> {
 
   TextFormField ageFormFIeld() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       focusNode: ageFocusNode,
       controller: ageEditingController,
@@ -305,12 +308,11 @@ class _EditProfileState extends State<EditProfile> {
   FlatButton discardChanges(BuildContext context) {
     return FlatButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      color: Colors.black12,
       child: Text(
         "Discard",
         style: TextStyle(
           fontSize: 17,
-          color: Colors.black,
+          color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
       ),

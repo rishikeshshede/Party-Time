@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bookario/components/size_config.dart';
 
-const kPrimaryColor = Color(0xFF000000);
-const kPrimaryLightColor = Color(0xFF191616);
+const kPrimaryColor = Color(0xFFFFFFFF); // color changed from 000000
+const kPrimaryLightColor = Color(0xFFFFFFFF); // color changed from 191616
 // const kPrimaryGradientColor = LinearGradient(
 //   begin: Alignment.topLeft,
 //   end: Alignment.bottomRight,
@@ -16,7 +16,7 @@ const kAnimationDuration = Duration(milliseconds: 200);
 final headingStyle = TextStyle(
   fontSize: getProportionateScreenWidth(28),
   fontWeight: FontWeight.bold,
-  color: Colors.black,
+  color: Colors.white, // color changed from black
   height: 1.5,
 );
 
@@ -51,7 +51,7 @@ OutlineInputBorder outlineInputBorder() {
 
 Divider divider() {
   return Divider(
-    color: kPrimaryColor,
+    color: Colors.white70,
     height: 1,
   );
 }

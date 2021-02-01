@@ -126,6 +126,7 @@ class _AddNewClubState extends State<AddNewClub> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -133,9 +134,10 @@ class _AddNewClubState extends State<AddNewClub> {
           ),
           title: Text(
             text,
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  fontSize: 17,
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                .copyWith(fontSize: 17, color: Colors.white),
           ),
           actions: <Widget>[
             FlatButton(
@@ -242,6 +244,7 @@ class _AddNewClubState extends State<AddNewClub> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -249,9 +252,10 @@ class _AddNewClubState extends State<AddNewClub> {
           ),
           title: Text(
             "An error occured. Please try again after sometime",
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  fontSize: 17,
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                .copyWith(fontSize: 17, color: Colors.white),
           ),
           actions: <Widget>[
             FlatButton(
@@ -275,9 +279,10 @@ class _AddNewClubState extends State<AddNewClub> {
 
   TextFormField clubNameFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.name,
       textCapitalization: TextCapitalization.words,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: clubNameFocusNode,
       onSaved: (newValue) => _clubName = newValue,
@@ -301,8 +306,9 @@ class _AddNewClubState extends State<AddNewClub> {
 
   TextFormField clubLocationFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.name,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: locationFocusNode,
       onSaved: (newValue) => _location = newValue,
@@ -326,8 +332,9 @@ class _AddNewClubState extends State<AddNewClub> {
 
   TextFormField clubDescriptionFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.text,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: descriptionFocusNode,
       maxLines: null,
@@ -353,8 +360,9 @@ class _AddNewClubState extends State<AddNewClub> {
 
   TextFormField clubAddressFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.text,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       focusNode: addressFocusNode,
       onSaved: (newValue) => _address = newValue,

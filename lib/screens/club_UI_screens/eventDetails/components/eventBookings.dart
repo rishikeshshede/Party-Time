@@ -2,27 +2,28 @@ import 'dart:convert';
 
 import 'package:bookario/components/loading.dart';
 import 'package:bookario/components/networking.dart';
-import 'package:bookario/components/persistence_handler.dart';
 import 'package:bookario/components/rich_text_row.dart';
+import 'package:bookario/components/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../components/size_config.dart';
+class EventBookings extends StatefulWidget {
+  final event;
 
-class Body extends StatefulWidget {
+  const EventBookings({Key key, @required this.event}) : super(key: key);
   @override
-  _BodyState createState() => _BodyState();
+  _EventBookingsState createState() => _EventBookingsState();
 }
 
-class _BodyState extends State<Body> {
+class _EventBookingsState extends State<EventBookings> {
   List<bool> isExpanded = new List();
-  int limit, offset;
   List<dynamic> bookingData = [];
-  var clubData;
+  List bookingDetails = [], moreBookingDetails = [];
+  int limit, offset;
   bool hasBookings = false,
       screenLoading = true,
       loadMore = false,
       loadingMore = false;
-  List bookingDetails = [], moreBookingDetails = [];
   @override
   void initState() {
     offset = 0;
@@ -32,10 +33,9 @@ class _BodyState extends State<Body> {
   }
 
   getBookingData() async {
-    String uid = await PersistenceHandler.getter('uid');
     try {
-      var response = await Networking.getData('bookings/get-user-bookings', {
-        "userId": uid,
+      var response = await Networking.getData('bookings/get-event-bookings', {
+        "eventId": widget.event['eventId'].toString(),
         "limit": limit.toString(),
         "offset": offset.toString(),
       });
@@ -56,7 +56,6 @@ class _BodyState extends State<Body> {
           loadMore = true;
           loadingMore = false;
           bookingData += response['data'];
-          // clubData = clubResponse['data'];
         });
       } else {
         setState(() {
@@ -71,12 +70,32 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SizedBox(
-        width: double.infinity,
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: Text("Event Bookings"),
+        actions: [
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(50)),
+              padding: EdgeInsets.only(right: 15, left: 15),
+              child: SvgPicture.asset(
+                'assets/icons/qr-code.svg',
+                height: getProportionateScreenWidth(18),
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(height: getProportionateScreenHeight(5)),
               SizedBox(height: getProportionateScreenHeight(5)),
               hasBookings
                   ? Column(
@@ -111,8 +130,7 @@ class _BodyState extends State<Body> {
                                                               .symmetric(
                                                           horizontal: 12,
                                                           vertical: 5),
-                                                      color: Color(0xFFd6d6d6)
-                                                          .withOpacity(0.8),
+                                                      color: Colors.grey[300],
                                                       child: Column(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
@@ -233,8 +251,7 @@ class _BodyState extends State<Body> {
                                                               .symmetric(
                                                           horizontal: 12,
                                                           vertical: 5),
-                                                      color: Color(0xFFd6d6d6)
-                                                          .withOpacity(0.8),
+                                                      color: Colors.grey[300],
                                                       child: Column(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment

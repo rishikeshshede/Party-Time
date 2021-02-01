@@ -95,7 +95,7 @@ class _BodyState extends State<Body> {
                         margin: const EdgeInsets.only(top: 10),
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         width: double.infinity,
-                        color: Colors.white,
+                        color: Colors.black,
                         child: Column(
                           children: [
                             divider(),
@@ -112,7 +112,9 @@ class _BodyState extends State<Body> {
                                 child: Text(
                                   "Your upcoming events",
                                   style: TextStyle(
-                                      fontSize: 18, color: Colors.black87),
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
@@ -122,7 +124,12 @@ class _BodyState extends State<Body> {
                                     ? Loading()
                                     : Container(
                                         alignment: Alignment.center,
-                                        child: Text('No Events.'),
+                                        child: Text(
+                                          'No Events.',
+                                          style: TextStyle(
+                                            color: Colors.white54,
+                                          ),
+                                        ),
                                       ),
                             SizedBox(height: 80),
                           ],
@@ -134,7 +141,7 @@ class _BodyState extends State<Body> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    color: Colors.white70,
+                    color: Colors.black12,
                     child: Padding(
                       padding: EdgeInsets.only(
                         left: SizeConfig.screenWidth * 0.15,
@@ -183,6 +190,7 @@ class _BodyState extends State<Body> {
                       },
                       child: Text(
                         'load more',
+                        style: TextStyle(color: Colors.white54),
                       ),
                       splashColor: Theme.of(context).primaryColorLight,
                     )

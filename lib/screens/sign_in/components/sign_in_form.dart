@@ -164,8 +164,9 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.emailAddress,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: emailFocusNode,
       onSaved: (newValue) => _email = newValue,
@@ -202,8 +203,9 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       obscureText: _obscureText,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       focusNode: passwordFocusNode,
       onSaved: (newValue) => _password = newValue,

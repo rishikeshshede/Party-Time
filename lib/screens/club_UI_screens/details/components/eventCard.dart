@@ -31,7 +31,7 @@ class EventCard extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(0),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black54),
+                  border: Border.all(color: Colors.white54),
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(8),
                       bottomRight: Radius.circular(8)),
@@ -55,9 +55,9 @@ class EventCard extends StatelessWidget {
                         // event['eventTime']
                         ,
                         style: Theme.of(context).textTheme.headline6.copyWith(
-                              fontSize: getProportionateScreenWidth(14),
-                              fontWeight: FontWeight.bold,
-                            ),
+                            fontSize: getProportionateScreenWidth(14),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white70),
                         softWrap: false,
                         overflow: TextOverflow.fade,
                       ),

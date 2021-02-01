@@ -33,7 +33,7 @@ class ListofEntryPrices extends StatelessWidget {
               ),
               Text(
                 passType,
-                style: TextStyle(fontSize: 17, color: Colors.black87),
+                style: TextStyle(fontSize: 17, color: Colors.white38),
               ),
             ],
           ),
@@ -49,11 +49,11 @@ class ListofEntryPrices extends StatelessWidget {
                         children: [
                           Text(
                             e.key + " : ",
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
                           ),
                           Text(
                             "₹ " + e.value.toString(),
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
                           ),
                         ],
                       ),

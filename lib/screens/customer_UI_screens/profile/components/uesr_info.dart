@@ -58,23 +58,23 @@ class _UserDetailsState extends State<UserDetails> {
             children: <Widget>[
               Text(
                 "Name",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15, color: Colors.white70),
               ),
               Text(
                 "Phone no.",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15, color: Colors.white70),
               ),
               Text(
                 "Email ID",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15, color: Colors.white70),
               ),
               Text(
                 "Age",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15, color: Colors.white70),
               ),
               Text(
                 "Gender",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15, color: Colors.white70),
               ),
             ],
           ),
@@ -89,23 +89,23 @@ class _UserDetailsState extends State<UserDetails> {
                   children: <Widget>[
                     Text(
                       ":  $name",
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 15, color: Colors.white),
                     ),
                     Text(
                       ":  $phone",
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 15, color: Colors.white),
                     ),
                     Text(
                       ":  $email",
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 15, color: Colors.white),
                     ),
                     Text(
                       ":  $age yrs",
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 15, color: Colors.white),
                     ),
                     Text(
                       ":  $gender",
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 15, color: Colors.white),
                     ),
                   ],
                 ),

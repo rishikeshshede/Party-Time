@@ -164,7 +164,7 @@ class _PremiumEventsState extends State<PremiumEvents> {
                 width: 32,
                 margin: EdgeInsets.only(right: 10, top: 0),
                 decoration: BoxDecoration(
-                  color: Colors.grey[350],
+                  color: Colors.white70,
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: IconButton(
@@ -244,6 +244,7 @@ class _PremiumEventsState extends State<PremiumEvents> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -253,9 +254,13 @@ class _PremiumEventsState extends State<PremiumEvents> {
               style: TextStyle(
                   fontSize: 17,
                   letterSpacing: 0.7,
-                  fontWeight: FontWeight.bold)),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white)),
           content: Row(
-            children: [Text('Location: '), selectLocation()],
+            children: [
+              Text('Location: ', style: TextStyle(color: Colors.white)),
+              selectLocation()
+            ],
           ),
           actions: <Widget>[
             FlatButton(

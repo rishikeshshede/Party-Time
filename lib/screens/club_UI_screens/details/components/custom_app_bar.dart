@@ -61,7 +61,7 @@ class TitleandLocation extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .headline6
-              .copyWith(fontWeight: FontWeight.bold),
+              .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         Text(
           location,
@@ -83,12 +83,14 @@ class ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(50),
+      focusColor: Colors.white12,
       onTap: press,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         child: SvgPicture.asset(
           icon,
           height: 18,
+          color: Colors.white,
         ),
       ),
     );

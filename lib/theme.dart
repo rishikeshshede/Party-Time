@@ -4,14 +4,14 @@ import 'components/constants.dart';
 
 ThemeData theme() {
   return ThemeData(
-    primaryColor: kPrimaryColor,
-    scaffoldBackgroundColor: Colors.white,
-    fontFamily: "Muli",
-    appBarTheme: appBarTheme(),
-    textTheme: textTheme(),
-    inputDecorationTheme: inputDecorationTheme(),
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-  );
+      primaryColor: Color(0xFF1E1D1D),
+      scaffoldBackgroundColor: Color(0xFF000000),
+      fontFamily: "Muli",
+      appBarTheme: appBarTheme(),
+      textTheme: textTheme(),
+      inputDecorationTheme: inputDecorationTheme(),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      unselectedWidgetColor: Colors.white);
 }
 
 InputDecorationTheme inputDecorationTheme() {
@@ -21,6 +21,7 @@ InputDecorationTheme inputDecorationTheme() {
     gapPadding: 4,
   );
   return InputDecorationTheme(
+    hintStyle: TextStyle(color: Colors.grey[600]),
     contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 1),
     enabledBorder: outlineInputBorder,
     focusedBorder: outlineInputBorder,
@@ -39,12 +40,12 @@ TextTheme textTheme() {
 AppBarTheme appBarTheme() {
   return AppBarTheme(
     centerTitle: true,
-    color: Colors.white,
+    color: Color(0xFF141414),
     elevation: 1,
-    brightness: Brightness.light,
-    iconTheme: IconThemeData(color: Colors.black),
+    brightness: Brightness.dark,
+    iconTheme: IconThemeData(color: Colors.white),
     textTheme: TextTheme(
-      headline6: TextStyle(color: kPrimaryColor, fontSize: 22),
+      headline6: TextStyle(color: Colors.white, fontSize: 22),
     ),
   );
 }

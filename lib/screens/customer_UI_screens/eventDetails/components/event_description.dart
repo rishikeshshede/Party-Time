@@ -1,4 +1,5 @@
 import 'package:bookario/screens/customer_UI_screens/details/components/description_text.dart';
+import 'package:bookario/screens/club_UI_screens/eventDetails/components/eventBookings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -50,19 +51,25 @@ class _EventDescriptionState extends State<EventDescription> {
               style: Theme.of(context)
                   .textTheme
                   .headline6
-                  .copyWith(fontWeight: FontWeight.bold),
+                  .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EventBookings(event: widget.event)),
+                );
+              },
               child: Container(
                 margin: EdgeInsets.only(right: 20, top: 0),
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Colors.grey[350],
+                  color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: SvgPicture.asset(
-                  'assets/icons/Camera Icon.svg',
+                  'assets/icons/booking.svg',
                   height: getProportionateScreenWidth(20),
                   color: Colors.black,
                 ),
@@ -76,7 +83,7 @@ class _EventDescriptionState extends State<EventDescription> {
           ),
           child: Text(
             widget.event['date'],
-            style: TextStyle(color: Colors.black87),
+            style: TextStyle(color: Colors.white70),
           ),
         ),
         Row(
@@ -93,8 +100,10 @@ class _EventDescriptionState extends State<EventDescription> {
                   width: 5,
                 ),
                 Text(
-                    // '${time.toString()} $amPm',
-                    '${widget.event['time']}'),
+                  // '${time.toString()} $amPm',
+                  '${widget.event['time']}',
+                  style: TextStyle(color: Colors.white70),
+                ),
               ],
             ),
             // Spacer(),
@@ -111,7 +120,7 @@ class _EventDescriptionState extends State<EventDescription> {
                 RichText(
                   text: TextSpan(
                     text: "Male : Female : ",
-                    style: TextStyle(color: kPrimaryColor),
+                    style: TextStyle(color: Colors.white70),
                     children: [
                       TextSpan(
                         text: widget.event['mfRatio'].toString(),
@@ -133,7 +142,7 @@ class _EventDescriptionState extends State<EventDescription> {
           ),
           child: Text(
             "Description",
-            style: TextStyle(fontSize: 18, color: Colors.black87),
+            style: TextStyle(fontSize: 18, color: Colors.white),
           ),
         ),
         DescriptionTextWidget(text: widget.event['description']),

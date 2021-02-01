@@ -214,9 +214,10 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildNameFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.name,
       textCapitalization: TextCapitalization.words,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: nameFocusNode,
       onSaved: (newValue) => _customerName = newValue,
@@ -248,8 +249,9 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.emailAddress,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: emailFocusNode,
       onSaved: (newValue) => _email = newValue,
@@ -286,8 +288,9 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildPhoneNumberFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.phone,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: phoneNumberFocusNode,
       onSaved: (newValue) => _phoneNumber = newValue,
@@ -324,8 +327,9 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       obscureText: _obscureText,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: passwordFocusNode,
       onSaved: (newValue) => _password = newValue,
@@ -362,8 +366,9 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildConformPassFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       obscureText: _obscureText,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: confirmPasswordFocusNode,
       onSaved: (newValue) => _confirmPassword = newValue,
@@ -419,8 +424,9 @@ class _SignUpFormState extends State<SignUpForm> {
   Expanded buildAgeFormField() {
     return Expanded(
       child: TextFormField(
+        style: TextStyle(color: Colors.white),
         keyboardType: TextInputType.number,
-        cursorColor: Colors.black,
+        cursorColor: Colors.white70,
         textInputAction: TextInputAction.done,
         focusNode: ageFocusNode,
         onSaved: (newValue) => _age = newValue,

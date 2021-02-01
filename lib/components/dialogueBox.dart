@@ -18,7 +18,11 @@ class ShowAlert {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: Text(errormessage),
+          backgroundColor: Colors.grey[900],
+          content: Text(
+            errormessage,
+            style: TextStyle(color: Colors.white),
+          ),
           actions: <Widget>[
             FlatButton(
                 onPressed: () {

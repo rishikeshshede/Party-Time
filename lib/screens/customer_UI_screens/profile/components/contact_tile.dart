@@ -38,15 +38,14 @@ class _ContactTileState extends State<ContactTile> {
                 ),
                 Text(
                   'Help & Support',
+                  style: TextStyle(color: Colors.white70),
                 ),
               ],
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: SvgPicture.asset(
-                "assets/icons/arrow_right.svg",
-                height: 14,
-              ),
+              child: SvgPicture.asset("assets/icons/arrow_right.svg",
+                  height: 14, color: Colors.white70),
             ),
           ],
         ),

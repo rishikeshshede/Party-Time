@@ -14,8 +14,6 @@ class Body extends StatelessWidget {
           UserDetails(),
           divider(),
           ViewBookings(),
-          // divider(),
-          // ReferAFriendTile(),
           divider(),
           ContactTile(),
           divider(),

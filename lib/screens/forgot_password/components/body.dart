@@ -27,7 +27,7 @@ class Body extends StatelessWidget {
                 "Forgot Password",
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(28),
-                  color: Colors.black,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -94,6 +94,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -101,9 +102,10 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
           ),
           title: Text(
             "An email to reset your password is sent to your email ID.",
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  fontSize: 17,
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                .copyWith(fontSize: 17, color: Colors.white),
           ),
           actions: <Widget>[
             FlatButton(
@@ -138,8 +140,10 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
       child: Column(
         children: [
           TextFormField(
+            style: TextStyle(color: Colors.white),
             keyboardType: TextInputType.emailAddress,
             onSaved: (newValue) => _email = newValue,
+            cursorColor: Colors.white70,
             onChanged: (value) {
               if (value.isNotEmpty && errors.contains(kEmailNullError)) {
                 setState(() {

@@ -74,7 +74,7 @@ class _BodyState extends State<Body> {
                             right: getProportionateScreenWidth(20)),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.black,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(40),
                             topRight: Radius.circular(40),
@@ -90,7 +90,7 @@ class _BodyState extends State<Body> {
                                   .copyWith(
                                     fontSize: getProportionateScreenWidth(16),
                                     fontWeight: FontWeight.bold,
-                                    // color: Colors.white,
+                                    color: Colors.white,
                                   ),
                             ),
                             Text(
@@ -118,13 +118,13 @@ class _BodyState extends State<Body> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              color: Colors.white70,
+              color: Colors.white12,
               child: Padding(
                 padding: EdgeInsets.only(
                   left: SizeConfig.screenWidth * 0.15,
                   right: SizeConfig.screenWidth * 0.15,
-                  bottom: getProportionateScreenWidth(10),
-                  top: getProportionateScreenWidth(2),
+                  bottom: getProportionateScreenWidth(5),
+                  top: getProportionateScreenWidth(5),
                 ),
                 child: DefaultButton(
                   text: "Get Pass",

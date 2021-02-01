@@ -40,6 +40,7 @@ class _LogoutTileState extends State<LogoutTile> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -48,9 +49,7 @@ class _LogoutTileState extends State<LogoutTile> {
           title: Text(
             "Want to logout?",
             style: Theme.of(context).textTheme.headline6.copyWith(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
+                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           actions: <Widget>[
             FlatButton(
@@ -99,21 +98,21 @@ class _LogoutTileState extends State<LogoutTile> {
                 SvgPicture.asset(
                   "assets/icons/logout.svg",
                   height: 17,
+                  color: Colors.white70,
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 Text(
                   'Logout',
+                  style: TextStyle(color: Colors.white70),
                 ),
               ],
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: SvgPicture.asset(
-                "assets/icons/arrow_right.svg",
-                height: 14,
-              ),
+              child: SvgPicture.asset("assets/icons/arrow_right.svg",
+                  height: 14, color: Colors.white70),
             ),
           ],
         ),

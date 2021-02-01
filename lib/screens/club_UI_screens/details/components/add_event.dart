@@ -544,6 +544,7 @@ class _AddEventState extends State<AddEvent> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -551,9 +552,10 @@ class _AddEventState extends State<AddEvent> {
           ),
           title: Text(
             text,
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  fontSize: 17,
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                .copyWith(fontSize: 17, color: Colors.white),
           ),
           actions: <Widget>[
             FlatButton(
@@ -580,6 +582,7 @@ class _AddEventState extends State<AddEvent> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -587,9 +590,10 @@ class _AddEventState extends State<AddEvent> {
           ),
           title: Text(
             "All added details will get discarded. Do you still want to go back?",
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  fontSize: 17,
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                .copyWith(fontSize: 17, color: Colors.white),
           ),
           actions: <Widget>[
             FlatButton(
@@ -739,6 +743,7 @@ class _AddEventState extends State<AddEvent> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
+              backgroundColor: Colors.grey[900],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(5),
@@ -746,9 +751,10 @@ class _AddEventState extends State<AddEvent> {
               ),
               title: Text(
                 "Event added successfully.",
-                style: Theme.of(context).textTheme.headline6.copyWith(
-                      fontSize: 17,
-                    ),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    .copyWith(fontSize: 17, color: Colors.white),
               ),
               actions: <Widget>[
                 FlatButton(
@@ -773,6 +779,7 @@ class _AddEventState extends State<AddEvent> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
+              backgroundColor: Colors.grey[900],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(5),
@@ -780,9 +787,10 @@ class _AddEventState extends State<AddEvent> {
               ),
               title: Text(
                 "An Error Occured.\nPlease try again.",
-                style: Theme.of(context).textTheme.headline6.copyWith(
-                      fontSize: 17,
-                    ),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    .copyWith(fontSize: 17, color: Colors.white),
               ),
               actions: <Widget>[
                 FlatButton(
@@ -843,9 +851,10 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField eventNameFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.name,
       textCapitalization: TextCapitalization.words,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: eventNameFocusNode,
       onSaved: (newValue) => _eventName = newValue,
@@ -869,8 +878,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField eventDescriptionFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.text,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: descriptionFocusNode,
       maxLines: null,
@@ -896,8 +906,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField dateFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.datetime,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: dateFocusNode,
       onSaved: (newValue) => _eventDate = newValue,
@@ -923,8 +934,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField timeHrFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: timeHrFocusNode,
       onSaved: (newValue) => _eventTimeHr = newValue,
@@ -950,8 +962,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField timeMinFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: timeMinFocusNode,
       onSaved: (newValue) => _eventTimeMin = newValue,
@@ -977,8 +990,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField capacityFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: capacityFocusNode,
       onSaved: (newValue) => _capacity = newValue,
@@ -1002,8 +1016,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField maleCountFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: maleCountFocusNode,
       onSaved: (newValue) => _maleCount = newValue,
@@ -1029,8 +1044,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField femaleCountFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: femaleCountFocusNode,
       onSaved: (newValue) => _femaleCount = newValue,
@@ -1056,8 +1072,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField coupleCountFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: coupleCountFocusNode,
       onSaved: (newValue) => _coupleCount = newValue,
@@ -1081,8 +1098,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField mfmRatioFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: mfmRatioFocusNode,
       onSaved: (newValue) => _mfmRatio = newValue,
@@ -1106,8 +1124,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField mffRatioFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: mffRatioFocusNode,
       onSaved: (newValue) => _mffRatio = newValue,
@@ -1131,8 +1150,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField maleStagBasicPass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       focusNode: pricesFocusNode,
       onSaved: (newValue) => _maleStagBasicPass = newValue,
@@ -1149,8 +1169,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField maleStagCover1Pass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _maleCover1Pass = newValue,
       validator: (value) {
@@ -1172,8 +1193,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField maleStagCover2Pass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _maleCover2Pass = newValue,
       validator: (value) {
@@ -1195,8 +1217,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField maleStagCover3Pass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _maleCover3Pass = newValue,
       validator: (value) {
@@ -1218,8 +1241,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField maleStagCover4Pass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _maleCover4Pass = newValue,
       validator: (value) {
@@ -1241,8 +1265,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField femaleStagBasicPass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _femaleStagBasicPass = newValue,
       validator: (value) {
@@ -1266,8 +1291,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField femaleStagCover1Pass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _femaleCover1Pass = newValue,
       validator: (value) {
@@ -1289,8 +1315,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField femaleStagCover2Pass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _femaleCover2Pass = newValue,
       validator: (value) {
@@ -1312,8 +1339,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField femaleStagCover3Pass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _femaleCover3Pass = newValue,
       validator: (value) {
@@ -1335,8 +1363,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField femaleStagCover4Pass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _femaleCover4Pass = newValue,
       validator: (value) {
@@ -1358,8 +1387,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField couplesBasicPass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _coupleBasicPass = newValue,
       validator: (value) {
@@ -1383,8 +1413,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField coupleCover1Pass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _coupleCover1Pass = newValue,
       validator: (value) {
@@ -1406,8 +1437,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField coupleCover2Pass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _coupleCover2Pass = newValue,
       validator: (value) {
@@ -1429,8 +1461,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField coupleCover3Pass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _coupleCover3Pass = newValue,
       validator: (value) {
@@ -1452,8 +1485,9 @@ class _AddEventState extends State<AddEvent> {
 
   TextFormField coupleCover4Pass() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _coupleCover4Pass = newValue,
       validator: (value) {

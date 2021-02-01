@@ -1,3 +1,4 @@
+import 'package:bookario/components/constants.dart';
 import 'package:bookario/components/loading.dart';
 import 'package:bookario/components/networking.dart';
 import 'package:bookario/screens/customer_UI_screens/home/components/home_club_card.dart';
@@ -150,7 +151,7 @@ class _EventsState extends State<Events> {
                 "Events in Pune",
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(18),
-                  color: Colors.black,
+                  color: Colors.white70,
                 ),
               ),
               Container(
@@ -158,7 +159,7 @@ class _EventsState extends State<Events> {
                 width: 32,
                 margin: EdgeInsets.only(right: 10, top: 0),
                 decoration: BoxDecoration(
-                  color: Colors.grey[350],
+                  color: Colors.white70,
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: IconButton(
@@ -231,6 +232,7 @@ class _EventsState extends State<Events> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -240,9 +242,13 @@ class _EventsState extends State<Events> {
               style: TextStyle(
                   fontSize: 17,
                   letterSpacing: 0.7,
-                  fontWeight: FontWeight.bold)),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white)),
           content: Row(
-            children: [Text('Location: '), selectLocation()],
+            children: [
+              Text('Location: ', style: TextStyle(color: Colors.white)),
+              selectLocation()
+            ],
           ),
           actions: <Widget>[
             FlatButton(
@@ -255,7 +261,7 @@ class _EventsState extends State<Events> {
                     fontSize: 14, letterSpacing: .8, color: Colors.white),
               ),
               splashColor: Theme.of(context).primaryColorLight,
-              color: Colors.grey[400],
+              // color: Colors.grey[400],
             ),
             FlatButton(
               onPressed: () {
@@ -268,7 +274,7 @@ class _EventsState extends State<Events> {
                     fontSize: 14, letterSpacing: .8, color: Colors.white),
               ),
               splashColor: Theme.of(context).primaryColorLight,
-              color: Theme.of(context).primaryColor,
+              color: kSecondaryColor,
             ),
           ],
         );
@@ -281,6 +287,7 @@ class _EventsState extends State<Events> {
       child: DropdownButtonFormField<String>(
         value: _location,
         isExpanded: false,
+        style: TextStyle(color: Colors.white70),
         onChanged: (String value) {
           setState(() {
             _location = value;
@@ -292,6 +299,7 @@ class _EventsState extends State<Events> {
             value: value,
             child: Text(
               value,
+              style: TextStyle(color: kSecondaryColor),
             ),
           );
         }).toList(),

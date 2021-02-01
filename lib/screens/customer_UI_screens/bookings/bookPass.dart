@@ -106,6 +106,7 @@ class _BookPassState extends State<BookPass> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[900],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -113,9 +114,10 @@ class _BookPassState extends State<BookPass> {
           ),
           title: Text(
             "All added passes will get discarded. Do you still want to go back?",
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  fontSize: 17,
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                .copyWith(fontSize: 17, color: Colors.white),
           ),
           actions: <Widget>[
             FlatButton(
@@ -174,6 +176,7 @@ class _BookPassState extends State<BookPass> {
                         style: Theme.of(context).textTheme.headline6.copyWith(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                       ),
                     ),
@@ -199,7 +202,7 @@ class _BookPassState extends State<BookPass> {
                                         "Couple Pass",
                                         style: TextStyle(
                                             fontSize: 17,
-                                            color: Colors.black87),
+                                            color: Colors.white38),
                                       ),
                                     ],
                                   ),
@@ -222,20 +225,24 @@ class _BookPassState extends State<BookPass> {
                                                       Text(
                                                         e.key + " : ",
                                                         style: TextStyle(
-                                                            fontSize: 16),
+                                                          color: Colors.white70,
+                                                          fontSize: 16,
+                                                        ),
                                                       ),
                                                       Text(
                                                         "₹ " +
                                                             e.value.toString(),
                                                         style: TextStyle(
-                                                            fontSize: 16),
+                                                          color: Colors.white70,
+                                                          fontSize: 16,
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
                                                   IconButton(
                                                       icon: Icon(
                                                         Icons.add,
-                                                        color: Colors.black,
+                                                        color: Colors.white70,
                                                       ),
                                                       onPressed: () {
                                                         setState(() {
@@ -275,7 +282,7 @@ class _BookPassState extends State<BookPass> {
                                         "Male Stag Pass",
                                         style: TextStyle(
                                             fontSize: 17,
-                                            color: Colors.black87),
+                                            color: Colors.white38),
                                       ),
                                     ],
                                   ),
@@ -298,21 +305,24 @@ class _BookPassState extends State<BookPass> {
                                                       Text(
                                                         e.key + " : ",
                                                         style: TextStyle(
-                                                            fontSize: 16),
+                                                          fontSize: 16,
+                                                          color: Colors.white70,
+                                                        ),
                                                       ),
                                                       Text(
                                                         "₹ " +
                                                             e.value.toString(),
                                                         style: TextStyle(
-                                                            fontSize: 16),
+                                                          fontSize: 16,
+                                                          color: Colors.white70,
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
                                                   IconButton(
-                                                      icon: Icon(
-                                                        Icons.add,
-                                                        color: Colors.black,
-                                                      ),
+                                                      icon: Icon(Icons.add,
+                                                          color:
+                                                              Colors.white70),
                                                       onPressed: () {
                                                         setState(() {
                                                           isPassCoupleType =
@@ -353,7 +363,7 @@ class _BookPassState extends State<BookPass> {
                                         "Female Stag Pass",
                                         style: TextStyle(
                                             fontSize: 17,
-                                            color: Colors.black87),
+                                            color: Colors.white38),
                                       ),
                                     ],
                                   ),
@@ -367,6 +377,8 @@ class _BookPassState extends State<BookPass> {
                                                 "Not Available"
                                             ? Container()
                                             : Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
@@ -376,20 +388,24 @@ class _BookPassState extends State<BookPass> {
                                                       Text(
                                                         e.key + " : ",
                                                         style: TextStyle(
-                                                            fontSize: 16),
+                                                          fontSize: 16,
+                                                          color: Colors.white70,
+                                                        ),
                                                       ),
                                                       Text(
                                                         "₹ " +
                                                             e.value.toString(),
                                                         style: TextStyle(
-                                                            fontSize: 16),
+                                                          fontSize: 16,
+                                                          color: Colors.white70,
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
                                                   IconButton(
                                                       icon: Icon(
                                                         Icons.add,
-                                                        color: Colors.black,
+                                                        color: Colors.white70,
                                                       ),
                                                       onPressed: () {
                                                         setState(() {
@@ -404,7 +420,7 @@ class _BookPassState extends State<BookPass> {
                                                           gender = "Female";
                                                           addClicked = true;
                                                         });
-                                                      })
+                                                      }),
                                                 ],
                                               ),
                                       )
@@ -480,7 +496,6 @@ class _BookPassState extends State<BookPass> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5)),
-                                                color: Colors.grey[400],
                                               ),
                                               FlatButton(
                                                 onPressed: () {
@@ -514,7 +529,7 @@ class _BookPassState extends State<BookPass> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5)),
-                                                color: kPrimaryColor,
+                                                color: kSecondaryColor,
                                               ),
                                             ],
                                           ),
@@ -564,7 +579,6 @@ class _BookPassState extends State<BookPass> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5)),
-                                                color: Colors.grey[400],
                                               ),
                                               FlatButton(
                                                 onPressed: () {
@@ -601,7 +615,7 @@ class _BookPassState extends State<BookPass> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5)),
-                                                color: kPrimaryColor,
+                                                color: kSecondaryColor,
                                               ),
                                             ],
                                           ),
@@ -763,6 +777,9 @@ class _BookPassState extends State<BookPass> {
                                                         builder: (BuildContext
                                                             context) {
                                                           return AlertDialog(
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .grey[900],
                                                             title: Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
@@ -779,7 +796,9 @@ class _BookPassState extends State<BookPass> {
                                                                   ' Swipe left to discard this booking',
                                                                   style: TextStyle(
                                                                       fontSize:
-                                                                          14),
+                                                                          14,
+                                                                      color: Colors
+                                                                          .white),
                                                                 ),
                                                               ],
                                                             ),
@@ -866,6 +885,9 @@ class _BookPassState extends State<BookPass> {
                                                         builder: (BuildContext
                                                             context) {
                                                           return AlertDialog(
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .grey[900],
                                                             title: Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
@@ -882,7 +904,9 @@ class _BookPassState extends State<BookPass> {
                                                                   ' Swipe left to discard this booking',
                                                                   style: TextStyle(
                                                                       fontSize:
-                                                                          14),
+                                                                          14,
+                                                                      color: Colors
+                                                                          .white),
                                                                 ),
                                                               ],
                                                             ),
@@ -957,7 +981,7 @@ class _BookPassState extends State<BookPass> {
                           ),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5)),
-                          color: kPrimaryColor,
+                          color: kSecondaryColor,
                         ),
                       ),
                     ),
@@ -973,8 +997,9 @@ class _BookPassState extends State<BookPass> {
 
   TextFormField bookByNameFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.name,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       onSaved: (newValue) => bookingByName = newValue,
       onChanged: (value) {
@@ -999,8 +1024,9 @@ class _BookPassState extends State<BookPass> {
 
   TextFormField name1FormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.name,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       onSaved: (newValue) => name1 = newValue,
       onChanged: (value) {
@@ -1025,8 +1051,9 @@ class _BookPassState extends State<BookPass> {
 
   TextFormField age1FormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.number,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       onSaved: (newValue) => age1 = newValue,
       onChanged: (value) {
@@ -1052,6 +1079,7 @@ class _BookPassState extends State<BookPass> {
   Expanded gender1FormField() {
     return Expanded(
       child: DropdownButtonFormField<String>(
+        style: TextStyle(color: kSecondaryColor),
         value: _gender1,
         isExpanded: false,
         onChanged: (String value) {
@@ -1065,6 +1093,7 @@ class _BookPassState extends State<BookPass> {
             value: value,
             child: Text(
               value,
+              style: TextStyle(color: kSecondaryColor),
             ),
           );
         }).toList(),
@@ -1079,8 +1108,9 @@ class _BookPassState extends State<BookPass> {
 
   TextFormField name2FormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.name,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       onSaved: (newValue) => name2 = newValue,
       onChanged: (value) {
@@ -1106,8 +1136,9 @@ class _BookPassState extends State<BookPass> {
   Expanded age2FormField() {
     return Expanded(
       child: TextFormField(
+        style: TextStyle(color: Colors.white),
         keyboardType: TextInputType.number,
-        cursorColor: Colors.black,
+        cursorColor: Colors.white70,
         textInputAction: TextInputAction.go,
         onSaved: (newValue) => age2 = newValue,
         onChanged: (value) {
@@ -1147,6 +1178,7 @@ class _BookPassState extends State<BookPass> {
             value: value,
             child: Text(
               value,
+              style: TextStyle(color: kSecondaryColor),
             ),
           );
         }).toList(),
@@ -1161,8 +1193,9 @@ class _BookPassState extends State<BookPass> {
 
   TextFormField stagNameFormField() {
     return TextFormField(
+      style: TextStyle(color: Colors.white70),
       keyboardType: TextInputType.name,
-      cursorColor: Colors.black,
+      cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       onSaved: (newValue) => stagName = newValue,
       onChanged: (value) {
@@ -1188,8 +1221,9 @@ class _BookPassState extends State<BookPass> {
   Expanded stagAgeFormField() {
     return Expanded(
       child: TextFormField(
+        style: TextStyle(color: Colors.white),
         keyboardType: TextInputType.number,
-        cursorColor: Colors.black,
+        cursorColor: Colors.white70,
         textInputAction: TextInputAction.go,
         onSaved: (newValue) => stagAge = newValue,
         onChanged: (value) {
