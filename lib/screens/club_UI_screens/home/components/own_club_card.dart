@@ -37,11 +37,6 @@ class _OwnClubCardState extends State<OwnClubCard> {
           arguments: ClubDetailsArguments(club: widget.club),
         ),
         child: Container(
-          decoration: BoxDecoration(
-              // border: Border(
-              //   bottom: BorderSide(color: Colors.black54),
-              // ),
-              ),
           margin: EdgeInsets.only(bottom: 5),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
@@ -66,7 +61,6 @@ class _OwnClubCardState extends State<OwnClubCard> {
                   flex: 3,
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(5, 4, 12, 5),
-                    // color: Colors.black.withOpacity(.8),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +73,6 @@ class _OwnClubCardState extends State<OwnClubCard> {
                                       fontSize: getProportionateScreenWidth(16),
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      // color: Colors.white,
                                     ),
                             children: [
                               TextSpan(
@@ -105,7 +98,6 @@ class _OwnClubCardState extends State<OwnClubCard> {
                               child: Container(
                                 child: Text(
                                   widget.club['address'],
-                                  // style: TextStyle(color: Colors.white),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -113,11 +105,6 @@ class _OwnClubCardState extends State<OwnClubCard> {
                             ),
                           ],
                         ),
-                        // Spacer(),
-                        // Divider(
-
-                        //   color: Colors.black,
-                        // )
                       ],
                     ),
                   ),

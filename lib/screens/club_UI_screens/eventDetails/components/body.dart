@@ -356,7 +356,6 @@ class _BodyState extends State<Body> {
       var response = await Networking.getData('coupons/get-coupon', {
         'eventId': widget.event['eventId'].toString(),
       });
-      // print(response);
       if (response['success']) {
         setState(() {
           couponsLoading = false;

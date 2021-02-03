@@ -205,7 +205,6 @@ class _AddNewClubState extends State<AddNewClub> {
       dio
           .post("http://bookario.com/apis/file/upload", data: formData)
           .then((response) {
-        print(response);
         String imageUrl = response.data["data"]["url"];
         print(imageUrl);
         addClub(imageUrl);
@@ -226,7 +225,6 @@ class _AddNewClubState extends State<AddNewClub> {
         'coverPhoto': imageUrl,
         'address': _address.trim(),
       });
-      print(response);
       if (response['success']) {
         setState(() {
           loading = false;

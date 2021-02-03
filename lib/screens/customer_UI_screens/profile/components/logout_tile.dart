@@ -21,9 +21,12 @@ class _LogoutTileState extends State<LogoutTile> {
   checkAuthentification() async {
     _auth.authStateChanges().listen((user) {
       if (user == null) {
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => SignInScreen()),
+          MaterialPageRoute(
+            builder: (context) => SignInScreen(),
+          ),
+          (Route<dynamic> route) => false,
         );
       }
     });

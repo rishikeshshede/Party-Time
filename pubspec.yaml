@@ -44,6 +44,8 @@ dependencies:
   random_string: ^2.1.0
   image_picker: ^0.6.7+14
   razorpay_flutter: ^1.2.1
+  qr_flutter:
+  qr_code_scanner: ^0.3.0
 
 dev_dependencies:
   flutter_test:

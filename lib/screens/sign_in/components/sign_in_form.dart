@@ -61,8 +61,6 @@ class _SignFormState extends State<SignForm> {
     return false;
   }
 
-  // final AuthService _auth = AuthService();
-
   @override
   Widget build(BuildContext context) {
     return loading
@@ -112,13 +110,10 @@ class _SignFormState extends State<SignForm> {
             if (documentSnapshot.exists) {
               PersistenceHandler.setter("userType", 'customer');
               PersistenceHandler.setter("uid", user.uid);
-              // print('User is logging in as customer');
-              // print('customer data: ${documentSnapshot.data()}');
               userType = 'customer';
             } else {
               PersistenceHandler.setter("userType", 'club');
               PersistenceHandler.setter("uid", user.uid);
-              // print('User is logging in as club');
               userType = 'club';
             }
           });
@@ -128,7 +123,6 @@ class _SignFormState extends State<SignForm> {
           });
           ShowAlert.showAlert(
               context, "Error logging in, try again after sometime.");
-          // print('cannot get userType : $e');
         }
         if (userType == 'customer') {
           Navigator.pushAndRemoveUntil(
@@ -240,6 +234,7 @@ class _SignFormState extends State<SignForm> {
                   child: FaIcon(
                     FontAwesomeIcons.eyeSlash,
                     size: 17,
+                    color: Colors.white70,
                   ),
                 )
               : GestureDetector(
@@ -247,6 +242,7 @@ class _SignFormState extends State<SignForm> {
                   child: FaIcon(
                     FontAwesomeIcons.eye,
                     size: 17,
+                    color: Colors.white70,
                   ),
                 ),
         ),

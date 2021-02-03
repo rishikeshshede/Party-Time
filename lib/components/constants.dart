@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bookario/components/size_config.dart';
 
-const kPrimaryColor = Color(0xFFFFFFFF); // color changed from 000000
-const kPrimaryLightColor = Color(0xFFFFFFFF); // color changed from 191616
-// const kPrimaryGradientColor = LinearGradient(
-//   begin: Alignment.topLeft,
-//   end: Alignment.bottomRight,
-//   colors: [const Color(0xFFFFA53E), const Color(0xFFFF7643)],
-// );
+const kPrimaryColor = Color(0xFFFFFFFF);
+const kPrimaryLightColor = Color(0xFFFFFFFF);
 const kSecondaryColor = Color(0xFFD4005C);
 const kTextColor = Color(0xFF757575);
 
@@ -16,13 +11,12 @@ const kAnimationDuration = Duration(milliseconds: 200);
 final headingStyle = TextStyle(
   fontSize: getProportionateScreenWidth(28),
   fontWeight: FontWeight.bold,
-  color: Colors.white, // color changed from black
+  color: Colors.white,
   height: 1.5,
 );
 
 const defaultDuration = Duration(milliseconds: 250);
 
-// Form Error
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 const String kEmailNullError = "Please Enter your email";

@@ -33,10 +33,6 @@ class _PremiumEventsState extends State<PremiumEvents> {
   @override
   void dispose() {
     super.dispose();
-    // WidgetsBinding.instance.removeObserver(this);
-
-    //this method not called when user press android back button or quit
-    print('premium disposed');
   }
 
   getPremiumEvents() async {
@@ -53,7 +49,6 @@ class _PremiumEventsState extends State<PremiumEvents> {
           loadingMore = false;
           eventData += response['data'];
         });
-        // print(eventData.length);
       } else {
         setState(() {
           screenLoading = false;
@@ -69,26 +64,14 @@ class _PremiumEventsState extends State<PremiumEvents> {
     try {
       var response =
           await Networking.getData('events/get-unique-locations', {});
-      // print(response);
       if (response['data'].length > 0) {
         setState(() {
-          // hasEvents = true;
-          // loadMore = true;
-          // loadingMore = false;
           locations = response['data'];
           for (int i = 0; i < locations.length; i++) {
             addLocation(locations[i]);
           }
-          // print(allLocations);
         });
-        // print(locations[0]['location']);
       }
-      //  else {
-      //   setState(() {
-      //     screenLoading = false;
-      //     loadMore = false;
-      //   });
-      // }
     } catch (e) {
       print(e);
     }
@@ -128,7 +111,6 @@ class _PremiumEventsState extends State<PremiumEvents> {
             eventData += response['data'];
           });
         }
-        // print(eventData[0]);
       } else {
         setState(() {
           hasEvents = true;
@@ -146,40 +128,42 @@ class _PremiumEventsState extends State<PremiumEvents> {
 
     return Column(
       children: [
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(6)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Premium Events in Pune",
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(18),
-                  color: Colors.black,
-                ),
-              ),
-              Container(
-                height: 32,
-                width: 32,
-                margin: EdgeInsets.only(right: 10, top: 0),
-                decoration: BoxDecoration(
-                  color: Colors.white70,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.sort,
-                    size: 20,
-                  ),
-                  onPressed: () {
-                    filterSearchDialog(context);
-                  },
+        hasEvents
+            ? Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(6)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Premium Events in Pune",
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(18),
+                        color: Colors.white70,
+                      ),
+                    ),
+                    Container(
+                      height: 32,
+                      width: 32,
+                      margin: EdgeInsets.only(right: 10, top: 0),
+                      decoration: BoxDecoration(
+                        color: Colors.white70,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.sort,
+                          size: 20,
+                        ),
+                        onPressed: () {
+                          filterSearchDialog(context);
+                        },
+                      ),
+                    )
+                  ],
                 ),
               )
-            ],
-          ),
-        ),
+            : Container(),
         SizedBox(height: getProportionateScreenWidth(10)),
         hasEvents
             ? Column(

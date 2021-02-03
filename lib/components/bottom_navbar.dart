@@ -86,7 +86,6 @@ class _BottomCustomNavBarState extends State<BottomCustomNavBar>
     return WillPopScope(
       onWillPop: () => _exitApp(context),
       child: Scaffold(
-        // body: _children[_currentIndex],
         body: PageView(
             onPageChanged: onPageChanged,
             controller: _pageController,
@@ -95,7 +94,6 @@ class _BottomCustomNavBarState extends State<BottomCustomNavBar>
           backgroundColor: Color(0xFF141414),
           unselectedItemColor: Colors.grey,
           fixedColor: kSecondaryColor,
-          // elevation: 10,
           onTap: onTabTapped,
           currentIndex: _currentIndex,
           items: [

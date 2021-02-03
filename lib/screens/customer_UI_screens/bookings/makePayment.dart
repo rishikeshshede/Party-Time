@@ -88,7 +88,6 @@ class _MakePaymentState extends State<MakePayment> {
         'femaleCount': widget.femaleCount.toString(),
         'coupleCount': widget.couplesCount.toString(),
       });
-      print(response);
       if (response['success']) {
         Navigator.push(
           context,
@@ -96,9 +95,7 @@ class _MakePaymentState extends State<MakePayment> {
             builder: (context) => BottomCustomNavBar(),
           ),
         );
-      } else {
-        // _handlePaymentSuccess(response); i.e try again
-      }
+      } else {}
     } catch (e) {
       print(e);
     }
@@ -111,7 +108,7 @@ class _MakePaymentState extends State<MakePayment> {
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     print('payment wallet');
-    Navigator.pop(context, true); // TODO: check it's need
+    Navigator.pop(context, true);
   }
 
   @override

@@ -12,7 +12,6 @@ import 'package:bookario/screens/splash/splash_screen.dart';
 import 'package:flutter/widgets.dart';
 
 // We use name route
-// All our routes will be available here
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
   SignInScreen.routeName: (context) => SignInScreen(),
@@ -23,8 +22,6 @@ final Map<String, WidgetBuilder> routes = {
   BookingHistory.routeName: (context) => BookingHistory(),
   BottomCustomNavBar.routeName: (context) => BottomCustomNavBar(),
   PremiumClubsList.routeName: (context) => PremiumClubsList(),
-
-  // Club UI routes
   ClubHomeScreen.routeName: (context) => ClubHomeScreen(),
   OwnClubDetailsScreen.routeName: (context) => OwnClubDetailsScreen(),
 };

@@ -15,6 +15,7 @@ class _EditProfileState extends State<EditProfile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool loading;
   final List<String> errors = [];
+  String emailId;
 
   FocusNode nameFocusNode = FocusNode();
   FocusNode phoneNumberFocusNode = FocusNode();
@@ -40,12 +41,12 @@ class _EditProfileState extends State<EditProfile> {
   populateFields() async {
     var res = await getDetails();
     if (res['success']) {
-      // print(res['data'][0]);
       var data = res['data'][0];
       setState(() {
         nameEditingController.text = data['name'];
         ageEditingController.text = data['age'].toString();
         phoneNumberEditingController.text = data['phone'];
+        emailId = data['email'];
         loading = false;
       });
     }
@@ -91,7 +92,6 @@ class _EditProfileState extends State<EditProfile> {
                     fontSize: 14, letterSpacing: .8, color: Colors.white70),
               ),
               splashColor: Theme.of(context).primaryColorLight,
-              color: Colors.black12,
             ),
             FlatButton(
               onPressed: () {
@@ -99,12 +99,11 @@ class _EditProfileState extends State<EditProfile> {
                 Navigator.of(context).pop();
               },
               child: Text(
-                'Discard',
+                'Yes',
                 style: TextStyle(
                     fontSize: 14, letterSpacing: .8, color: Colors.white70),
               ),
               splashColor: Theme.of(context).primaryColorLight,
-              color: Theme.of(context).primaryColor,
             ),
           ],
         );
@@ -159,6 +158,7 @@ class _EditProfileState extends State<EditProfile> {
                                 loading = true;
                               });
                               try {
+                                print(phoneNumberEditingController.text);
                                 String uid =
                                     await PersistenceHandler.getter('uid');
                                 var response =
@@ -171,11 +171,10 @@ class _EditProfileState extends State<EditProfile> {
                                   'age': ageEditingController.text
                                       .trim()
                                       .toString(),
+                                  'email': emailId,
                                 });
-                                print(response);
                                 if (response['success']) {
                                   Navigator.of(context).pop();
-                                  // Navigator.of(context).pop();
                                   _scaffoldKey.currentState
                                       .showSnackBar(SnackBar(
                                     content:

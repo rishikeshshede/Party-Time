@@ -21,16 +21,14 @@ class _UserDetailsState extends State<UserDetails> {
     email = '';
     age = '';
     gender = '';
-    detailsLoading = true; // true
+    detailsLoading = true;
     populateDetails();
   }
 
   populateDetails() async {
     String uid = await PersistenceHandler.getter('uid');
-    // print(uid);
     var response =
         await Networking.getData('user/get-user-details', {"userId": uid});
-    // print(response);
     if (response['success'] && response['data'].length != 0) {
       setState(() {
         name = response['data'][0]['name'];

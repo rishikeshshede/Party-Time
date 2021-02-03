@@ -78,15 +78,6 @@ class PremiumEventCard extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
-                            // children: [
-                            //   TextSpan(
-                            //     text: '  (${event['location']})',
-                            //     style: TextStyle(
-                            //       fontSize: getProportionateScreenWidth(12),
-                            //       fontWeight: FontWeight.normal,
-                            //     ),
-                            //   ),
-                            // ],
                           ),
                         ),
                         Row(
@@ -102,39 +93,8 @@ class PremiumEventCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            // Flexible(
-                            //   child: Container(
-                            //     child: Text(
-                            //       'Time: ${event['time']}',
-                            //       style: TextStyle(color: Colors.white),
-                            //       maxLines: 1,
-                            //       overflow: TextOverflow.ellipsis,
-                            //     ),
-                            //   ),
-                            // ),
                           ],
                         ),
-                        // Row(
-                        //   children: [
-                        //     SvgPicture.asset(
-                        //       "assets/icons/Location point.svg",
-                        //       height: getProportionateScreenWidth(13),
-                        //     ),
-                        //     const SizedBox(
-                        //       width: 3,
-                        //     ),
-                        //     Flexible(
-                        //       child: Container(
-                        //         child: Text(
-                        //           club.address,
-                        //           style: TextStyle(color: Colors.white),
-                        //           maxLines: 1,
-                        //           overflow: TextOverflow.ellipsis,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
                       ],
                     ),
                   ),

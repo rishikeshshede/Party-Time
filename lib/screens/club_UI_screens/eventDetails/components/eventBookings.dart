@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bookario/components/loading.dart';
 import 'package:bookario/components/networking.dart';
@@ -6,6 +7,7 @@ import 'package:bookario/components/rich_text_row.dart';
 import 'package:bookario/components/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class EventBookings extends StatefulWidget {
   final event;
@@ -23,7 +25,15 @@ class _EventBookingsState extends State<EventBookings> {
   bool hasBookings = false,
       screenLoading = true,
       loadMore = false,
-      loadingMore = false;
+      loadingMore = false,
+      showQRScanner = false,
+      qrDataFetched = false,
+      ticketBooked = false;
+  Barcode result;
+  QRViewController controller;
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  var qrAPIRequestData, qrAPIRequestBookingDetails;
+
   @override
   void initState() {
     offset = 0;
@@ -32,6 +42,16 @@ class _EventBookingsState extends State<EventBookings> {
     super.initState();
   }
 
+  // @override
+  // void reassemble() {
+  //   super.reassemble();
+  //   if (Platform.isAndroid) {
+  //     controller.pauseCamera();
+  //   } else if (Platform.isIOS) {
+  //     controller.resumeCamera();
+  //   }
+  // }
+
   getBookingData() async {
     try {
       var response = await Networking.getData('bookings/get-event-bookings', {
@@ -39,11 +59,7 @@ class _EventBookingsState extends State<EventBookings> {
         "limit": limit.toString(),
         "offset": offset.toString(),
       });
-      print(response['data']);
       if (response['data'].length > 0) {
-        // var clubResponse = await Networking.getData('clubs/get-club-details',
-        //     {"clubId": response['data']['clubId'].toString()});
-        // print(clubResponse);
         setState(() {
           for (int i = 0; i < response['data'].length; i++) {
             isExpanded.add(false);
@@ -51,7 +67,6 @@ class _EventBookingsState extends State<EventBookings> {
             bookingDetails[i] =
                 json.decode(response['data'][i]['bookingDetails']);
           }
-          print(bookingDetails[0].length);
           hasBookings = true;
           loadMore = true;
           loadingMore = false;
@@ -68,6 +83,72 @@ class _EventBookingsState extends State<EventBookings> {
     }
   }
 
+  Widget _buildQrView(BuildContext context) {
+    var scanArea =
+        (SizeConfig.screenWidth < 400 || SizeConfig.screenHeight < 400)
+            ? 150.0
+            : 300.0;
+    return Container(
+      height: scanArea + 100,
+      child: QRView(
+        key: qrKey,
+        cameraFacing: CameraFacing.front,
+        onQRViewCreated: _onQRViewCreated,
+        formatsAllowed: [BarcodeFormat.qrcode],
+        overlay: QrScannerOverlayShape(
+          borderColor: Colors.red,
+          borderRadius: 10,
+          borderLength: 30,
+          borderWidth: 10,
+          cutOutSize: scanArea,
+        ),
+      ),
+    );
+  }
+
+  _onQRViewCreated(QRViewController controller) {
+    setState(() {
+      this.controller = controller;
+    });
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        result = scanData;
+      });
+      checkQR();
+    });
+  }
+
+  void checkQR() async {
+    showQRScanner = false;
+    try {
+      var response = await Networking.getData('bookings/get-booking-by-code', {
+        "passCode": result.code,
+      });
+      if (response['success']) {
+        setState(() {
+          qrAPIRequestData = response['data'][0];
+          qrDataFetched = true;
+          ticketBooked = true;
+          qrAPIRequestBookingDetails =
+              json.decode(qrAPIRequestData['bookingDetails']);
+        });
+      } else {
+        setState(() {
+          qrDataFetched = true;
+          ticketBooked = false;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +157,12 @@ class _EventBookingsState extends State<EventBookings> {
         title: Text("Event Bookings"),
         actions: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              setState(() {
+                qrDataFetched = false;
+                showQRScanner = !showQRScanner;
+              });
+            },
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(),
@@ -96,6 +182,260 @@ class _EventBookingsState extends State<EventBookings> {
           child: Column(
             children: [
               SizedBox(height: getProportionateScreenHeight(5)),
+              showQRScanner ? _buildQrView(context) : Container(),
+              qrDataFetched
+                  ? ticketBooked
+                      ? Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Text(
+                                'Pass booked!',
+                                style: TextStyle(
+                                    color: Colors.green, fontSize: 20),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(bottom: 40),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Stack(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 12, vertical: 5),
+                                            color: Colors.grey[300],
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                ...List.generate(
+                                                    qrAPIRequestBookingDetails
+                                                        .length, (j) {
+                                                  return Container(
+                                                    margin: EdgeInsets.only(
+                                                        bottom: 8),
+                                                    child: Column(
+                                                      children: [
+                                                        qrAPIRequestBookingDetails[
+                                                                        j][
+                                                                    'passCategory'] !=
+                                                                'Couples'
+                                                            ? Row(
+                                                                children: [
+                                                                  Text(
+                                                                    qrAPIRequestBookingDetails[
+                                                                            j][
+                                                                        'name'],
+                                                                    style: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .headline6
+                                                                        .copyWith(
+                                                                          fontSize:
+                                                                              getProportionateScreenWidth(16),
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                          color:
+                                                                              Colors.black,
+                                                                        ),
+                                                                  ),
+                                                                  Text(
+                                                                    ', ' +
+                                                                        qrAPIRequestBookingDetails[j]
+                                                                            [
+                                                                            'gender'],
+                                                                    style: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .headline6
+                                                                        .copyWith(
+                                                                          fontSize:
+                                                                              getProportionateScreenWidth(13),
+                                                                          color:
+                                                                              Colors.black,
+                                                                        ),
+                                                                  ),
+                                                                  Text(
+                                                                    ', ' +
+                                                                        qrAPIRequestBookingDetails[j]
+                                                                            [
+                                                                            'age'],
+                                                                    style: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .headline6
+                                                                        .copyWith(
+                                                                          fontSize:
+                                                                              getProportionateScreenWidth(13),
+                                                                          color:
+                                                                              Colors.black,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              )
+                                                            : Column(
+                                                                children: [
+                                                                  Row(
+                                                                    children: [
+                                                                      Text(
+                                                                        qrAPIRequestBookingDetails[j]
+                                                                            [
+                                                                            'maleName'],
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .headline6
+                                                                            .copyWith(
+                                                                              fontSize: getProportionateScreenWidth(16),
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.black,
+                                                                            ),
+                                                                      ),
+                                                                      Text(
+                                                                        ', ' +
+                                                                            qrAPIRequestBookingDetails[j]['maleGender'],
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .headline6
+                                                                            .copyWith(
+                                                                              fontSize: getProportionateScreenWidth(13),
+                                                                              color: Colors.black,
+                                                                            ),
+                                                                      ),
+                                                                      Text(
+                                                                        ', ' +
+                                                                            qrAPIRequestBookingDetails[j]['maleAge'],
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .headline6
+                                                                            .copyWith(
+                                                                              fontSize: getProportionateScreenWidth(13),
+                                                                              color: Colors.black,
+                                                                            ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  Row(
+                                                                    children: [
+                                                                      Text(
+                                                                        qrAPIRequestBookingDetails[j]
+                                                                            [
+                                                                            'femaleName'],
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .headline6
+                                                                            .copyWith(
+                                                                              fontSize: getProportionateScreenWidth(16),
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.black,
+                                                                            ),
+                                                                      ),
+                                                                      Text(
+                                                                        ', ' +
+                                                                            qrAPIRequestBookingDetails[j]['femaleGender'],
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .headline6
+                                                                            .copyWith(
+                                                                              fontSize: getProportionateScreenWidth(13),
+                                                                              color: Colors.black,
+                                                                            ),
+                                                                      ),
+                                                                      Text(
+                                                                        ', ' +
+                                                                            qrAPIRequestBookingDetails[j]['femaleAge'],
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .headline6
+                                                                            .copyWith(
+                                                                              fontSize: getProportionateScreenWidth(13),
+                                                                              color: Colors.black,
+                                                                            ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              qrAPIRequestBookingDetails[
+                                                                      j][
+                                                                  'passCategory'],
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .headline6
+                                                                  .copyWith(
+                                                                    fontSize:
+                                                                        getProportionateScreenWidth(
+                                                                            13),
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                            ),
+                                                            Text(
+                                                              ', ' +
+                                                                  qrAPIRequestBookingDetails[
+                                                                          j][
+                                                                      'passType'],
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .headline6
+                                                                  .copyWith(
+                                                                    fontSize:
+                                                                        getProportionateScreenWidth(
+                                                                            13),
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                }),
+                                                SizedBox(height: 10),
+                                                RichTextRow(
+                                                  textLeft: "Booked on:  ",
+                                                  textRight:
+                                                      qrAPIRequestData['date'],
+                                                ),
+                                                RichTextRow(
+                                                  textLeft: "Paid:  ₹",
+                                                  textRight: qrAPIRequestData[
+                                                          'bookingAmount']
+                                                      .toString(),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(
+                            'Pass not found!',
+                            style: TextStyle(color: Colors.red, fontSize: 20),
+                          ),
+                        )
+                  : Container(),
               SizedBox(height: getProportionateScreenHeight(5)),
               hasBookings
                   ? Column(
@@ -446,10 +786,6 @@ class _EventBookingsState extends State<EventBookings> {
                                       ),
                                     ),
                                   );
-                                  // BookedEventCard(
-                                  //   bookingData: bookingData[index],
-                                  // clubData: clubData,
-                                  // );
                                 },
                               ),
                               SizedBox(width: getProportionateScreenWidth(20)),

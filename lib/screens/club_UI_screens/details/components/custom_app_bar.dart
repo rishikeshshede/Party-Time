@@ -16,7 +16,8 @@ class CustomAppBar extends PreferredSize {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
+      child: Container(
+        color: Color(0xFF141414),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Row(
           children: [

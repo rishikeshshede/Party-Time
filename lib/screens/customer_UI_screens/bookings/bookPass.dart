@@ -40,7 +40,6 @@ class _BookPassState extends State<BookPass> {
   int totalPrice = 0, maleCount = 0, femaleCount = 0, couplesCount = 0;
 
   void addStagBooking(String name) {
-    // print(name1);
     setState(() {
       bookings.add({
         'passCategory': passCat,
@@ -182,8 +181,6 @@ class _BookPassState extends State<BookPass> {
                     ),
                     Padding(
                         padding: const EdgeInsets.only(left: 10, bottom: 15),
-                        //   child: AllPricesWithBooking(
-                        //       priceDescription: widget.event['priceDescription']),
                         child: Column(
                           children: [
                             Column(
@@ -671,7 +668,7 @@ class _BookPassState extends State<BookPass> {
                                         horizontal: 10, vertical: 6),
                                     margin: EdgeInsets.symmetric(vertical: 2),
                                     decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.black54),
+                                      border: Border.all(color: Colors.white70),
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(3)),
                                     ),
@@ -696,23 +693,23 @@ class _BookPassState extends State<BookPass> {
                                                           'Couple\'s Entry, ',
                                                           style: TextStyle(
                                                               fontSize: 14,
-                                                              color:
-                                                                  Colors.black),
+                                                              color: Colors
+                                                                  .white70),
                                                         ),
                                                         Text(
                                                           bookings[index]
                                                               ['passType'],
                                                           style: TextStyle(
                                                               fontSize: 14,
-                                                              color:
-                                                                  Colors.black),
+                                                              color: Colors
+                                                                  .white70),
                                                         ),
                                                         Text(
                                                           ', ₹${bookings[index]['price']}',
                                                           style: TextStyle(
                                                               fontSize: 14,
-                                                              color:
-                                                                  Colors.black),
+                                                              color: Colors
+                                                                  .white70),
                                                         )
                                                       ],
                                                     ),
@@ -789,7 +786,7 @@ class _BookPassState extends State<BookPass> {
                                                                   Icons
                                                                       .arrow_back,
                                                                   color: Colors
-                                                                      .black54,
+                                                                      .white,
                                                                   size: 15,
                                                                 ),
                                                                 Text(
@@ -830,23 +827,23 @@ class _BookPassState extends State<BookPass> {
                                                           'Single Entry, ',
                                                           style: TextStyle(
                                                               fontSize: 14,
-                                                              color:
-                                                                  Colors.black),
+                                                              color: Colors
+                                                                  .white70),
                                                         ),
                                                         Text(
                                                           bookings[index]
                                                               ['passType'],
                                                           style: TextStyle(
                                                               fontSize: 14,
-                                                              color:
-                                                                  Colors.black),
+                                                              color: Colors
+                                                                  .white70),
                                                         ),
                                                         Text(
                                                           ', ₹${bookings[index]['price']}',
                                                           style: TextStyle(
                                                               fontSize: 14,
-                                                              color:
-                                                                  Colors.black),
+                                                              color: Colors
+                                                                  .white70),
                                                         )
                                                       ],
                                                     ),
@@ -897,7 +894,7 @@ class _BookPassState extends State<BookPass> {
                                                                   Icons
                                                                       .arrow_back,
                                                                   color: Colors
-                                                                      .black54,
+                                                                      .white70,
                                                                   size: 15,
                                                                 ),
                                                                 Text(
@@ -976,6 +973,7 @@ class _BookPassState extends State<BookPass> {
                             'Proceed to pay ₹${totalPrice.toString()}',
                             style: TextStyle(
                               fontSize: 16,
+                              fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
                           ),
@@ -1306,7 +1304,7 @@ class ListofEntryPrices extends StatelessWidget {
               ),
               Text(
                 passType,
-                style: TextStyle(fontSize: 17, color: Colors.black87),
+                style: TextStyle(fontSize: 17, color: Colors.white70),
               ),
             ],
           ),
@@ -1336,7 +1334,7 @@ class ListofEntryPrices extends StatelessWidget {
                           IconButton(
                               icon: Icon(
                                 Icons.add,
-                                color: Colors.black,
+                                color: Colors.white70,
                               ),
                               onPressed: () {})
                         ],

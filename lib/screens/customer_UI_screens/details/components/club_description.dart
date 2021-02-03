@@ -61,7 +61,6 @@ class _EventDescriptionState extends State<EventDescription> {
                     widget.clubData['address'],
                     maxLines: 2,
                     style: TextStyle(color: Colors.white54),
-                    // overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),
@@ -81,30 +80,6 @@ class _EventDescriptionState extends State<EventDescription> {
             ),
           ],
         ),
-        // Row(
-        //   crossAxisAlignment: CrossAxisAlignment.center,
-        //   children: [
-        //     Flexible(
-        //       child: Container(
-        //         child: Text(
-        //           "Directions",
-        //           style: TextStyle(
-        //             color: kSecondaryColor,
-        //             decoration: TextDecoration.underline,
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //     const SizedBox(
-        //       width: 5,
-        //     ),
-        //     SvgPicture.asset(
-        //       "assets/icons/directions.svg",
-        //       height: getProportionateScreenWidth(12),
-        //       color: kSecondaryColor,
-        //     ),
-        //   ],
-        // ),
         Padding(
           padding: EdgeInsets.only(
             top: 25,
@@ -176,7 +151,6 @@ class _EventDescriptionState extends State<EventDescription> {
                       'eventId': widget.event['eventId'].toString(),
                       'promoterId': promoterCode.text.trim(),
                     });
-                    // print(response);
                     if (response['success']) {
                       promoterCode.clear();
                       Navigator.pop(context);

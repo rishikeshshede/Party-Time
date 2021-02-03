@@ -33,7 +33,6 @@ class _BodyState extends State<Body> {
       var response = await Networking.getData('clubs/get-club-details', {
         'clubId': widget.event['clubId'].toString(),
       });
-      print(response);
       if (response['data'].length > 0) {
         setState(() {
           clubData = response['data'];
@@ -57,7 +56,6 @@ class _BodyState extends State<Body> {
                 Stack(
                   children: [
                     ClubImage(
-                        // clubId: widget.event['clubId'],
                         image: widget.event['image'],
                         eventId: widget.event['eventId']),
                     HoveringBackButton(),
@@ -118,7 +116,6 @@ class _BodyState extends State<Body> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              color: Colors.white12,
               child: Padding(
                 padding: EdgeInsets.only(
                   left: SizeConfig.screenWidth * 0.15,

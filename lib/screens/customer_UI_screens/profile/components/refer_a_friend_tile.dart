@@ -58,9 +58,6 @@ class _ReferAFriendTileState extends State<ReferAFriendTile> {
                     child: InkWell(
                       onTap: () async {
                         await FlutterClipboard.copy(referralCode);
-                        // Scaffold.of(context).showSnackBar(SnackBar(
-                        //     content:
-                        //         Text("Referral code copied to clipboard.")));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10),

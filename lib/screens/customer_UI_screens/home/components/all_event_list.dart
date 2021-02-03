@@ -34,10 +34,6 @@ class _EventsState extends State<Events> {
   @override
   void dispose() {
     super.dispose();
-    // WidgetsBinding.instance.removeObserver(this);
-
-    //this method not called when user press android back button or quit
-    print('home disposed');
   }
 
   getAllEvents() async {
@@ -53,7 +49,6 @@ class _EventsState extends State<Events> {
           loadingMore = false;
           eventData += response['data'];
         });
-        // print(eventData[0]);
       } else {
         setState(() {
           homeLoading = false;
@@ -84,9 +79,7 @@ class _EventsState extends State<Events> {
           for (int i = 0; i < locations.length; i++) {
             addLocation(locations[i]);
           }
-          // print(allLocations);
         });
-        // print(locations[0]['location']);
       } else {
         setState(() {
           homeLoading = false;
@@ -125,7 +118,6 @@ class _EventsState extends State<Events> {
             eventData += response['data'];
           });
         }
-        // print(eventData[0]);
       } else {
         setState(() {
           hasEvents = true;
@@ -141,40 +133,42 @@ class _EventsState extends State<Events> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Events in Pune",
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(18),
-                  color: Colors.white70,
-                ),
-              ),
-              Container(
-                height: 32,
-                width: 32,
-                margin: EdgeInsets.only(right: 10, top: 0),
-                decoration: BoxDecoration(
-                  color: Colors.white70,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.sort,
-                    size: 20,
-                  ),
-                  onPressed: () {
-                    filterSearchDialog(context);
-                  },
+        hasEvents
+            ? Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(8)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Events in Pune",
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(18),
+                        color: Colors.white70,
+                      ),
+                    ),
+                    Container(
+                      height: 32,
+                      width: 32,
+                      margin: EdgeInsets.only(right: 10, top: 0),
+                      decoration: BoxDecoration(
+                        color: Colors.white70,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.sort,
+                          size: 20,
+                        ),
+                        onPressed: () {
+                          filterSearchDialog(context);
+                        },
+                      ),
+                    )
+                  ],
                 ),
               )
-            ],
-          ),
-        ),
+            : Container(),
         SizedBox(height: getProportionateScreenWidth(10)),
         hasEvents
             ? Column(
@@ -208,6 +202,7 @@ class _EventsState extends State<Events> {
                               },
                               child: Text(
                                 'load more',
+                                style: TextStyle(color: Colors.white38),
                               ),
                               splashColor: Theme.of(context).primaryColorLight,
                             )
@@ -261,7 +256,6 @@ class _EventsState extends State<Events> {
                     fontSize: 14, letterSpacing: .8, color: Colors.white),
               ),
               splashColor: Theme.of(context).primaryColorLight,
-              // color: Colors.grey[400],
             ),
             FlatButton(
               onPressed: () {
@@ -292,7 +286,6 @@ class _EventsState extends State<Events> {
           setState(() {
             _location = value;
           });
-          // print(_location);
         },
         items: allLocations.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(

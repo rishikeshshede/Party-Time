@@ -30,7 +30,6 @@ class _EditClubDetailsState extends State<EditClubDetails> {
   final descriptionEditingController = TextEditingController();
 
   getDetails() async {
-    // String uid = await PersistenceHandler.getter('uid');
     var response = await Networking.getData(
         'clubs/get-club-details', {"clubId": widget.clubId.toString()});
     return response;
@@ -45,7 +44,6 @@ class _EditClubDetailsState extends State<EditClubDetails> {
   populateFields() async {
     var response = await getDetails();
     if (response['success']) {
-      // print(response['data'][0]);
       var data = response['data'][0];
       setState(() {
         nameEditingController.text = data['name'];
@@ -55,7 +53,6 @@ class _EditClubDetailsState extends State<EditClubDetails> {
         photoUrl = data['image'];
         loading = false;
       });
-      // print(photoUrl);
     }
   }
 

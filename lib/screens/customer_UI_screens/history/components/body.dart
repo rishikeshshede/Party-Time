@@ -5,6 +5,7 @@ import 'package:bookario/components/networking.dart';
 import 'package:bookario/components/persistence_handler.dart';
 import 'package:bookario/components/rich_text_row.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../../components/size_config.dart';
 
@@ -23,6 +24,7 @@ class _BodyState extends State<Body> {
       loadMore = false,
       loadingMore = false;
   List bookingDetails = [], moreBookingDetails = [];
+
   @override
   void initState() {
     offset = 0;
@@ -41,9 +43,6 @@ class _BodyState extends State<Body> {
       });
       print(response['data']);
       if (response['data'].length > 0) {
-        // var clubResponse = await Networking.getData('clubs/get-club-details',
-        //     {"clubId": response['data']['clubId'].toString()});
-        // print(clubResponse);
         setState(() {
           for (int i = 0; i < response['data'].length; i++) {
             isExpanded.add(false);
@@ -51,12 +50,10 @@ class _BodyState extends State<Body> {
             bookingDetails[i] =
                 json.decode(response['data'][i]['bookingDetails']);
           }
-          print(bookingDetails[0].length);
           hasBookings = true;
           loadMore = true;
           loadingMore = false;
           bookingData += response['data'];
-          // clubData = clubResponse['data'];
         });
       } else {
         setState(() {
@@ -388,6 +385,46 @@ class _BodyState extends State<Body> {
                                                                     'bookingAmount']
                                                                 .toString(),
                                                           ),
+                                                          Container(
+                                                            height: 200,
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical:
+                                                                        10),
+                                                            width: SizeConfig
+                                                                .screenWidth,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                QrImage(
+                                                                  data: bookingData[
+                                                                          index]
+                                                                      [
+                                                                      'passCode'],
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  errorStateBuilder:
+                                                                      (cxt,
+                                                                          err) {
+                                                                    return Container(
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Text(
+                                                                          "Uh oh! Something went wrong...",
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
                                                         ],
                                                       ),
                                                     ),
@@ -429,10 +466,6 @@ class _BodyState extends State<Body> {
                                       ),
                                     ),
                                   );
-                                  // BookedEventCard(
-                                  //   bookingData: bookingData[index],
-                                  // clubData: clubData,
-                                  // );
                                 },
                               ),
                               SizedBox(width: getProportionateScreenWidth(20)),

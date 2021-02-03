@@ -21,23 +21,6 @@ class EventDescription extends StatefulWidget {
 }
 
 class _EventDescriptionState extends State<EventDescription> {
-  // int time;
-  // String amPm = 'Pm';
-  // @override
-  // void initState() {
-  //   time = int.parse(widget.event['time']);
-  //   if (time > 12) {
-  //     setState(() {
-  //       time -= 12;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       amPm = 'Am';
-  //     });
-  //   }
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -100,13 +83,11 @@ class _EventDescriptionState extends State<EventDescription> {
                   width: 5,
                 ),
                 Text(
-                  // '${time.toString()} $amPm',
                   '${widget.event['time']}',
                   style: TextStyle(color: Colors.white70),
                 ),
               ],
             ),
-            // Spacer(),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -124,8 +105,6 @@ class _EventDescriptionState extends State<EventDescription> {
                     children: [
                       TextSpan(
                         text: widget.event['mfRatio'].toString(),
-                        // + " / " +
-                        // event['femaleCount'].toString(),
                         style: TextStyle(color: kSecondaryColor),
                       )
                     ],
@@ -133,7 +112,6 @@ class _EventDescriptionState extends State<EventDescription> {
                 ),
               ],
             ),
-            // Spacer(),
           ],
         ),
         Padding(

@@ -20,8 +20,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
 
   final _bodyController = TextEditingController();
   final _recipientController = TextEditingController(
-    text:
-        'rishikeshshede@gmail.com', // TODO: change email address to bookario's
+    text: '4techventures@gmail.com',
   );
 
   Future<void> send() async {
@@ -109,7 +108,6 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.go,
       focusNode: subjectFocusNode,
-      // onSaved: (newValue) => _subject = newValue,
       validator: (value) {
         if (value.isEmpty) {
           return "Enter the subject";
@@ -118,7 +116,6 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
       },
       decoration: InputDecoration(
         labelText: "Subject",
-        // hintText: "Subject of the email",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       onFieldSubmitted: (value) {
@@ -146,7 +143,6 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
       },
       decoration: InputDecoration(
         labelText: "Body",
-        // hintText: "Body of the email",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       onFieldSubmitted: (value) {

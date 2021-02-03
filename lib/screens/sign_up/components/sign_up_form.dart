@@ -73,8 +73,6 @@ class _SignUpFormState extends State<SignUpForm> {
     return false;
   }
 
-  // final AuthService _auth = AuthService();
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -152,7 +150,6 @@ class _SignUpFormState extends State<SignUpForm> {
               'gender': _gender,
               'userType': _userType,
             });
-            // print('User data of ${ref.id} customer updated to firestore');
             var response = await Networking.post('user/add-new-user', {
               'name': _customerName.trim(),
               'email': _email.trim(),
@@ -403,6 +400,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   child: FaIcon(
                     FontAwesomeIcons.eyeSlash,
                     size: 17,
+                    color: Colors.white70,
                   ),
                 )
               : GestureDetector(
@@ -410,6 +408,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   child: FaIcon(
                     FontAwesomeIcons.eye,
                     size: 17,
+                    color: Colors.white70,
                   ),
                 ),
         ),

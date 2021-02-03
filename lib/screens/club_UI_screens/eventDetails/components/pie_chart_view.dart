@@ -32,7 +32,6 @@ class _ChartViewState extends State<ChartView> {
 
   @override
   void initState() {
-    // print(widget.maleStag);
     setState(() {
       dataMap = {
         "Male": widget.maleStag,

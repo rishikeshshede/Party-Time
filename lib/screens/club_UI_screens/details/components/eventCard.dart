@@ -50,10 +50,7 @@ class EventCard extends StatelessWidget {
                     Flexible(
                       flex: 8,
                       child: Text(
-                        event['name'] + '\n' + event['date']
-                        // + '\t' +
-                        // event['eventTime']
-                        ,
+                        event['name'] + '\n' + event['date'],
                         style: Theme.of(context).textTheme.headline6.copyWith(
                             fontSize: getProportionateScreenWidth(14),
                             fontWeight: FontWeight.bold,

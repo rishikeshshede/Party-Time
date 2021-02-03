@@ -60,7 +60,6 @@ class _ClubDescriptionState extends State<ClubDescription> {
                         child: SelectableText(
                           widget.club['address'],
                           maxLines: 2,
-                          // overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),

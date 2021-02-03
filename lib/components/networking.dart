@@ -36,7 +36,6 @@ class Networking {
     print('Sending Get request...');
     String queryString = Uri(queryParameters: parameters).query;
     var requestUrl = baseUrl + route + '?' + queryString;
-    // print(requestUrl);
     var response = await http.get(requestUrl);
 
     if (response.statusCode == 200) {

@@ -92,7 +92,6 @@ class _AddEventState extends State<AddEvent> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            // overflow: Overflow.visible,
             children: <Widget>[
               loading
                   ? Loading()
@@ -641,7 +640,6 @@ class _AddEventState extends State<AddEvent> {
       dio
           .post("http://bookario.com/apis/file/upload", data: formData)
           .then((response) {
-        print(response);
         String imageUrl = response.data["data"]["url"];
         addEvent(imageUrl);
       }).catchError((e) => print(e));
@@ -670,7 +668,6 @@ class _AddEventState extends State<AddEvent> {
             ? 'Not Available'
             : _maleCover4Pass,
       };
-      // maleStagPriceString = maleStagPrices.toString();
       maleStagPriceString = json.encode(maleStagPrices);
       femaleStagPrices = {
         'Basic Pass': _femaleStagBasicPass == null || _femaleStagBasicPass == ''
@@ -689,7 +686,6 @@ class _AddEventState extends State<AddEvent> {
             ? 'Not Available'
             : _femaleCover4Pass,
       };
-      // femaleStagPriceString = femaleStagPrices.toString();
       femaleStagPriceString = json.encode(femaleStagPrices);
       couplePrices = {
         'Basic Pass': _coupleBasicPass == null || _coupleBasicPass == ''
@@ -708,7 +704,6 @@ class _AddEventState extends State<AddEvent> {
             ? 'Not Available'
             : _coupleCover4Pass,
       };
-      // couplePriceString = couplePrices.toString();
       couplePriceString = json.encode(couplePrices);
       priceDescription = {
         "maleStag": maleStagPriceString,
@@ -716,7 +711,6 @@ class _AddEventState extends State<AddEvent> {
         "couples": couplePriceString,
       };
       priceDescriptionString = json.encode(priceDescription);
-      // print('${_eventTimeHr.trim()}:${_eventTimeMin.trim()}');
     });
     try {
       var response = await Networking.post('events/add-event', {
@@ -736,7 +730,6 @@ class _AddEventState extends State<AddEvent> {
         'date': _eventDate.trim(),
         'time': '${_eventTimeHr.trim()}:${_eventTimeMin.trim()}',
       });
-      print(response);
       if (response['success']) {
         Navigator.pop(context, true);
         showDialog(
@@ -1174,20 +1167,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _maleCover1Pass = newValue,
-      validator: (value) {
-        if (value.isEmpty) {
-          // return "Enter Price";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 849",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1198,20 +1182,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _maleCover2Pass = newValue,
-      validator: (value) {
-        if (value.isEmpty) {
-          // return "Enter Price";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 949",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1222,20 +1197,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _maleCover3Pass = newValue,
-      validator: (value) {
-        if (value.isEmpty) {
-          // return "Enter Price";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 999",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1246,20 +1212,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _maleCover4Pass = newValue,
-      validator: (value) {
-        if (value.isEmpty) {
-          // return "Enter Price";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 1299",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1270,22 +1227,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _femaleStagBasicPass = newValue,
-      validator: (value) {
-        // if (value.isEmpty &&
-        //     _maleStagBasicPass == null &&
-        //     _coupleBasicPass == null) {
-        //   return "Enter at least one basic pass price";
-        // }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 749",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1296,20 +1242,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _femaleCover1Pass = newValue,
-      validator: (value) {
-        if (value.isEmpty) {
-          // return "Enter Price";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 849",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1320,20 +1257,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _femaleCover2Pass = newValue,
-      validator: (value) {
-        if (value.isEmpty) {
-          // return "Enter Price";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 949",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1344,20 +1272,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _femaleCover3Pass = newValue,
-      validator: (value) {
-        if (value.isEmpty) {
-          // return "Enter Price";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 999",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1368,20 +1287,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _femaleCover4Pass = newValue,
-      validator: (value) {
-        if (value.isEmpty) {
-          // return "Enter Price";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 1299",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1392,22 +1302,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _coupleBasicPass = newValue,
-      validator: (value) {
-        // if (value.isEmpty &&
-        //     _femaleStagBasicPass == null &&
-        //     _maleStagBasicPass == null) {
-        //   return "Enter at least one basic pass price";
-        // }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 749",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1418,20 +1317,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _coupleCover1Pass = newValue,
-      validator: (value) {
-        if (value.isEmpty) {
-          // return "Enter Price";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 849",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1442,20 +1332,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _coupleCover2Pass = newValue,
-      validator: (value) {
-        if (value.isEmpty) {
-          // return "Enter Price";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 949",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1466,20 +1347,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _coupleCover3Pass = newValue,
-      validator: (value) {
-        if (value.isEmpty) {
-          // return "Enter Price";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 999",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
@@ -1490,20 +1362,11 @@ class _AddEventState extends State<AddEvent> {
       cursorColor: Colors.white70,
       textInputAction: TextInputAction.done,
       onSaved: (newValue) => _coupleCover4Pass = newValue,
-      validator: (value) {
-        if (value.isEmpty) {
-          // return "Enter Price";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "In Rs.",
         hintText: "eg: 1299",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      onFieldSubmitted: (value) {
-        // maleStagFocusNode.unfocus();
-      },
     );
   }
 
