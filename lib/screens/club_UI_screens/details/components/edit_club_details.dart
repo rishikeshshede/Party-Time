@@ -3,6 +3,7 @@ import 'package:bookario/components/networking.dart';
 import 'package:bookario/components/persistence_handler.dart';
 import 'package:bookario/components/constants.dart';
 import 'package:bookario/components/size_config.dart';
+import 'package:bookario/screens/club_UI_screens/home/club_home_screen.dart';
 import 'package:flutter/material.dart';
 
 class EditClubDetails extends StatefulWidget {
@@ -168,8 +169,6 @@ class _EditClubDetailsState extends State<EditClubDetails> {
                                 loading = true;
                               });
                               try {
-                                String uid =
-                                    await PersistenceHandler.getter('uid');
                                 var response =
                                     await Networking.post('clubs/update-club', {
                                   'clubId': widget.clubId.toString(),
@@ -187,7 +186,14 @@ class _EditClubDetailsState extends State<EditClubDetails> {
                                 });
                                 print(response);
                                 if (response['success']) {
-                                  Navigator.of(context).pop();
+                                  // Navigator.of(context).pop();
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ClubHomeScreen(),
+                                    ),
+                                    (Route<dynamic> route) => false,
+                                  );
                                   _scaffoldKey.currentState
                                       .showSnackBar(SnackBar(
                                     content:

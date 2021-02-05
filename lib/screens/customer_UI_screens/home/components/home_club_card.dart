@@ -13,6 +13,7 @@ class HomeEventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(eventData);
     return SizedBox(
       width: SizeConfig.screenWidth * .96,
       height: getProportionateScreenWidth(200),

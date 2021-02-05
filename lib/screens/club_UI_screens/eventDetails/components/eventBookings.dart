@@ -817,7 +817,7 @@ class _EventBookingsState extends State<EventBookings> {
                       : Container(
                           alignment: Alignment.center,
                           child: Text(
-                            'Your bookings will be available here\nwhen you book an event.',
+                            'Bookings will be available here\nwhen customers starts buying passes.',
                             textAlign: TextAlign.center,
                           ),
                         ),

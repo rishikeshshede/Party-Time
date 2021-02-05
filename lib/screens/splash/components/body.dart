@@ -19,11 +19,11 @@ class _BodyState extends State<Body> {
       "image": "assets/images/onlylogo.png"
     },
     {
-      "text": "We help people conect with clubs",
+      "text": "We help people connect with clubs",
       "image": "assets/images/jockey-rafiki.png"
     },
     {
-      "text": "We help clubs to manage their \nParties seemlessly",
+      "text": "We help clubs to manage their \nparties seemlessly",
       "image": "assets/images/Buffer-rafiki.png"
     },
   ];

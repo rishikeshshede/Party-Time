@@ -3,6 +3,7 @@ import 'package:bookario/components/hoveringBackButton.dart';
 import 'package:bookario/components/loading.dart';
 import 'package:bookario/components/networking.dart';
 import 'package:bookario/screens/club_UI_screens/eventDetails/components/pie_chart_view.dart';
+import 'package:bookario/screens/customer_UI_screens/bookings/makePayment.dart';
 import 'package:bookario/screens/customer_UI_screens/details/components/all_prices.dart';
 import 'package:bookario/screens/customer_UI_screens/eventDetails/components/event_description.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +71,46 @@ class _BodyState extends State<Body> {
                         pressOnSeeMore: () {},
                       ),
                       SizedBox(
-                        height: 12,
+                        height: 25,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          bool paymentSuccess = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MakeEventPremiumPayment(
+                                eventId: widget.event['eventId'],
+                                eventName: widget.event['name'],
+                              ),
+                            ),
+                          );
+                          if (!paymentSuccess || paymentSuccess == null) {
+                            Scaffold.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    Text("Payment not completed, try again."),
+                              ),
+                            );
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/icons/premium.svg",
+                              height: 18,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Make this event premium",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: kSecondaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Container(
                         alignment: Alignment.bottomLeft,

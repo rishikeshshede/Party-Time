@@ -36,6 +36,7 @@ class _BodyState extends State<Body> {
   }
 
   getMyEvents() async {
+    print(widget.club['clubId'].toString());
     try {
       var response = await Networking.getData('events/get-club-event', {
         "clubId": widget.club['clubId'].toString(),
