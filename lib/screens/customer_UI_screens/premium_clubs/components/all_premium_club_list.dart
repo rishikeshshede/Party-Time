@@ -234,7 +234,7 @@ class _PremiumEventsState extends State<PremiumEvents> {
               Radius.circular(5),
             ),
           ),
-          title: Text('Apply Search Filter',
+          title: Text('Filter by',
               style: TextStyle(
                   fontSize: 17,
                   letterSpacing: 0.7,
