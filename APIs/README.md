@@ -4,6 +4,10 @@
 
 Base URL is `http://localhost:3000/apis`
 
+Check out [`connection.js`](connection.js) file to understand how to connect to the MySQL database.
+
+Request for connecting to database is made from inside the individual file after initial routing i.e., after [`apis/user`](app.js), [`apis/clubs`](app.js) etc. For more information about initial routing check out [`app.js`](app.js).
+
 ## Endpoints:
 
 ### Add New User:
