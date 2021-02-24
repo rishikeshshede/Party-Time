@@ -67,24 +67,8 @@ Example request body:
 ```
 /user/get-user-details/?userId=YfQgZzeNTHMKWPwckZAsdU4
 ```
-Example response body:
-```JSON
-{
-    "message": "Details Recieved",
-    "success": true,
-    "data": [
-        {
-            "userId": "YfQgZzeNTHMKWPwckZAsdU4",
-            "name": "Rishikesh Shede",
-            "email": "rishi@gmail.com",
-            "phone": "1234567890",
-            "userCategory": "customer",
-            "gender": "Male",
-            "age": 22
-        }
-    ]
-}
-```
+Returns a [User](#add-new-user "User").
+
 ---
 
 ### Add New Club:
@@ -186,24 +170,7 @@ Example request body:
 ```
 /clubs/get-club-details?clubId=YfQgZzeNTHMKWPwckZAsdU1
 ```
-Example response body:
-```JSON
-{
-    "message": "Club Details",
-    "success": true,
-    "data": [
-        {
-            "clubId": 13,
-            "name": "Night Club",
-            "userId": "YfQgZzeNTHMKWPwckZAsdU0",
-            "location": "Hinjewadi",
-            "address": "Near Abc shop, Hinjewadi",
-            "image": "http://bookario.com/apis/file/myClubImage.jpeg",
-            "description": "REAL EVENTS are back! Join us at Pune Pupper Party  2.0 at Classic Rock Cafe, Kalyani Nagar, for fun games to play with your pups, stand a chance to win exciting gifts for them, get delicious doggy meal plus free goodies for every pet! Humans also get a FREE food & drinks coupon worth Rs. 100 on every ticket!"
-        }
-    ],
-}
-```
+Returns a [Club](#get-user-club "Club").
 
 ### Get All Clubs:
 **GET** `/clubs/get-all-clubs`
