@@ -1,9 +1,9 @@
 # Bookario <img src="https://github.com/rishi4rks/Bookario/blob/main/assets/images/onlylogo.png" alt="logo" width="45" height="45"> 
  
 
-This is a platform where to aggregate all the clubs.
-- Club owners can signup and register their club(s) and keep uploading their upcoming events and get the booking online. They can even make the events premium to make it more easily accessible to the customer.
-- Customers can checkout all upcoming events in by filtering the events by location. They can book the passes hassle free in the app itself.
+This is a platform to aggregate all the clubs.
+- Club owners can signup and register their club(s) and keep uploading their upcoming events and get the booking online. They can even make the events premium to make it more accessible to the customer.
+- Customers can checkout all upcoming events and also can filter them by location. They can book the passes hassle free in the app itself.
 - To know about all the other functionalities of the app, **[download the app here]()**.
 
 ## Onboarding UI
