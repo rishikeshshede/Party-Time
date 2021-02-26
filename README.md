@@ -6,6 +6,8 @@ This is a platform to aggregate all the clubs.
 - Customers can checkout all upcoming events and also can filter them by location. They can book the passes hassle free in the app itself.
 - To know about all the other functionalities of the app, **[download the app here]()**.
 
+### Check out [API documentation](APIs/README.md) to know more about all the APIs used.
+
 ## Onboarding UI
 <img src="https://github.com/rishi4rks/Bookario/blob/main/UI/onboarding/landing_1.png" alt="Landing Screen" width="240" height="420">&nbsp;&nbsp;
 <img src="https://github.com/rishi4rks/Bookario/blob/main/UI/onboarding/landing_2.png" alt="Landing Screen" width="240" height="420">&nbsp;&nbsp;
