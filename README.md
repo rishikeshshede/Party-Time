@@ -1,4 +1,4 @@
-# Bookario <img src="https://github.com/rishi4rks/Bookario/blob/main/assets/images/onlylogo.png" alt="logo" width="45" height="45"> 
+# Party Time
  
 
 This is a platform to aggregate all the clubs.
